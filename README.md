@@ -23,6 +23,7 @@ This tool reads judge assignments and competition data from CSV/TSV files and ge
 ### Generated Files
 - `generate_schedule.py` - Python script that creates the visualization
 - `judging_schedule.html` - Interactive HTML schedule (open in any browser)
+- `judging_schedule.pdf` - Printable PDF version of the schedule
 
 ## Usage
 
@@ -37,18 +38,25 @@ python3 generate_schedule.py
 The script will:
 1. Read all data files from the current directory
 2. Process judge assignments and detect conflicts
-3. Generate `judging_schedule.html`
+3. Generate `judging_schedule.html` and `judging_schedule.pdf`
 4. Display summary statistics
+
+**Note:** The first time you run the script, you may need to install the PDF library:
+```bash
+pip3 install weasyprint
+```
 
 ### View the Schedule
 
-Open `judging_schedule.html` in any web browser:
+Open the HTML version in any web browser:
 
 ```bash
 open judging_schedule.html
 ```
 
 Or double-click the file in Finder.
+
+The PDF version (`judging_schedule.pdf`) can be opened with any PDF reader and is ideal for printing.
 
 ## Understanding the Visualization
 

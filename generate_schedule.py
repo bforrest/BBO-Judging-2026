@@ -11,6 +11,7 @@ Input files (must be in same directory):
 
 Output:
     - judging_schedule.html: Interactive visualization
+    - judging_schedule.pdf: Printable PDF version
 
 Usage:
     python3 generate_schedule.py
@@ -21,6 +22,11 @@ Usage:
 # defaultdict: For creating dictionaries with default values
 import csv
 from collections import defaultdict
+try:
+    from weasyprint import HTML
+    PDF_AVAILABLE = True
+except ImportError:
+    PDF_AVAILABLE = False
 
 # =============================================================================
 # STEP 1: LOAD JUDGE ASSIGNMENTS
@@ -328,7 +334,22 @@ with open('judging_schedule.html', 'w', encoding='utf-8') as f:
     f.write(html)
 
 # =============================================================================
-# STEP 8: DISPLAY SUMMARY INFORMATION
+# STEP 8: GENERATE PDF VERSION
+# =============================================================================
+
+if PDF_AVAILABLE:
+    try:
+        print("\nGenerating PDF...")
+        HTML('judging_schedule.html').write_pdf('judging_schedule.pdf')
+        print("✅ Generated judging_schedule.pdf")
+    except Exception as e:
+        print(f"⚠️  Could not generate PDF: {e}")
+else:
+    print("\n⚠️  WeasyPrint not installed. To generate PDF, run:")
+    print("   pip install weasyprint")
+
+# =============================================================================
+# STEP 9: DISPLAY SUMMARY INFORMATION
 # =============================================================================
 
 print(f"\n✅ Generated judging_schedule.html")
