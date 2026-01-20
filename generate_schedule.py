@@ -33,6 +33,18 @@ except ImportError:
 # =============================================================================
 print("Loading judge data...")
 
+# Function to normalize ranking text for consistent display
+def normalize_rank(rank_text):
+    """Normalize ranking values to standard display format."""
+    rank = rank_text.strip()
+    # Handle lowercase variants
+    if rank.lower() == 'certified':
+        return 'Level 3: Certified'
+    elif rank.lower() == 'national':
+        return 'Level 4: National'
+    # Return as-is for other values (already formatted)
+    return rank
+
 # Create an empty list to store all judge information
 judges = []
 
@@ -90,7 +102,7 @@ with open("Judges and Tables.tsv", 'r', encoding='utf-8') as f:
             'location': location.upper(),    # e.g., "ARLINGTON"
             'table': f'T{table_num}',        # e.g., "T68"
             'pairing': row.get('PAIRING', '').strip(),
-            'rank': row.get('RANKING', '').strip(),
+            'rank': normalize_rank(row.get('RANKING', '')),  # Normalize rank display
             'substyles': substyles           # List of style IDs they entered
         })
 
@@ -231,6 +243,7 @@ RANKS = {
     'Level 2: Recognized': 2,
     'Level 3: Certified': 3,
     'certified': 3,
+    'CERTIFIED': 3,
     'Certified+ Mead': 3,
     'Certified+Mead': 3,
     'Certified+Mead+cider': 3,
