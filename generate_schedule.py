@@ -147,6 +147,37 @@ with open("styles by table.csv", 'r', encoding='utf-8') as f:
 print(f"Loaded {len(table_styles)} table mappings")
 
 # =============================================================================
+# STEP 2B: LOAD MEDAL CATEGORY COUNTS
+# =============================================================================
+print("Loading medal category counts...")
+
+# Create a dictionary to store entry counts for each table
+table_entry_counts = {}
+
+# Open the CSV file with medal category counts
+try:
+    with open("medal_category_counts.csv", 'r', encoding='utf-8') as f:
+        reader = csv.DictReader(f)
+        
+        for row in reader:
+            table_num = row.get('Table Number', '').strip()
+            count_str = row.get('Count', '').strip()
+            
+            if table_num and count_str:
+                # Create table key with "T" prefix (e.g., "T68")
+                table_key = f'T{table_num}'
+                
+                # Convert count to integer
+                try:
+                    table_entry_counts[table_key] = int(count_str)
+                except ValueError:
+                    print(f"Warning: Could not parse count '{count_str}' for table {table_key}")
+    
+    print(f"Loaded entry counts for {len(table_entry_counts)} tables")
+except FileNotFoundError:
+    print("Warning: medal_category_counts.csv not found. Workload warnings will not be displayed.")
+
+# =============================================================================
 # STEP 3: ORGANIZE JUDGES BY DATE, LOCATION, AND TABLE
 # =============================================================================
 
@@ -204,6 +235,8 @@ h1 { text-align: center; color: #2c3e50; }
 /* Conflict and warning badges */
 .conflict { border: 3px solid #dc3545; background: #fff5f5; }
 .conflict-badge { background: #dc3545; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; margin-left: 5px; }
+.workload-warning { border: 3px solid #ff9800; background: #fff8e1; }
+.workload-badge { background: #ff9800; color: white; padding: 3px 8px; border-radius: 3px; font-size: 12px; font-weight: bold; margin-bottom: 8px; display: inline-block; }
 .pairing { background: #6c757d; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; margin-left: 5px; }
 
 /* Legend styling */
@@ -251,6 +284,11 @@ RANKS = {
     'Level 4: National': 4
 }
 
+def is_certified_or_higher(rank):
+    """Check if a rank is Certified (Level 3) or higher."""
+    rank_level = RANKS.get(rank, 0)
+    return rank_level >= 3
+
 # =============================================================================
 # STEP 6: GENERATE HTML FOR EACH DATE/LOCATION/TABLE
 # =============================================================================
@@ -286,8 +324,40 @@ for date in sorted(by_date_loc.keys()):
                     has_conflict = True
                     break
             
-            # Add 'conflict' CSS class if there's a problem
-            conflict_class = ' conflict' if has_conflict else ''
+            # -------------------------------------------------------------
+            # CHECK FOR WORKLOAD ISSUES
+            # BJCP recommends max 12 beers per pair, warn at > 9
+            # -------------------------------------------------------------
+            has_workload_warning = False
+            workload_info = ''
+            
+            # Count certified+ judges at this table
+            certified_judges = [j for j in judges_at_table if is_certified_or_higher(j['rank'])]
+            certified_count = len(certified_judges)
+            non_certified_count = len(judges_at_table) - certified_count
+            
+            # Get entry count for this table
+            entry_count = table_entry_counts.get(table, 0)
+            
+            if entry_count > 0 and certified_count >= 1:
+                # Each certified+ judge forms one qualified pair (paired with a non-certified judge)
+                # Number of qualified pairs = number of certified+ judges
+                num_pairs = certified_count
+                
+                # Calculate beers per pair
+                beers_per_pair = entry_count / num_pairs if num_pairs > 0 else entry_count
+                
+                # Flag if exceeds 9 beers per pair
+                if beers_per_pair > 9:
+                    has_workload_warning = True
+                    workload_info = f'⚠️ {int(beers_per_pair)} beers/pair ({entry_count} entries ÷ {num_pairs} qualified pairs) • {certified_count} Certified+ • {non_certified_count} Below Certified'
+            
+            # Add 'conflict' or 'workload-warning' CSS class if there's a problem
+            warning_class = ''
+            if has_conflict:
+                warning_class = ' conflict'
+            elif has_workload_warning:
+                warning_class = ' workload-warning'
             
             # -------------------------------------------------------------
             # PREPARE TABLE DISPLAY INFO
@@ -304,8 +374,18 @@ for date in sorted(by_date_loc.keys()):
                 styles_str = ', '.join(sorted(styles))
                 styles_display = f'<div class="styles-list"><strong>BJCP Styles:</strong> {styles_str}</div>'
             
+            # Create entry count display
+            entry_display = ''
+            if entry_count > 0:
+                entry_display = f'<div class="styles-list"><strong>Entries:</strong> {entry_count}</div>'
+            
+            # Create workload warning badge if needed
+            workload_display = ''
+            if has_workload_warning:
+                workload_display = f'<div class="workload-badge">{workload_info}</div>'
+            
             # Start the table group HTML with header and styles
-            html += f'<div class="table-group{conflict_class}"><div class="table-header">{table}</div>{category_display}{styles_display}'
+            html += f'<div class="table-group{warning_class}"><div class="table-header">{table}</div>{category_display}{workload_display}{styles_display}{entry_display}'
             
             # -------------------------------------------------------------
             # ADD EACH JUDGE TO THE TABLE
