@@ -260,6 +260,11 @@ h1 { text-align: center; color: #2c3e50; }
 <div class="legend-item"><div class="legend-box rank-3"></div><span>Certified</span></div>
 <div class="legend-item"><div class="legend-box rank-4"></div><span>National</span></div>
 </div>
+<h3 style="margin-top: 20px;">Table Warnings</h3>
+<div class="legend-items">
+<div class="legend-item"><div class="legend-box conflict" style="border: 3px solid #dc3545; background: #fff5f5;"></div><span>Judge entered beer in style being judged</span></div>
+<div class="legend-item"><div class="legend-box workload-warning" style="border: 3px solid #ff9800; background: #fff8e1;"></div><span>Certified pairs evaluating >9 beers each</span></div>
+</div>
 </div>
 '''
 
