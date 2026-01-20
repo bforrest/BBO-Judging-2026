@@ -59,9 +59,10 @@ with open("Judges and Tables.tsv", 'r', encoding='utf-8') as f:
         # Regular expressions (regex) are patterns for matching text
         import re
         
-        # This pattern looks for: (2 digits/2 digits) (word) T(digits)
-        # Example: "02/06 Arlington T68" matches to date="02/06", location="Arlington", table_num="68"
-        match = re.match(r'(\d{2}/\d{2})\s+(\w+)\s+T(\d+)', table_str)
+        # This pattern looks for: (2 digits/2 digits) (optional AM/PM + word) T(digits)
+        # Example: "02/06 Arlington T68" or "02/07 AM Dallas T55"
+        # The (?:\w+\s+)? means "optionally match word+space" (for AM/PM)
+        match = re.match(r'(\d{2}/\d{2})\s+(?:\w+\s+)?(\w+)\s+T(\d+)', table_str)
         
         # If the pattern didn't match, skip this row
         if not match:
