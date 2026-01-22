@@ -17,18 +17,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Install dependencies
+      - name: Copy schedule to index
         run: |
-          pip install weasyprint
-
-      - name: Generate schedule
-        run: |
-          python3 generate_schedule.py
           cp judging_schedule.html index.html
 
       - name: Setup Pages

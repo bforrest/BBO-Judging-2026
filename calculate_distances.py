@@ -150,12 +150,15 @@ def update_csv_with_distances(input_file, output_file):
     print(f"  Total: {len(rows)} judges")
 
 if __name__ == "__main__":
-    input_file = "JUDGE WORKSHEET 2026.csv"
-    output_file = "JUDGE WORKSHEET 2026.csv"
+    import os
+    home_dir = os.path.expanduser("~")
+    input_file = os.path.join(home_dir, "judge-data-private", "JUDGE WORKSHEET 2026.csv")
+    output_file = input_file
     
     print("=" * 70)
     print("JUDGE DISTANCE CALCULATOR")
     print("=" * 70)
+    print(f"\nWorking with: {input_file}")
     print("\nThis script will:")
     print("1. Geocode each judge's address")
     print("2. Calculate distances to all competition sites")

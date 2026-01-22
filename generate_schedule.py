@@ -8,6 +8,7 @@ showing the judging schedule with conflict detection and color-coded ranks.
 Input files (must be in same directory):
     - Judges and Tables.tsv: Judge assignments and entries
     - styles by table.csv: BJCP style mappings
+    - ~/judge-data-private/JUDGE WORKSHEET 2026.csv: Judge roster with distances
 
 Output:
     - judging_schedule.html: Interactive visualization
@@ -21,6 +22,7 @@ Usage:
 # csv: For reading CSV and TSV files
 # defaultdict: For creating dictionaries with default values
 import csv
+import os
 from collections import defaultdict
 try:
     from weasyprint import HTML
@@ -29,7 +31,45 @@ except ImportError:
     PDF_AVAILABLE = False
 
 # =============================================================================
-# STEP 1: LOAD JUDGE ASSIGNMENTS
+# STEP 1: LOAD JUDGE MASTER ROSTER WITH DISTANCES
+# =============================================================================
+print("Loading judge master roster...")
+
+# Load judge distance data from the private repo
+judge_distances = {}
+home_dir = os.path.expanduser("~")
+judge_worksheet_path = os.path.join(home_dir, "judge-data-private", "JUDGE WORKSHEET 2026.csv")
+
+try:
+    with open(judge_worksheet_path, 'r', encoding='utf-8') as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            first_name = row.get('First Name', '').strip()
+            last_name = row.get('Last Name', '').strip()
+            
+            if not first_name or not last_name:
+                continue
+            
+            full_name = f"{first_name} {last_name}"
+            
+            # Store distance info for this judge
+            judge_distances[full_name] = {
+                'dallas': int(row.get('DALLAS SITE', 0) or 0),
+                'grapevine': int(row.get('GRAPEVINE SITE', 0) or 0),
+                'arlington': int(row.get('ARLINGTON SITE', 0) or 0),
+                'stubbies': int(row.get('STUBBIES SITE', 0) or 0),
+                'keller': int(row.get('KELLER SITE', 0) or 0),
+                'status': row.get('JUDGE STATUS', ''),
+                'rank': row.get('BJCP Rank', '')
+            }
+    
+    print(f"Loaded distance data for {len(judge_distances)} judges")
+except FileNotFoundError:
+    print(f"Warning: Judge worksheet not found at {judge_worksheet_path}")
+    print("Distance-based assignment suggestions will not be available.")
+
+# =============================================================================
+# STEP 2: LOAD JUDGE ASSIGNMENTS
 # =============================================================================
 print("Loading judge data...")
 
@@ -109,7 +149,121 @@ with open("Judges and Tables.tsv", 'r', encoding='utf-8') as f:
 print(f"Loaded {len(judges)} judge assignments")
 
 # =============================================================================
-# STEP 2: LOAD TABLE STYLES AND CATEGORY NAMES
+# STEP 3: ANALYZE JUDGE ASSIGNMENTS AND SUGGEST IMPROVEMENTS
+# =============================================================================
+print("\nAnalyzing judge assignments...")
+
+def get_location_key(location):
+    """Normalize location names to match distance data keys."""
+    location_mapping = {
+        'DALLAS': 'dallas',
+        'GRAPEVINE': 'grapevine',
+        'ARLINGTON': 'arlington',
+        'STUBBIES': 'stubbies',
+        'KELLER': 'keller'
+    }
+    return location_mapping.get(location.upper(), location.lower())
+
+# Analyze each judge assignment
+assignment_analysis = []
+
+for j in judges:
+    judge_name = j['name']
+    assigned_location = j['location']
+    assigned_table = j['table']
+    
+    # Get distance info for this judge
+    dist_info = judge_distances.get(judge_name, {})
+    
+    if not dist_info:
+        continue
+    
+    # Get distance to assigned location
+    location_key = get_location_key(assigned_location)
+    assigned_distance = dist_info.get(location_key, 999)
+    
+    # Find conflicts (styles they entered that are at their assigned table)
+    table_substyles = table_styles.get(assigned_table, [])
+    judge_substyles = j['substyles']
+    conflicts = [s for s in judge_substyles if s in table_substyles]
+    
+    # Find closer locations without conflicts
+    better_options = []
+    
+    for loc in ['DALLAS', 'GRAPEVINE', 'ARLINGTON', 'STUBBIES', 'KELLER']:
+        loc_key = get_location_key(loc)
+        loc_distance = dist_info.get(loc_key, 999)
+        
+        # Check if this location is closer and has no conflicts
+        if loc_distance < assigned_distance and loc_distance > 0:
+            # Find tables at this location on the same date
+            tables_at_loc = by_date_loc.get(j['date'], {}).get(loc, {})
+            
+            # Check each table for conflicts
+            for table_num, table_judges in tables_at_loc.items():
+                table_substyles_at_loc = table_styles.get(table_num, [])
+                loc_conflicts = [s for s in judge_substyles if s in table_substyles_at_loc]
+                
+                if not loc_conflicts:
+                    better_options.append({
+                        'location': loc,
+                        'distance': loc_distance,
+                        'savings': assigned_distance - loc_distance,
+                        'table': table_num
+                    })
+                    break  # Only need one conflict-free table at this location
+    
+    if conflicts or better_options:
+        assignment_analysis.append({
+            'judge': judge_name,
+            'date': j['date'],
+            'current_location': assigned_location,
+            'current_table': assigned_table,
+            'current_distance': assigned_distance,
+            'conflicts': conflicts,
+            'better_options': sorted(better_options, key=lambda x: x['distance'])[:3]  # Top 3 closest
+        })
+
+# Print analysis summary
+if assignment_analysis:
+    print(f"\n{'='*80}")
+    print(f"ASSIGNMENT OPTIMIZATION SUGGESTIONS")
+    print(f"{'='*80}\n")
+    
+    conflicts_found = [a for a in assignment_analysis if a['conflicts']]
+    better_distance = [a for a in assignment_analysis if a['better_options'] and not a['conflicts']]
+    
+    if conflicts_found:
+        print(f"⚠️  CRITICAL: {len(conflicts_found)} judges assigned to tables where they have entries:")
+        for analysis in conflicts_found[:10]:  # Show first 10
+            print(f"  • {analysis['judge']} ({analysis['date']} {analysis['current_location']} {analysis['current_table']})")
+            print(f"    Conflicts: {', '.join(analysis['conflicts'])}")
+            if analysis['better_options']:
+                best = analysis['better_options'][0]
+                print(f"    ✓ Suggestion: Move to {best['location']} ({best['distance']} mi, saves {best['savings']} mi)")
+        if len(conflicts_found) > 10:
+            print(f"  ... and {len(conflicts_found) - 10} more")
+        print()
+    
+    if better_distance:
+        print(f"💡 OPTIMIZATION: {len(better_distance)} judges could be reassigned to closer locations:")
+        total_savings = sum(opt['savings'] for a in better_distance for opt in a['better_options'][:1])
+        print(f"   Potential travel savings: ~{total_savings} miles total\n")
+        
+        for analysis in better_distance[:5]:  # Show first 5
+            best = analysis['better_options'][0]
+            print(f"  • {analysis['judge']} ({analysis['date']})")
+            print(f"    Current: {analysis['current_location']} ({analysis['current_distance']} mi)")
+            print(f"    ✓ Better: {best['location']} {best['table']} ({best['distance']} mi, saves {best['savings']} mi)")
+        if len(better_distance) > 5:
+            print(f"  ... and {len(better_distance) - 5} more")
+    
+    print(f"\n{'='*80}\n")
+else:
+    print("✅ All assignments look optimal!")
+
+# =============================================================================
+# STEP 4: LOAD TABLE STYLES AND CATEGORY NAMES
 # =============================================================================
 print("Loading table style mappings...")
 
@@ -147,7 +301,7 @@ with open("styles by table.csv", 'r', encoding='utf-8') as f:
 print(f"Loaded {len(table_styles)} table mappings")
 
 # =============================================================================
-# STEP 2B: LOAD MEDAL CATEGORY COUNTS
+# STEP 5: LOAD MEDAL CATEGORY COUNTS
 # =============================================================================
 print("Loading medal category counts...")
 
@@ -178,7 +332,7 @@ except FileNotFoundError:
     print("Warning: medal_category_counts.csv not found. Workload warnings will not be displayed.")
 
 # =============================================================================
-# STEP 3: ORGANIZE JUDGES BY DATE, LOCATION, AND TABLE
+# STEP 6: ORGANIZE JUDGES BY DATE, LOCATION, AND TABLE
 # =============================================================================
 
 # Create a nested dictionary structure:
@@ -192,7 +346,7 @@ for j in judges:
     by_date_loc[j['date']][j['location']][j['table']].append(j)
 
 # =============================================================================
-# STEP 4: START BUILDING THE HTML PAGE
+# STEP 7: START BUILDING THE HTML PAGE
 # =============================================================================
 
 # This is a multi-line string that contains the beginning of our HTML file
@@ -269,7 +423,7 @@ h1 { text-align: center; color: #2c3e50; }
 '''
 
 # =============================================================================
-# STEP 5: DEFINE RANK MAPPING
+# STEP 8: DEFINE RANK MAPPING
 # =============================================================================
 
 # This dictionary maps rank names to numeric levels (0-4)
@@ -295,7 +449,7 @@ def is_certified_or_higher(rank):
     return rank_level >= 3
 
 # =============================================================================
-# STEP 6: GENERATE HTML FOR EACH DATE/LOCATION/TABLE
+# STEP 9: GENERATE HTML FOR EACH DATE/LOCATION/TABLE
 # =============================================================================
 
 # Loop through each date in chronological order
@@ -424,7 +578,7 @@ for date in sorted(by_date_loc.keys()):
 html += '</div></body></html>'
 
 # =============================================================================
-# STEP 7: WRITE THE HTML FILE
+# STEP 10: WRITE THE HTML FILE
 # =============================================================================
 
 # Write the complete HTML string to a file
@@ -432,7 +586,7 @@ with open('judging_schedule.html', 'w', encoding='utf-8') as f:
     f.write(html)
 
 # =============================================================================
-# STEP 8: GENERATE PDF VERSION
+# STEP 11: GENERATE PDF VERSION
 # =============================================================================
 
 if PDF_AVAILABLE:
@@ -447,7 +601,7 @@ else:
     print("   pip install weasyprint")
 
 # =============================================================================
-# STEP 9: DISPLAY SUMMARY INFORMATION
+# STEP 12: DISPLAY SUMMARY INFORMATION
 # =============================================================================
 
 print(f"\n✅ Generated judging_schedule.html")
