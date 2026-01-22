@@ -38,8 +38,7 @@ print("Loading judge master roster...")
 
 # Load judge distance data from the private repo
 judge_distances = {}
-home_dir = os.path.expanduser("~")
-judge_worksheet_path = os.path.join(home_dir, "judge-data-private", "JUDGE WORKSHEET 2026.csv")
+judge_worksheet_path = os.path.join(os.getcwd(), "JUDGE WORKSHEET 2026.csv")
 
 try:
     with open(judge_worksheet_path, 'r', encoding='utf-8') as f:
