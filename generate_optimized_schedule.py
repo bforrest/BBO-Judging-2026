@@ -405,12 +405,13 @@ if table_analysis:
             print(f"    ✓ Need {additional_certified_needed} more certified+ judge(s) to get {pairs_needed} pairs")
             
             if t['candidates']:
-                print(f"    Suggested judges:")
+                print(f"    Suggested judges (available and not working other tables on {t['date']}):")
                 for i, candidate in enumerate(t['candidates'][:3], 1):
-                    cert_badge = "✓ Certified+" if candidate['certified'] else "Non-Certified"
-                    print(f"      {i}. {candidate['name']} ({cert_badge}, {candidate['distance']} mi)")
+                    rank_display = candidate['rank'] if candidate['rank'] else 'Unknown Rank'
+                    cert_badge = "✓ Certified+" if candidate['certified'] else "○"
+                    print(f"      {i}. {candidate['name']} {cert_badge} [{rank_display}] - {candidate['distance']} mi")
             else:
-                print(f"    ⚠️  No available candidates found")
+                print(f"    ⚠️  No available candidates found (all may be working other tables or have conflicts)")
             print()
     
     if conflict_tables:
@@ -423,17 +424,20 @@ if table_analysis:
             print(f"    ✓ MUST replace these {len(t['judges_with_conflicts'])} judge(s)")
             
             if t['candidates']:
-                print(f"    Suggested replacements:")
+                print(f"    Suggested replacements (available and not working other tables on {t['date']}):")
                 # Prioritize certified judges for replacements
                 certified_candidates = [c for c in t['candidates'] if c['certified']][:3]
                 if certified_candidates:
                     for i, candidate in enumerate(certified_candidates, 1):
-                        print(f"      {i}. {candidate['name']} (Certified+, {candidate['distance']} mi)")
+                        rank_display = candidate['rank'] if candidate['rank'] else 'Unknown Rank'
+                        print(f"      {i}. {candidate['name']} ✓ [{rank_display}] - {candidate['distance']} mi")
                 else:
                     for i, candidate in enumerate(t['candidates'][:3], 1):
-                        print(f"      {i}. {candidate['name']} ({candidate['rank']}, {candidate['distance']} mi)")
+                        rank_display = candidate['rank'] if candidate['rank'] else 'Unknown Rank'
+                        cert_badge = "✓" if candidate['certified'] else "○"
+                        print(f"      {i}. {candidate['name']} {cert_badge} [{rank_display}] - {candidate['distance']} mi")
             else:
-                print(f"    ⚠️  No available replacements found")
+                print(f"    ⚠️  No available replacements found (all may be working other tables or have conflicts)")
             print()
     
     print(f"{'='*80}\n")
@@ -679,13 +683,14 @@ if table_analysis:
             
             if t['candidates']:
                 html += '<div class="suggestion">'
-                html += '<div class="suggestion-header">Suggested Judges:</div>'
+                html += f'<div class="suggestion-header">Suggested Judges (available and not working other tables on {t["date"]})::</div>'
                 for i, candidate in enumerate(t['candidates'][:3], 1):
-                    cert_badge = '<span class="certified-badge">Certified+</span>' if candidate['certified'] else ''
-                    html += f'<div class="candidate">{i}. {candidate["name"]} {cert_badge} ({candidate["distance"]} mi)</div>'
+                    rank_display = candidate['rank'] if candidate['rank'] else 'Unknown Rank'
+                    cert_badge = '<span class="certified-badge">✓ Certified+</span>' if candidate['certified'] else '<span style="color: #999;">○</span>'
+                    html += f'<div class="candidate">{i}. {candidate["name"]} {cert_badge} <span style="color: #666; font-size: 0.9em;">[{rank_display}]</span> - {candidate["distance"]} mi</div>'
                 html += '</div>'
             else:
-                html += '<div class="suggestion" style="background: #ffebee; border-left-color: #f44336;">⚠️ No available candidates found</div>'
+                html += '<div class="suggestion" style="background: #ffebee; border-left-color: #f44336;">⚠️ No available candidates found (all may be working other tables or have conflicts)</div>'
             
             html += '</div>'
         
@@ -710,16 +715,17 @@ if table_analysis:
             
             if t['candidates']:
                 html += '<div class="suggestion">'
-                html += '<div class="suggestion-header">Suggested Replacements:</div>'
+                html += f'<div class="suggestion-header">Suggested Replacements (available and not working other tables on {t["date"]}):</div>'
                 certified_candidates = [c for c in t['candidates'] if c['certified']][:3]
                 candidates_to_show = certified_candidates if certified_candidates else t['candidates'][:3]
                 
                 for i, candidate in enumerate(candidates_to_show, 1):
-                    cert_badge = '<span class="certified-badge">Certified+</span>' if candidate['certified'] else ''
-                    html += f'<div class="candidate">{i}. {candidate["name"]} {cert_badge} ({candidate["distance"]} mi)</div>'
+                    rank_display = candidate['rank'] if candidate['rank'] else 'Unknown Rank'
+                    cert_badge = '<span class="certified-badge">✓ Certified+</span>' if candidate['certified'] else '<span style="color: #999;">○</span>'
+                    html += f'<div class="candidate">{i}. {candidate["name"]} {cert_badge} <span style="color: #666; font-size: 0.9em;">[{rank_display}]</span> - {candidate["distance"]} mi</div>'
                 html += '</div>'
             else:
-                html += '<div class="suggestion" style="background: #ffebee; border-left-color: #f44336;">⚠️ No available replacements found</div>'
+                html += '<div class="suggestion" style="background: #ffebee; border-left-color: #f44336;">⚠️ No available replacements found (all may be working other tables or have conflicts)</div>'
             
             html += '</div>'
         
