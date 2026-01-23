@@ -17,9 +17,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Copy schedule to index
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Generate schedules
         run: |
-          cp judging_schedule.html index.html
+          python3 generate_optimized_schedule.py
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

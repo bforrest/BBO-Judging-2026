@@ -628,6 +628,7 @@ function toggleSection(sectionId) {
 </head>
 <body>
 <div class="container">
+<div class="back-link"><a href="index.html">← Back to Available Schedules</a></div>
 <h1>🍺 BBO 2026 Judging Schedule</h1>
 
 <!-- Legend showing what each color means -->
@@ -644,6 +645,7 @@ function toggleSection(sectionId) {
 <div class="legend-items">
 <div class="legend-item"><div class="legend-box conflict" style="border: 3px solid #dc3545; background: #fff5f5;"></div><span>Judge entered beer in style being judged</span></div>
 <div class="legend-item"><div class="legend-box workload-warning" style="border: 3px solid #ff9800; background: #fff8e1;"></div><span>Certified pairs evaluating >9 beers each</span></div>
+
 </div>
 </div>
 '''
@@ -941,7 +943,194 @@ with open('judging_schedule.html', 'w', encoding='utf-8') as f:
     f.write(html)
 
 # =============================================================================
-# STEP 11: GENERATE PDF VERSION
+# STEP 11: GENERATE SITE-SPECIFIC PAGES
+# =============================================================================
+
+# Define all judging sites
+SITES = ['ARLINGTON', 'DALLAS', 'GRAPEVINE', 'KELLER']
+
+# Generate a page for each site
+for site in SITES:
+    # Start building the site-specific HTML
+    site_html = '''<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+<title>BBO 2026 Judging Schedule - ''' + site + '''</title>
+<style>
+/* Main page styling */
+body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+.container { max-width: 1400px; margin: 0 auto; }
+h1 { text-align: center; color: #2c3e50; }
+.back-link { text-align: center; margin-bottom: 20px; }
+.back-link a { color: #3498db; text-decoration: none; font-size: 16px; }
+.back-link a:hover { text-decoration: underline; }
+
+/* Date section styling */
+.date-section { background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+.date-header { font-size: 24px; font-weight: bold; margin-bottom: 15px; color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+
+/* Table grid */
+.tables { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
+.table-card { background: white; border: 2px solid #dee2e6; border-radius: 6px; padding: 15px; }
+
+/* Table group styling */
+.table-header { font-weight: bold; font-size: 18px; margin-bottom: 10px; color: #2c3e50; padding-bottom: 8px; border-bottom: 2px solid #3498db; }
+.table-category { font-size: 13px; color: #6c757d; margin-bottom: 4px; font-weight: normal; }
+.styles-list { font-size: 12px; color: #495057; background: #f8f9fa; padding: 6px 8px; border-radius: 3px; margin-bottom: 6px; line-height: 1.6; }
+.entry-count { font-size: 12px; color: #2c3e50; background: #e3f2fd; padding: 6px 8px; border-radius: 3px; margin-bottom: 8px; font-weight: bold; }
+
+/* Judge styling */
+.judge { padding: 6px 10px; margin: 3px 0; border-radius: 4px; font-size: 13px; }
+.judge small { font-size: 11px; color: white; }
+
+/* Color coding by rank */
+.rank-0 { background: #ffc10778;}
+.rank-1 { background: #ff98008c; }
+.rank-2 { background: #ff76008c; color: white; }
+.rank-3 { background: #2196f3; color: white; }
+.rank-4 { background: #9c27b0; color: white; }
+
+/* Badges */
+.pairing { background: #6c757d; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-left: 4px; }
+.conflict-badge { background: #dc3545; color: white; padding: 2px 5px; border-radius: 3px; font-size: 10px; margin-left: 4px; }
+.workload-warning { border: 2px solid #ff9800; background: #fff8e1; }
+.conflict { border: 2px solid #dc3545; background: #fff5f5; }
+.workload-badge { background: #ff9800; color: white; padding: 3px 6px; border-radius: 3px; font-size: 11px; font-weight: bold; margin-bottom: 6px; display: inline-block; }
+
+/* Legend styling */
+.legend { background: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+.legend h3 { margin-top: 0; margin-bottom: 10px; }
+.legend-items { display: flex; flex-wrap: wrap; gap: 12px; font-size: 13px; }
+.legend-item { display: flex; align-items: center; gap: 6px; }
+.legend-box { width: 30px; height: 20px; border-radius: 3px; }
+</style>
+</head>
+<body>
+<div class="container">
+<div class="back-link"><a href="index.html">← Back to Available Schedules</a></div>
+<h1>🍺 BBO 2026 - ''' + site + ''' Site</h1>
+
+<!-- Legend showing what each color means -->
+<div class="legend">
+<h3>Judge Rank Legend</h3>
+<div class="legend-items">
+<div class="legend-item"><div class="legend-box rank-0"></div><span>Non-BJCP</span></div>
+<div class="legend-item"><div class="legend-box rank-1"></div><span>Rank Pending/Provisional</span></div>
+<div class="legend-item"><div class="legend-box rank-2"></div><span>Recognized</span></div>
+<div class="legend-item"><div class="legend-box rank-3"></div><span>Certified</span></div>
+<div class="legend-item"><div class="legend-box rank-4"></div><span>National</span></div>
+</div>
+</div>
+'''
+    
+    # Group tables by date for this site
+    site_dates = {}
+    for date in sorted(by_date_loc.keys()):
+        if site in by_date_loc[date]:
+            site_dates[date] = by_date_loc[date][site]
+    
+    # Generate sections for each date at this site
+    if site_dates:
+        for date in sorted(site_dates.keys()):
+            site_html += f'<div class="date-section"><div class="date-header">{date}</div><div class="tables">'
+            
+            # Loop through each table at this site on this date
+            for table in sorted(site_dates[date].keys()):
+                judges_at_table = site_dates[date][table]
+                styles = table_styles.get(table, [])
+                entry_count = table_entry_counts.get(table, 0)
+                category_name = table_names.get(table, '')
+                
+                # Check for conflicts and workload warnings
+                has_conflict = False
+                has_workload_warning = False
+                
+                for j in judges_at_table:
+                    if any(s in styles for s in j['substyles']):
+                        has_conflict = True
+                        break
+                
+                # Check workload
+                certified_judges = [j for j in judges_at_table if is_certified_or_higher(j['rank'])]
+                certified_count = len(certified_judges)
+                non_certified_count = len(judges_at_table) - certified_count
+                
+                if entry_count > 0 and certified_count >= 1:
+                    num_pairs = certified_count
+                    beers_per_pair = entry_count / num_pairs if num_pairs > 0 else entry_count
+                    if beers_per_pair > 9:
+                        has_workload_warning = True
+                
+                # Determine CSS classes
+                card_class = 'table-card'
+                if has_conflict:
+                    card_class += ' conflict'
+                elif has_workload_warning:
+                    card_class += ' workload-warning'
+                
+                # Add table card
+                site_html += f'<div class="{card_class}"><div class="table-header">{table}</div>'
+                
+                if category_name:
+                    site_html += f'<div class="table-category">{category_name}</div>'
+                
+                if has_workload_warning:
+                    site_html += f'<div class="workload-badge">⚠️ High Workload</div>'
+                
+                if styles:
+                    styles_str = ', '.join(sorted(styles))
+                    site_html += f'<div class="styles-list"><strong>BJCP:</strong> {styles_str}</div>'
+                
+                if entry_count > 0:
+                    site_html += f'<div class="entry-count">Entries: {entry_count}</div>'
+                
+                # Add paired judges first
+                judges_by_pairing = defaultdict(list)
+                paired_judges = []
+                unpaired_judges = []
+                
+                for j in judges_at_table:
+                    if j.get('pairing') and j['pairing'].strip():
+                        pairing_key = j['pairing'].strip()
+                        judges_by_pairing[pairing_key].append(j)
+                        paired_judges.append((pairing_key, j))
+                    else:
+                        unpaired_judges.append(j)
+                
+                paired_judges.sort(key=lambda x: (x[0], x[1]['name']))
+                ordered_judges = [j for _, j in paired_judges] + unpaired_judges
+                
+                if paired_judges:
+                    site_html += '<div style="margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid #3498db; font-size: 12px; font-weight: bold; color: #3498db;">👥 Paired</div>'
+                
+                for j in ordered_judges:
+                    rank_level = RANKS.get(j['rank'], 0)
+                    conflicts = [s for s in j['substyles'] if s in styles]
+                    conflict_badge = f'<span class="conflict-badge">⚠ {", ".join(conflicts)}</span>' if conflicts else ''
+                    pairing_num = j.get('pairing') and j['pairing'].strip()
+                    pairing_badge = f'<span class="pairing">P{pairing_num}</span>' if pairing_num else ''
+                    site_html += f'<div class="judge rank-{rank_level}">{j["name"]} {pairing_badge}{conflict_badge}<br><small>{j["rank"]}</small></div>'
+                
+                if unpaired_judges and paired_judges:
+                    site_html += '<div style="margin-top: 6px; margin-bottom: 4px; padding-top: 4px; border-top: 1px solid #999; font-size: 11px; font-weight: bold; color: #666;">Others</div>'
+                
+                site_html += '</div>'
+            
+            site_html += '</div></div>'
+    else:
+        site_html += f'<div style="background: white; padding: 20px; border-radius: 8px; text-align: center; color: #999;">No tables scheduled at {site} site</div>'
+    
+    site_html += '</div></body></html>'
+    
+    # Write site-specific HTML file
+    site_filename = f'judging_schedule_{site.lower()}.html'
+    with open(site_filename, 'w', encoding='utf-8') as f:
+        f.write(site_html)
+    
+    print(f"✅ Generated {site_filename}")
+
+# =============================================================================
+# STEP 12: GENERATE PDF VERSION
 # =============================================================================
 
 if PDF_AVAILABLE:
@@ -960,5 +1149,9 @@ else:
 # =============================================================================
 
 print(f"\n✅ Generated judging_schedule.html")
-print(f"Found {len(judges)} total assignments")
+print(f"✅ Generated site-specific pages:")
+for site in SITES:
+    site_filename = f'judging_schedule_{site.lower()}.html'
+    print(f"   - {site_filename}")
+print(f"\nFound {len(judges)} total assignments")
 print(f"Unique judges: {len(set(j['name'] for j in judges))}")
