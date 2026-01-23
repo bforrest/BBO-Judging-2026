@@ -24,11 +24,12 @@ with open(csv_path, newline="", encoding="utf-8") as f:
         row = {k.strip().strip('"'): (v.strip() if isinstance(v, str) else v)
            for k, v in row.items()}
 
-
         first = row["First Name"].strip()
         last = row["Last Name"].strip()
+        rank = row.get("BJCP Rank", "Unknown").strip()
+        judge_name = f"{first} {last} ({rank})"
+
         availability = (row.get("Availability") or "").strip()
-        judge_name = f"{first} {last}"
 
         if not availability:
             continue
