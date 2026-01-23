@@ -200,7 +200,7 @@ The `JUDGE WORKSHEET 2026.csv` file contains personally identifiable information
 **GitHub Actions Workflow:**
 The `.github/workflows/deploy.yml` file has been updated to work with local schedule generation:
 - It no longer runs `generate_schedule.py` (which would fail without protected data)
-- It simply copies the locally-generated `judging_schedule.html` to `index.html`
+- It copies the locally-generated `judging_schedule.html` to `index.html`
 - Then deploys to GitHub Pages
 
 **Workflow:**

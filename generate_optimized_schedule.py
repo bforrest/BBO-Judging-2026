@@ -570,7 +570,7 @@ h1 { text-align: center; color: #2c3e50; }
 .conflict-badge { background: #dc3545; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; margin-left: 5px; }
 .workload-warning { border: 3px solid #ff9800; background: #fff8e1; }
 .workload-badge { background: #ff9800; color: white; padding: 3px 8px; border-radius: 3px; font-size: 12px; font-weight: bold; margin-bottom: 8px; display: inline-block; }
-.pairing { background: #6c757d; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; margin-left: 5px; }
+.pairing { background: #6c757d; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; margin-left: 5px; float: right; }
 
 /* Legend styling */
 .legend { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
@@ -857,9 +857,41 @@ for date in sorted(by_date_loc.keys()):
             html += f'<div class="table-group{warning_class}" id="{table}"><div class="table-header">{table} <a href="#staffing-analysis" class="back-to-analysis" style="float: right; font-size: 12px;">↑ Back to Analysis</a></div>{category_display}{workload_display}{styles_display}{entry_display}'
             
             # -------------------------------------------------------------
-            # ADD EACH JUDGE TO THE TABLE
+            # ORGANIZE JUDGES: PAIRED JUDGES AT TOP, THEN UNPAIRED
+            # Group judges by pairing number to keep pairs together
             # -------------------------------------------------------------
+            judges_by_pairing = defaultdict(list)
+            paired_judges = []
+            unpaired_judges = []
+            
             for j in judges_at_table:
+                if j.get('pairing') and j['pairing'].strip():
+                    # This judge has a pairing
+                    pairing_key = j['pairing'].strip()
+                    judges_by_pairing[pairing_key].append(j)
+                    paired_judges.append((pairing_key, j))
+                else:
+                    # This judge has no pairing
+                    unpaired_judges.append(j)
+            
+            # Sort paired judges by pairing key, then by name within each pair
+            paired_judges.sort(key=lambda x: (x[0], x[1]['name']))
+            
+            # Create ordered list: paired judges first, then unpaired
+            ordered_judges = [j for _, j in paired_judges] + unpaired_judges
+            
+            # Track which pairings we've already started rendering to add pair dividers
+            rendered_pairings = set()
+            
+            # Add some CSS styling for visual separation of pairs
+            pair_separator_html = '<div style="border-top: 2px solid #3498db; margin: 8px 0; padding-top: 8px; padding-bottom: 4px; font-size: 12px; font-weight: bold; color: #3498db;">─ Pair ─</div>'
+            
+            # Add a section header for paired judges if they exist
+            if paired_judges:
+                html += '<div style="margin-bottom: 8px; padding-bottom: 6px; border-bottom: 2px solid #3498db; font-weight: bold; color: #2c3e50;">👥 Paired Judges</div>'
+            
+            # Add all judges in the ordered list
+            for j in ordered_judges:
                 # Get the numeric rank level for color coding
                 rank_level = RANKS.get(j['rank'], 0)
                 
@@ -870,10 +902,23 @@ for date in sorted(by_date_loc.keys()):
                 conflict_badge = f'<span class="conflict-badge">⚠ {", ".join(conflicts)}</span>' if conflicts else ''
                 
                 # Create a pairing badge if this judge has a pairing number
-                pairing_badge = f'<span class="pairing">Pair {j["pairing"]}</span>' if j.get('pairing') and j['pairing'].strip() else ''
+                pairing_num = j.get('pairing') and j['pairing'].strip()
+                pairing_badge = f'<span class="pairing">Pair {pairing_num}</span>' if pairing_num else ''
+                
+                # Add pair separator before showing the second judge in a pair
+                if pairing_num and pairing_num not in rendered_pairings:
+                    # Get count of judges in this pair
+                    pair_count = len(judges_by_pairing.get(pairing_num, []))
+                    if pair_count > 1:
+                        # This is the first judge of a multi-judge pair, add separator after
+                        rendered_pairings.add(pairing_num)
                 
                 # Add this judge's HTML to the page
                 html += f'<div class="judge rank-{rank_level}">{j["name"]} {pairing_badge}{conflict_badge}<br><small>{j["rank"]}</small></div>'
+            
+            # Add unpaired judges section header if there are unpaired judges
+            if unpaired_judges and paired_judges:
+                html += '<div style="margin-top: 12px; margin-bottom: 8px; padding-top: 8px; padding-bottom: 6px; border-top: 2px solid #999; border-bottom: 2px solid #999; font-weight: bold; color: #666;">Individual Judges</div>'
             
             # Close the table group
             html += '</div>'
