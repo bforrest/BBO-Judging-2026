@@ -37,23 +37,10 @@ with open(csv_path, newline="", encoding="utf-8") as f:
         slots = [s.strip() for s in availability.split("|") if s.strip()]
 
         for slot in slots:
-            # Examples:
-            # "02/06 Arlington T68 American Pale Ale"
-            # "02/07 AM Dallas T55 Kolsch and Blonde"
-            parts = slot.split()
-            if len(parts) < 3:
-                continue
-
-            # Handle patterns with optional AM/PM:
-            # date site ...         -> parts[0]=date, parts[1]=site
-            # date AM site ...      -> parts[0]=date, parts[1]=AM, parts[2]=site
-            if parts[1] in ("AM", "PM"):
-                site = parts[2]
-            else:
-                site = parts[1]
-
-            site_judges[site].add(judge_name)
-
+            # slot example: "02/06 Arlington T68 American Pale Ale"
+            # or "02/07 AM Dallas T55 Kolsch and Blonde"
+            site_judges[slot].add(judge_name)
+            
 # Convert sets to sorted lists if desired
 site_judges = {site: sorted(judges) for site, judges in site_judges.items()}
 
