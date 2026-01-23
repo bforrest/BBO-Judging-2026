@@ -1,0 +1,1347 @@
+================================================================================
+BBO 2026 JUDGE PAIRING AND WORKLOAD OPTIMIZER
+================================================================================
+
+Loading data...
+Loaded 44 judging sites
+
+================================================================================
+⚠️  SITE: 02/06 Arlington T68 American Pale Ale
+================================================================================
+Table: T68 | Entries: 29
+Judges: 13 total (3 certified, 10 non-certified)
+Quality: ACCEPTABLE | 9.7 beers/pair (3 pairs possible)
+
+ISSUES:
+  • Pairing imbalance: 3C vs 10NC
+
+CURRENT JUDGES:
+  ✓ CERT       | Amanda Long                    | Certified
+  ✗ Non-Cert   | Bill Hamilton                  | Rank Pending
+  ✗ Non-Cert   | C.J. Barley                    | Non-BJCP
+  ✗ Non-Cert   | Donald Callan                  | Non-BJCP, Judge with Sensory Training
+  ✗ Non-Cert   | Emily Allen                    | Non-BJCP
+  ✗ Non-Cert   | Greg Smith                     | Non-BJCP
+  ✗ Non-Cert   | James Klee                     | Non-BJCP
+  ✓ CERT       | Jarrett Long                   | Certified
+  ✓ CERT       | John Bates                     | Certified
+  ✗ Non-Cert   | Mark Schuler                   | Non-BJCP
+  ✗ Non-Cert   | Michael Porter                 | Recognized
+  ✗ Non-Cert   | Steve Ballantyne               | Non-BJCP
+  ✗ Non-Cert   | Tierney Klee                   | Provisional, Judge with Sensory Training
+
+SUGGESTED PAIRINGS (3 pairs, ~9.7 beers/pair):
+  Pair 1:
+    • Amanda Long                    (Certified)
+    • Bill Hamilton                  (Rank Pending)
+  Pair 2:
+    • Jarrett Long                   (Certified)
+    • Michael Porter                 (Recognized)
+  Pair 3:
+    • John Bates                     (Certified)
+    • Tierney Klee                   (Provisional, Judge with Sensory Training)
+
+RECOMMENDED ACTIONS:
+  → Add 3 more certified judge(s)
+
+================================================================================
+⚠️  SITE: 02/06 Keller T77 European Sour Ale
+================================================================================
+Table: T77 | Entries: 28
+Judges: 9 total (3 certified, 6 non-certified)
+Quality: ACCEPTABLE | 9.3 beers/pair (3 pairs possible)
+
+ISSUES:
+  • Pairing imbalance: 3C vs 6NC
+
+CURRENT JUDGES:
+  ✗ Non-Cert   | Donald Callan                  | Non-BJCP, Judge with Sensory Training
+  ✗ Non-Cert   | Emily Allen                    | Non-BJCP
+  ✓ CERT       | John Mosher                    | Certified
+  ✓ CERT       | Matthew Morriss                | Certified, Professional Brewer
+  ✓ CERT       | Mike Treadway                  | Certified
+  ✗ Non-Cert   | Reni Morriss                   | Recognized, Judge with Sensory Training
+  ✗ Non-Cert   | Stacy Myers                    | Non-BJCP
+  ✗ Non-Cert   | Steve Ballantyne               | Non-BJCP
+  ✗ Non-Cert   | Tim Mercer                     | Non-BJCP
+
+SUGGESTED PAIRINGS (3 pairs, ~9.3 beers/pair):
+  Pair 1:
+    • John Mosher                    (Certified)
+    • Reni Morriss                   (Recognized, Judge with Sensory Training)
+  Pair 2:
+    • Matthew Morriss                (Certified, Professional Brewer)
+    • Donald Callan                  (Non-BJCP, Judge with Sensory Training)
+  Pair 3:
+    • Mike Treadway                  (Certified)
+    • Emily Allen                    (Non-BJCP)
+
+RECOMMENDED ACTIONS:
+  → Add 1 more certified judge(s)
+
+================================================================================
+⚠️  SITE: 02/07 PM Arlington T61 German Wheat
+================================================================================
+Table: T61 | Entries: 32
+Judges: 12 total (5 certified, 7 non-certified)
+Quality: EXCELLENT | 6.4 beers/pair (5 pairs possible)
+
+ISSUES:
+  • Pairing imbalance: 5C vs 7NC
+  • 2 entry conflicts
+
+CURRENT JUDGES:
+  ✓ CERT       | Amanda Long                    | Certified
+  ✗ Non-Cert   | Brian Street                   | Non-BJCP, Judge with Sensory Training ⚠️ CONFLICT
+  ✗ Non-Cert   | C.J. Barley                    | Non-BJCP
+  ✗ Non-Cert   | Donald Callan                  | Non-BJCP, Judge with Sensory Training
+  ✗ Non-Cert   | Emily Allen                    | Non-BJCP
+  ✓ CERT       | Jarrett Long                   | Certified ⚠️ CONFLICT
+  ✓ CERT       | John Skelton                   | Certified
+  ✗ Non-Cert   | Kim Truesdell                  | Non-BJCP
+  ✗ Non-Cert   | Michael Moss                   | Non-BJCP
+  ✓ CERT       | Steve Brown                    | Certified
+  ✓ CERT       | Steve Russell                  | Certified
+  ✗ Non-Cert   | Tierney Klee                   | Provisional, Judge with Sensory Training
+
+SUGGESTED PAIRINGS (5 pairs, ~6.4 beers/pair):
+  Pair 1:
+    • Amanda Long                    (Certified)
+    • Tierney Klee                   (Provisional, Judge with Sensory Training)
+  Pair 2:
+    • Jarrett Long                   (Certified)
+    • Brian Street                   (Non-BJCP, Judge with Sensory Training)
+  Pair 3:
+    • John Skelton                   (Certified)
+    • C.J. Barley                    (Non-BJCP)
+  Pair 4:
+    • Steve Brown                    (Certified)
+    • Donald Callan                  (Non-BJCP, Judge with Sensory Training)
+  Pair 5:
+    • Steve Russell                  (Certified)
+    • Emily Allen                    (Non-BJCP)
+
+ENTRY CONFLICTS (judge cannot evaluate their own entry):
+  • Brian Street                   entered: 10C
+  • Jarrett Long                   entered: 10B
+
+RECOMMENDED ACTIONS:
+  → Reassign 2 judge(s) with entry conflicts to different tables
+
+================================================================================
+⚠️  SITE: 02/13 Arlington T67 Strong British Ale
+================================================================================
+Table: T67 | Entries: 29
+Judges: 13 total (6 certified, 7 non-certified)
+Quality: EXCELLENT | 4.8 beers/pair (6 pairs possible)
+
+ISSUES:
+  • Pairing imbalance: 6C vs 7NC
+  • 1 entry conflicts
+
+CURRENT JUDGES:
+  ✓ CERT       | Alf Syftestad                  | Certified, Judge with Sensory Training
+  ✓ CERT       | Amanda Long                    | Certified
+  ✗ Non-Cert   | C.J. Barley                    | Non-BJCP
+  ✗ Non-Cert   | Emily Allen                    | Non-BJCP
+  ✗ Non-Cert   | Greg Smith                     | Non-BJCP
+  ✗ Non-Cert   | James Klee                     | Non-BJCP
+  ✓ CERT       | Jarrett Long                   | Certified
+  ✓ CERT       | John Skelton                   | Certified ⚠️ CONFLICT
+  ✓ CERT       | Kat Desquitado                 | Certified
+  ✗ Non-Cert   | Mike MacCrory                  | Non-BJCP
+  ✗ Non-Cert   | Steve Ballantyne               | Non-BJCP
+  ✗ Non-Cert   | Tierney Klee                   | Provisional, Judge with Sensory Training
+  ✓ CERT       | Vicki Brown                    | Certified
+
+SUGGESTED PAIRINGS (6 pairs, ~4.8 beers/pair):
+  Pair 1:
+    • Alf Syftestad                  (Certified, Judge with Sensory Training)
+    • Tierney Klee                   (Provisional, Judge with Sensory Training)
+  Pair 2:
+    • Amanda Long                    (Certified)
+    • C.J. Barley                    (Non-BJCP)
+  Pair 3:
+    • Jarrett Long                   (Certified)
+    • Emily Allen                    (Non-BJCP)
+  Pair 4:
+    • John Skelton                   (Certified)
+    • Greg Smith                     (Non-BJCP)
+  Pair 5:
+    • Kat Desquitado                 (Certified)
+    • James Klee                     (Non-BJCP)
+  Pair 6:
+    • Vicki Brown                    (Certified)
+    • Mike MacCrory                  (Non-BJCP)
+
+ENTRY CONFLICTS (judge cannot evaluate their own entry):
+  • John Skelton                   entered: 17B, 17C
+
+RECOMMENDED ACTIONS:
+  → Reassign 1 judge(s) with entry conflicts to different tables
+
+================================================================================
+⚠️  SITE: 02/27 Arlington T58 Amber Bitter European Beer
+================================================================================
+Table: T58 | Entries: 36
+Judges: 11 total (5 certified, 6 non-certified)
+Quality: EXCELLENT | 7.2 beers/pair (5 pairs possible)
+
+ISSUES:
+  • Pairing imbalance: 5C vs 6NC
+
+CURRENT JUDGES:
+  ✓ CERT       | Amanda Long                    | Certified
+  ✗ Non-Cert   | Emily Allen                    | Non-BJCP
+  ✗ Non-Cert   | Greg Smith                     | Non-BJCP
+  ✗ Non-Cert   | James Klee                     | Non-BJCP
+  ✓ CERT       | Jarrett Long                   | Certified
+  ✓ CERT       | John Bates                     | Certified
+  ✓ CERT       | John Mosher                    | Certified
+  ✗ Non-Cert   | Mike MacCrory                  | Non-BJCP
+  ✗ Non-Cert   | Steve Ballantyne               | Non-BJCP
+  ✓ CERT       | Steve Brown                    | Certified
+  ✗ Non-Cert   | Tierney Klee                   | Provisional, Judge with Sensory Training
+
+SUGGESTED PAIRINGS (5 pairs, ~7.2 beers/pair):
+  Pair 1:
+    • Amanda Long                    (Certified)
+    • Tierney Klee                   (Provisional, Judge with Sensory Training)
+  Pair 2:
+    • Jarrett Long                   (Certified)
+    • Emily Allen                    (Non-BJCP)
+  Pair 3:
+    • John Bates                     (Certified)
+    • Greg Smith                     (Non-BJCP)
+  Pair 4:
+    • John Mosher                    (Certified)
+    • James Klee                     (Non-BJCP)
+  Pair 5:
+    • Steve Brown                    (Certified)
+    • Mike MacCrory                  (Non-BJCP)
+
+================================================================================
+⚠️  SITE: 02/07 AM Dallas T55 Kolsch and Blonde
+================================================================================
+Table: T55 | Entries: 25
+Judges: 21 total (7 certified, 14 non-certified)
+Quality: EXCELLENT | 3.6 beers/pair (7 pairs possible)
+
+ISSUES:
+  • Pairing imbalance: 7C vs 14NC
+
+CURRENT JUDGES:
+  ✗ Non-Cert   | Aaron Wagner                   | Non-BJCP
+  ✓ CERT       | Barry Forrest                  | Certified
+  ✗ Non-Cert   | Bill Hamilton                  | Rank Pending
+  ✗ Non-Cert   | Brian Street                   | Non-BJCP, Judge with Sensory Training
+  ✗ Non-Cert   | David Bierschenk               | Non-BJCP
+  ✗ Non-Cert   | Donald Callan                  | Non-BJCP, Judge with Sensory Training
+  ✗ Non-Cert   | Douglas Hicks                  | Recognized
+  ✗ Non-Cert   | Harry Anderson                 | Non-BJCP
+  ✗ Non-Cert   | John Sutton                    | Non-BJCP
+  ✓ CERT       | Marcio Fazzani                 | Certified, Judge with Sensory Training
+  ✗ Non-Cert   | Mark Schuler                   | Non-BJCP
+  ✗ Non-Cert   | Marqus Burleson                | Non-BJCP
+  ✗ Non-Cert   | Michael Moss                   | Non-BJCP
+  ✓ CERT       | Mike Grover                    | National
+  ✓ CERT       | Steve Littel                   | Certified, Judge with Sensory Training
+  ✓ CERT       | Steve Russell                  | Certified
+  ✗ Non-Cert   | Steve Steinheimer              | Non-BJCP
+  ✓ CERT       | Terry Olinger                  | Certified, Judge with Sensory Training
+  ✗ Non-Cert   | Tony Silveira                  | Non-BJCP, Certified Cicerone
+  ✓ CERT       | Walter Hodges                  | Certified
+  ✗ Non-Cert   | William Lawrence               | Non-BJCP
+
+SUGGESTED PAIRINGS (7 pairs, ~3.6 beers/pair):
+  Pair 1:
+    • Mike Grover                    (National)
+    • Bill Hamilton                  (Rank Pending)
+  Pair 2:
+    • Barry Forrest                  (Certified)
+    • Douglas Hicks                  (Recognized)
+  Pair 3:
+    • Marcio Fazzani                 (Certified, Judge with Sensory Training)
+    • Aaron Wagner                   (Non-BJCP)
+  Pair 4:
+    • Steve Littel                   (Certified, Judge with Sensory Training)
+    • Brian Street                   (Non-BJCP, Judge with Sensory Training)
+  Pair 5:
+    • Steve Russell                  (Certified)
+    • David Bierschenk               (Non-BJCP)
+  Pair 6:
+    • Terry Olinger                  (Certified, Judge with Sensory Training)
+    • Donald Callan                  (Non-BJCP, Judge with Sensory Training)
+  Pair 7:
+    • Walter Hodges                  (Certified)
+    • Harry Anderson                 (Non-BJCP)
+
+RECOMMENDED ACTIONS:
+  → Add 1 more certified judge(s)
+
+================================================================================
+⚠️  SITE: 02/07 PM Dallas T69 Amber And Brown American
+================================================================================
+Table: T69 | Entries: 36
+Judges: 18 total (5 certified, 13 non-certified)
+Quality: EXCELLENT | 7.2 beers/pair (5 pairs possible)
+
+ISSUES:
+  • Pairing imbalance: 5C vs 13NC
+  • 1 entry conflicts
+
+CURRENT JUDGES:
+  ✗ Non-Cert   | Brandon Melton                 | Non-BJCP
+  ✗ Non-Cert   | Brian Street                   | Non-BJCP, Judge with Sensory Training ⚠️ CONFLICT
+  ✗ Non-Cert   | David Bierschenk               | Non-BJCP
+  ✗ Non-Cert   | Donald Callan                  | Non-BJCP, Judge with Sensory Training
+  ✗ Non-Cert   | Douglas Robinson               | Non-BJCP
+  ✗ Non-Cert   | Harry Anderson                 | Non-BJCP
+  ✗ Non-Cert   | John Sutton                    | Non-BJCP
+  ✗ Non-Cert   | Kim Truesdell                  | Non-BJCP
+  ✓ CERT       | Marcio Fazzani                 | Certified, Judge with Sensory Training
+  ✗ Non-Cert   | Mark Schuler                   | Non-BJCP
+  ✗ Non-Cert   | Michael Moss                   | Non-BJCP
+  ✓ CERT       | Mike Grover                    | National
+  ✓ CERT       | Steve Littel                   | Certified, Judge with Sensory Training
+  ✓ CERT       | Steve Russell                  | Certified
+  ✗ Non-Cert   | Steve Steinheimer              | Non-BJCP
+  ✗ Non-Cert   | Tony Silveira                  | Non-BJCP, Certified Cicerone
+  ✓ CERT       | Walter Hodges                  | Certified
+  ✗ Non-Cert   | William Lawrence               | Non-BJCP
+
+SUGGESTED PAIRINGS (5 pairs, ~7.2 beers/pair):
+  Pair 1:
+    • Mike Grover                    (National)
+    • Brandon Melton                 (Non-BJCP)
+  Pair 2:
+    • Marcio Fazzani                 (Certified, Judge with Sensory Training)
+    • Brian Street                   (Non-BJCP, Judge with Sensory Training)
+  Pair 3:
+    • Steve Littel                   (Certified, Judge with Sensory Training)
+    • David Bierschenk               (Non-BJCP)
+  Pair 4:
+    • Steve Russell                  (Certified)
+    • Donald Callan                  (Non-BJCP, Judge with Sensory Training)
+  Pair 5:
+    • Walter Hodges                  (Certified)
+    • Douglas Robinson               (Non-BJCP)
+
+ENTRY CONFLICTS (judge cannot evaluate their own entry):
+  • Brian Street                   entered: 27A2
+
+RECOMMENDED ACTIONS:
+  → Add 2 more certified judge(s)
+  → Reassign 1 judge(s) with entry conflicts to different tables
+
+================================================================================
+⚠️  SITE: 02/13 Dallas T75 Strong American Ale
+================================================================================
+Table: T75 | Entries: 23
+Judges: 15 total (5 certified, 10 non-certified)
+Quality: EXCELLENT | 4.6 beers/pair (5 pairs possible)
+
+ISSUES:
+  • Pairing imbalance: 5C vs 10NC
+
+CURRENT JUDGES:
+  ✓ CERT       | Barry Forrest                  | Certified
+  ✗ Non-Cert   | Bill Hamilton                  | Rank Pending
+  ✗ Non-Cert   | Donald Callan                  | Non-BJCP, Judge with Sensory Training
+  ✗ Non-Cert   | Douglas Hicks                  | Recognized
+  ✗ Non-Cert   | Douglas Robinson               | Non-BJCP
+  ✗ Non-Cert   | Harry Anderson                 | Non-BJCP
+  ✗ Non-Cert   | James Smith                    | Non-BJCP
+  ✗ Non-Cert   | Kevin Meyer                    | Non-BJCP
+  ✗ Non-Cert   | Kim Truesdell                  | Non-BJCP
+  ✓ CERT       | Marcio Fazzani                 | Certified, Judge with Sensory Training
+  ✓ CERT       | Mike Grover                    | National
+  ✗ Non-Cert   | Mike MacCrory                  | Non-BJCP
+  ✓ CERT       | Steve Littel                   | Certified, Judge with Sensory Training
+  ✓ CERT       | Terry Olinger                  | Certified, Judge with Sensory Training
+  ✗ Non-Cert   | William Lawrence               | Non-BJCP
+
+SUGGESTED PAIRINGS (5 pairs, ~4.6 beers/pair):
+  Pair 1:
+    • Mike Grover                    (National)
+    • Bill Hamilton                  (Rank Pending)
+  Pair 2:
+    • Barry Forrest                  (Certified)
+    • Douglas Hicks                  (Recognized)
+  Pair 3:
+    • Marcio Fazzani                 (Certified, Judge with Sensory Training)
+    • Donald Callan                  (Non-BJCP, Judge with Sensory Training)
+  Pair 4:
+    • Steve Littel                   (Certified, Judge with Sensory Training)
+    • Douglas Robinson               (Non-BJCP)
+  Pair 5:
+    • Terry Olinger                  (Certified, Judge with Sensory Training)
+    • Harry Anderson                 (Non-BJCP)
+
+RECOMMENDED ACTIONS:
+  → Add 1 more certified judge(s)
+
+================================================================================
+⚠️  SITE: 02/20 Dallas T80 Strong Light Belgian Ale
+================================================================================
+Table: T80 | Entries: 26
+Judges: 11 total (3 certified, 8 non-certified)
+Quality: EXCELLENT | 8.7 beers/pair (3 pairs possible)
+
+ISSUES:
+  • Pairing imbalance: 3C vs 8NC
+
+CURRENT JUDGES:
+  ✓ CERT       | Alf Syftestad                  | Certified, Judge with Sensory Training
+  ✓ CERT       | Brandon Montgomery             | Certified
+  ✗ Non-Cert   | Donald Callan                  | Non-BJCP, Judge with Sensory Training
+  ✗ Non-Cert   | Douglas Hicks                  | Recognized
+  ✗ Non-Cert   | Harry Anderson                 | Non-BJCP
+  ✗ Non-Cert   | James Smith                    | Non-BJCP
+  ✗ Non-Cert   | John Sutton                    | Non-BJCP
+  ✗ Non-Cert   | Kim Truesdell                  | Non-BJCP
+  ✓ CERT       | Mike Grover                    | National
+  ✗ Non-Cert   | Steve Steinheimer              | Non-BJCP
+  ✗ Non-Cert   | William Lawrence               | Non-BJCP
+
+SUGGESTED PAIRINGS (3 pairs, ~8.7 beers/pair):
+  Pair 1:
+    • Mike Grover                    (National)
+    • Douglas Hicks                  (Recognized)
+  Pair 2:
+    • Alf Syftestad                  (Certified, Judge with Sensory Training)
+    • Donald Callan                  (Non-BJCP, Judge with Sensory Training)
+  Pair 3:
+    • Brandon Montgomery             (Certified)
+    • Harry Anderson                 (Non-BJCP)
+
+RECOMMENDED ACTIONS:
+  → Add 2 more certified judge(s)
+
+================================================================================
+⚠️  SITE: 02/21 AM Dallas T65 Stout and Porter
+================================================================================
+Table: T65 | Entries: 36
+Judges: 12 total (3 certified, 9 non-certified)
+Quality: ACCEPTABLE | 12.0 beers/pair (3 pairs possible)
+
+ISSUES:
+  • Pairing imbalance: 3C vs 9NC
+  • 2 entry conflicts
+
+CURRENT JUDGES:
+  ✗ Non-Cert   | Bill Hamilton                  | Rank Pending
+  ✗ Non-Cert   | Brian Street                   | Non-BJCP, Judge with Sensory Training ⚠️ CONFLICT
+  ✗ Non-Cert   | Harry Anderson                 | Non-BJCP
+  ✗ Non-Cert   | Jerry Keeney                   | Recognized
+  ✗ Non-Cert   | Jerry Richard                  | Non-BJCP
+  ✗ Non-Cert   | Kim Truesdell                  | Non-BJCP
+  ✓ CERT       | Marcio Fazzani                 | Certified, Judge with Sensory Training
+  ✗ Non-Cert   | Mark Schuler                   | Non-BJCP
+  ✓ CERT       | Mike Grover                    | National
+  ✓ CERT       | Steve Littel                   | Certified, Judge with Sensory Training
+  ✗ Non-Cert   | Tony Silveira                  | Non-BJCP, Certified Cicerone ⚠️ CONFLICT
+  ✗ Non-Cert   | Walter Hansen                  | Non-BJCP
+
+SUGGESTED PAIRINGS (3 pairs, ~12.0 beers/pair):
+  Pair 1:
+    • Mike Grover                    (National)
+    • Bill Hamilton                  (Rank Pending)
+  Pair 2:
+    • Marcio Fazzani                 (Certified, Judge with Sensory Training)
+    • Jerry Keeney                   (Recognized)
+  Pair 3:
+    • Steve Littel                   (Certified, Judge with Sensory Training)
+    • Brian Street                   (Non-BJCP, Judge with Sensory Training)
+
+ENTRY CONFLICTS (judge cannot evaluate their own entry):
+  • Brian Street                   entered: 16D
+  • Tony Silveira                  entered: 15B
+
+RECOMMENDED ACTIONS:
+  → Add 2 more certified judge(s)
+  → Reassign 2 judge(s) with entry conflicts to different tables
+
+================================================================================
+⚠️  SITE: 02/27 Dallas T86 Wood Aged Beer
+================================================================================
+Table: T86 | Entries: 24
+Judges: 9 total (3 certified, 6 non-certified)
+Quality: EXCELLENT | 8.0 beers/pair (3 pairs possible)
+
+ISSUES:
+  • Pairing imbalance: 3C vs 6NC
+
+CURRENT JUDGES:
+  ✓ CERT       | Alf Syftestad                  | Certified, Judge with Sensory Training
+  ✓ CERT       | Barry Forrest                  | Certified
+  ✗ Non-Cert   | Harry Anderson                 | Non-BJCP
+  ✗ Non-Cert   | Jerry Richard                  | Non-BJCP
+  ✗ Non-Cert   | John Sutton                    | Non-BJCP
+  ✗ Non-Cert   | Kim Truesdell                  | Non-BJCP
+  ✗ Non-Cert   | Mike MacCrory                  | Non-BJCP
+  ✓ CERT       | Vicki Brown                    | Certified
+  ✗ Non-Cert   | William Lawrence               | Non-BJCP
+
+SUGGESTED PAIRINGS (3 pairs, ~8.0 beers/pair):
+  Pair 1:
+    • Alf Syftestad                  (Certified, Judge with Sensory Training)
+    • Harry Anderson                 (Non-BJCP)
+  Pair 2:
+    • Barry Forrest                  (Certified)
+    • Jerry Richard                  (Non-BJCP)
+  Pair 3:
+    • Vicki Brown                    (Certified)
+    • John Sutton                    (Non-BJCP)
+
+RECOMMENDED ACTIONS:
+  → Add 1 more certified judge(s)
+
+================================================================================
+⚠️  SITE: 02/28 AM Dallas T88 Specialty Beer
+================================================================================
+Table: T88 | Entries: 36
+Judges: 7 total (1 certified, 6 non-certified)
+Quality: CRITICAL | 36.0 beers/pair (1 pairs possible)
+
+ISSUES:
+  • Workload: 36.0 beers/pair
+  • Pairing imbalance: 1C vs 6NC
+  • 1 entry conflicts
+
+CURRENT JUDGES:
+  ✓ CERT       | Barry Forrest                  | Certified
+  ✗ Non-Cert   | Brian Street                   | Non-BJCP, Judge with Sensory Training ⚠️ CONFLICT
+  ✗ Non-Cert   | Harry Anderson                 | Non-BJCP
+  ✗ Non-Cert   | Kim Truesdell                  | Non-BJCP
+  ✗ Non-Cert   | Marqus Burleson                | Non-BJCP
+  ✗ Non-Cert   | Mike MacCrory                  | Non-BJCP
+  ✗ Non-Cert   | Tony Silveira                  | Non-BJCP, Certified Cicerone
+
+SUGGESTED PAIRINGS (1 pairs, ~36.0 beers/pair):
+  Pair 1:
+    • Barry Forrest                  (Certified)
+    • Brian Street                   (Non-BJCP, Judge with Sensory Training)
+
+ENTRY CONFLICTS (judge cannot evaluate their own entry):
+  • Brian Street                   entered: 34C
+
+RECOMMENDED ACTIONS:
+  → Add 3 more certified judge(s)
+  → Add 2 more certified judge(s) to reduce workload to 12 beers/pair
+  → Reassign 1 judge(s) with entry conflicts to different tables
+
+================================================================================
+⚠️  SITE: 02/28 PM Dallas T78 Belgian Ale
+================================================================================
+Table: T78 | Entries: 34
+Judges: 12 total (3 certified, 9 non-certified)
+Quality: ACCEPTABLE | 11.3 beers/pair (3 pairs possible)
+
+ISSUES:
+  • Pairing imbalance: 3C vs 9NC
+  • 3 entry conflicts
+
+CURRENT JUDGES:
+  ✗ Non-Cert   | Amanda Garland                 | Non-BJCP
+  ✗ Non-Cert   | Brian Street                   | Non-BJCP, Judge with Sensory Training ⚠️ CONFLICT
+  ✓ CERT       | Eric Morgan                    | Certified
+  ✗ Non-Cert   | Harry Anderson                 | Non-BJCP
+  ✗ Non-Cert   | Kim Truesdell                  | Non-BJCP
+  ✗ Non-Cert   | Mark Schuler                   | Non-BJCP
+  ✗ Non-Cert   | Michael Moss                   | Non-BJCP
+  ✗ Non-Cert   | Mike MacCrory                  | Non-BJCP
+  ✓ CERT       | Steve Littel                   | Certified, Judge with Sensory Training ⚠️ CONFLICT
+  ✓ CERT       | Steve Russell                  | Certified
+  ✗ Non-Cert   | Tony Silveira                  | Non-BJCP, Certified Cicerone ⚠️ CONFLICT
+  ✗ Non-Cert   | William Lawrence               | Non-BJCP
+
+SUGGESTED PAIRINGS (3 pairs, ~11.3 beers/pair):
+  Pair 1:
+    • Eric Morgan                    (Certified)
+    • Amanda Garland                 (Non-BJCP)
+  Pair 2:
+    • Steve Littel                   (Certified, Judge with Sensory Training)
+    • Brian Street                   (Non-BJCP, Judge with Sensory Training)
+  Pair 3:
+    • Steve Russell                  (Certified)
+    • Harry Anderson                 (Non-BJCP)
+
+ENTRY CONFLICTS (judge cannot evaluate their own entry):
+  • Brian Street                   entered: 24C
+  • Steve Littel                   entered: 24A
+  • Tony Silveira                  entered: 26A
+
+RECOMMENDED ACTIONS:
+  → Add 2 more certified judge(s)
+  → Reassign 3 judge(s) with entry conflicts to different tables
+
+================================================================================
+⚠️  SITE: 02/07 AM Keller T59 Dark European Lager
+================================================================================
+Table: T59 | Entries: 36
+Judges: 13 total (6 certified, 7 non-certified)
+Quality: EXCELLENT | 6.0 beers/pair (6 pairs possible)
+
+ISSUES:
+  • Pairing imbalance: 6C vs 7NC
+
+CURRENT JUDGES:
+  ✗ Non-Cert   | Aaron Wagner                   | Non-BJCP
+  ✗ Non-Cert   | Brian Street                   | Non-BJCP, Judge with Sensory Training
+  ✗ Non-Cert   | C.J. Barley                    | Non-BJCP
+  ✗ Non-Cert   | Donald Callan                  | Non-BJCP, Judge with Sensory Training
+  ✓ CERT       | John Bates                     | Certified
+  ✓ CERT       | John Skelton                   | Certified
+  ✓ CERT       | Loring Knutson                 | Certified
+  ✓ CERT       | Matthew Morriss                | Certified, Professional Brewer
+  ✓ CERT       | Mike Treadway                  | Certified
+  ✓ CERT       | Nancy Knutson                  | Certified
+  ✗ Non-Cert   | Reni Morriss                   | Recognized, Judge with Sensory Training
+  ✗ Non-Cert   | Stacy Myers                    | Non-BJCP
+  ✗ Non-Cert   | Tim Mercer                     | Non-BJCP
+
+SUGGESTED PAIRINGS (6 pairs, ~6.0 beers/pair):
+  Pair 1:
+    • John Bates                     (Certified)
+    • Reni Morriss                   (Recognized, Judge with Sensory Training)
+  Pair 2:
+    • John Skelton                   (Certified)
+    • Aaron Wagner                   (Non-BJCP)
+  Pair 3:
+    • Loring Knutson                 (Certified)
+    • Brian Street                   (Non-BJCP, Judge with Sensory Training)
+  Pair 4:
+    • Matthew Morriss                (Certified, Professional Brewer)
+    • C.J. Barley                    (Non-BJCP)
+  Pair 5:
+    • Mike Treadway                  (Certified)
+    • Donald Callan                  (Non-BJCP, Judge with Sensory Training)
+  Pair 6:
+    • Nancy Knutson                  (Certified)
+    • Stacy Myers                    (Non-BJCP)
+
+================================================================================
+⚠️  SITE: 02/27 Keller T87 American Wild Ale
+================================================================================
+Table: T87 | Entries: 25
+Judges: 10 total (4 certified, 6 non-certified)
+Quality: EXCELLENT | 6.2 beers/pair (4 pairs possible)
+
+ISSUES:
+  • Pairing imbalance: 4C vs 6NC
+
+CURRENT JUDGES:
+  ✗ Non-Cert   | C.J. Barley                    | Non-BJCP
+  ✗ Non-Cert   | Jonathan Rollins               | Non-BJCP
+  ✓ CERT       | Kyle Lapointe                  | National
+  ✓ CERT       | Matthew Morriss                | Certified, Professional Brewer
+  ✗ Non-Cert   | Mike MacCrory                  | Non-BJCP
+  ✓ CERT       | Mike Treadway                  | Certified
+  ✗ Non-Cert   | Reni Morriss                   | Recognized, Judge with Sensory Training
+  ✗ Non-Cert   | Stacy Myers                    | Non-BJCP
+  ✓ CERT       | Steve Brown                    | Certified
+  ✗ Non-Cert   | Tim Mercer                     | Non-BJCP
+
+SUGGESTED PAIRINGS (4 pairs, ~6.2 beers/pair):
+  Pair 1:
+    • Kyle Lapointe                  (National)
+    • Reni Morriss                   (Recognized, Judge with Sensory Training)
+  Pair 2:
+    • Matthew Morriss                (Certified, Professional Brewer)
+    • C.J. Barley                    (Non-BJCP)
+  Pair 3:
+    • Mike Treadway                  (Certified)
+    • Jonathan Rollins               (Non-BJCP)
+  Pair 4:
+    • Steve Brown                    (Certified)
+    • Mike MacCrory                  (Non-BJCP)
+
+================================================================================
+⚠️  SITE: 02/07 AM Arlington T53 Pale German
+================================================================================
+Table: T53 | Entries: 31
+Judges: 11 total (5 certified, 6 non-certified)
+Quality: EXCELLENT | 6.2 beers/pair (5 pairs possible)
+
+ISSUES:
+  • Pairing imbalance: 5C vs 6NC
+
+CURRENT JUDGES:
+  ✗ Non-Cert   | Aaron Wagner                   | Non-BJCP
+  ✓ CERT       | Amanda Long                    | Certified
+  ✗ Non-Cert   | Bill Hamilton                  | Rank Pending
+  ✗ Non-Cert   | Brian Street                   | Non-BJCP, Judge with Sensory Training
+  ✗ Non-Cert   | Donald Callan                  | Non-BJCP, Judge with Sensory Training
+  ✗ Non-Cert   | Greg Smith                     | Non-BJCP
+  ✓ CERT       | Jarrett Long                   | Certified
+  ✓ CERT       | John Bates                     | Certified
+  ✓ CERT       | John Skelton                   | Certified
+  ✗ Non-Cert   | Michael Moss                   | Non-BJCP
+  ✓ CERT       | Steve Russell                  | Certified
+
+SUGGESTED PAIRINGS (5 pairs, ~6.2 beers/pair):
+  Pair 1:
+    • Amanda Long                    (Certified)
+    • Bill Hamilton                  (Rank Pending)
+  Pair 2:
+    • Jarrett Long                   (Certified)
+    • Aaron Wagner                   (Non-BJCP)
+  Pair 3:
+    • John Bates                     (Certified)
+    • Brian Street                   (Non-BJCP, Judge with Sensory Training)
+  Pair 4:
+    • John Skelton                   (Certified)
+    • Donald Callan                  (Non-BJCP, Judge with Sensory Training)
+  Pair 5:
+    • Steve Russell                  (Certified)
+    • Greg Smith                     (Non-BJCP)
+
+================================================================================
+⚠️  SITE: 02/07 AM Grapevine T74 Hazy Exp IPA
+================================================================================
+Table: T74 | Entries: 24
+Judges: 10 total (3 certified, 7 non-certified)
+Quality: EXCELLENT | 8.0 beers/pair (3 pairs possible)
+
+ISSUES:
+  • Pairing imbalance: 3C vs 7NC
+
+CURRENT JUDGES:
+  ✗ Non-Cert   | Aaron Wagner                   | Non-BJCP
+  ✗ Non-Cert   | Brian Street                   | Non-BJCP, Judge with Sensory Training
+  ✗ Non-Cert   | Donald Callan                  | Non-BJCP, Judge with Sensory Training
+  ✗ Non-Cert   | Jerry Keeney                   | Recognized
+  ✓ CERT       | John Bates                     | Certified
+  ✓ CERT       | John Skelton                   | Certified
+  ✗ Non-Cert   | Joseph Cromeans                | Non-BJCP
+  ✓ CERT       | Mark McCurdy                   | Certified
+  ✗ Non-Cert   | Tim Mercer                     | Non-BJCP
+  ✗ Non-Cert   | Walter Hansen                  | Non-BJCP
+
+SUGGESTED PAIRINGS (3 pairs, ~8.0 beers/pair):
+  Pair 1:
+    • John Bates                     (Certified)
+    • Jerry Keeney                   (Recognized)
+  Pair 2:
+    • John Skelton                   (Certified)
+    • Aaron Wagner                   (Non-BJCP)
+  Pair 3:
+    • Mark McCurdy                   (Certified)
+    • Brian Street                   (Non-BJCP, Judge with Sensory Training)
+
+RECOMMENDED ACTIONS:
+  → Add 1 more certified judge(s)
+
+================================================================================
+⚠️  SITE: 02/07 PM Keller T70 American Porter And Stout
+================================================================================
+Table: T70 | Entries: 23
+Judges: 15 total (7 certified, 8 non-certified)
+Quality: EXCELLENT | 3.3 beers/pair (7 pairs possible)
+
+ISSUES:
+  • Pairing imbalance: 7C vs 8NC
+  • 1 entry conflicts
+
+CURRENT JUDGES:
+  ✗ Non-Cert   | Brandon Melton                 | Non-BJCP
+  ✗ Non-Cert   | Brian Street                   | Non-BJCP, Judge with Sensory Training ⚠️ CONFLICT
+  ✗ Non-Cert   | Donald Callan                  | Non-BJCP, Judge with Sensory Training
+  ✓ CERT       | John Bates                     | Certified
+  ✓ CERT       | John Mosher                    | Certified
+  ✓ CERT       | John Skelton                   | Certified
+  ✗ Non-Cert   | Kim Truesdell                  | Non-BJCP
+  ✓ CERT       | Loring Knutson                 | Certified
+  ✓ CERT       | Matthew Morriss                | Certified, Professional Brewer
+  ✗ Non-Cert   | Michael Porter                 | Recognized
+  ✓ CERT       | Mike Treadway                  | Certified
+  ✓ CERT       | Nancy Knutson                  | Certified
+  ✗ Non-Cert   | Reni Morriss                   | Recognized, Judge with Sensory Training
+  ✗ Non-Cert   | Stacy Myers                    | Non-BJCP
+  ✗ Non-Cert   | Tim Mercer                     | Non-BJCP
+
+SUGGESTED PAIRINGS (7 pairs, ~3.3 beers/pair):
+  Pair 1:
+    • John Bates                     (Certified)
+    • Michael Porter                 (Recognized)
+  Pair 2:
+    • John Mosher                    (Certified)
+    • Reni Morriss                   (Recognized, Judge with Sensory Training)
+  Pair 3:
+    • John Skelton                   (Certified)
+    • Brandon Melton                 (Non-BJCP)
+  Pair 4:
+    • Loring Knutson                 (Certified)
+    • Brian Street                   (Non-BJCP, Judge with Sensory Training)
+  Pair 5:
+    • Matthew Morriss                (Certified, Professional Brewer)
+    • Donald Callan                  (Non-BJCP, Judge with Sensory Training)
+  Pair 6:
+    • Mike Treadway                  (Certified)
+    • Kim Truesdell                  (Non-BJCP)
+  Pair 7:
+    • Nancy Knutson                  (Certified)
+    • Stacy Myers                    (Non-BJCP)
+
+ENTRY CONFLICTS (judge cannot evaluate their own entry):
+  • Brian Street                   entered: 20A
+
+RECOMMENDED ACTIONS:
+  → Reassign 1 judge(s) with entry conflicts to different tables
+
+================================================================================
+⚠️  SITE: 02/09 Grapevine T73 Specialty IPA
+================================================================================
+Table: T73 | Entries: 21
+Judges: 4 total (3 certified, 1 non-certified)
+Quality: ACCEPTABLE | 10.5 beers/pair (2 pairs possible)
+
+ISSUES:
+  • 1 entry conflicts
+
+CURRENT JUDGES:
+  ✓ CERT       | John Bates                     | Certified
+  ✓ CERT       | John Skelton                   | Certified
+  ✓ CERT       | Mark McCurdy                   | Certified ⚠️ CONFLICT
+  ✗ Non-Cert   | Tim Mercer                     | Non-BJCP
+
+SUGGESTED PAIRINGS (2 pairs, ~10.5 beers/pair):
+  Pair 1:
+    • John Bates                     (Certified)
+    • Tim Mercer                     (Non-BJCP)
+  Pair 2:
+    • John Skelton                   (Certified)
+    • Mark McCurdy                   (Certified)
+
+ENTRY CONFLICTS (judge cannot evaluate their own entry):
+  • Mark McCurdy                   entered: 21B1
+
+RECOMMENDED ACTIONS:
+  → Reassign 1 judge(s) with entry conflicts to different tables
+
+================================================================================
+⚠️  SITE: 02/14 AM Keller T50 Pale Lager
+================================================================================
+Table: T50 | Entries: 36
+Judges: 16 total (7 certified, 9 non-certified)
+Quality: EXCELLENT | 5.1 beers/pair (7 pairs possible)
+
+ISSUES:
+  • Pairing imbalance: 7C vs 9NC
+
+CURRENT JUDGES:
+  ✓ CERT       | Alf Syftestad                  | Certified, Judge with Sensory Training
+  ✗ Non-Cert   | Brandon Melton                 | Non-BJCP
+  ✗ Non-Cert   | Brian Street                   | Non-BJCP, Judge with Sensory Training
+  ✓ CERT       | John Bates                     | Certified
+  ✗ Non-Cert   | Kim Truesdell                  | Non-BJCP
+  ✓ CERT       | Kyle Lapointe                  | National
+  ✗ Non-Cert   | Mark Schuler                   | Non-BJCP
+  ✓ CERT       | Matthew Morriss                | Certified, Professional Brewer
+  ✗ Non-Cert   | Michael Moss                   | Non-BJCP
+  ✗ Non-Cert   | Mike MacCrory                  | Non-BJCP
+  ✓ CERT       | Mike Treadway                  | Certified
+  ✗ Non-Cert   | Reni Morriss                   | Recognized, Judge with Sensory Training
+  ✗ Non-Cert   | Stacy Myers                    | Non-BJCP
+  ✓ CERT       | Steve Brown                    | Certified
+  ✓ CERT       | Steve Russell                  | Certified
+  ✗ Non-Cert   | Tim Mercer                     | Non-BJCP
+
+SUGGESTED PAIRINGS (7 pairs, ~5.1 beers/pair):
+  Pair 1:
+    • Kyle Lapointe                  (National)
+    • Reni Morriss                   (Recognized, Judge with Sensory Training)
+  Pair 2:
+    • Alf Syftestad                  (Certified, Judge with Sensory Training)
+    • Brandon Melton                 (Non-BJCP)
+  Pair 3:
+    • John Bates                     (Certified)
+    • Brian Street                   (Non-BJCP, Judge with Sensory Training)
+  Pair 4:
+    • Matthew Morriss                (Certified, Professional Brewer)
+    • Kim Truesdell                  (Non-BJCP)
+  Pair 5:
+    • Mike Treadway                  (Certified)
+    • Mark Schuler                   (Non-BJCP)
+  Pair 6:
+    • Steve Brown                    (Certified)
+    • Michael Moss                   (Non-BJCP)
+  Pair 7:
+    • Steve Russell                  (Certified)
+    • Mike MacCrory                  (Non-BJCP)
+
+================================================================================
+⚠️  SITE: 02/20 Grapevine T91 Spiced And Specialty Mead
+================================================================================
+Table: T91 | Entries: 36
+Judges: 10 total (5 certified, 5 non-certified)
+Quality: EXCELLENT | 7.2 beers/pair (5 pairs possible)
+
+ISSUES:
+  • 1 entry conflicts
+
+CURRENT JUDGES:
+  ✓ CERT       | Brian Schoolcraft              | National
+  ✗ Non-Cert   | Caroline Forster               | Non-BJCP
+  ✗ Non-Cert   | Donald Callan                  | Non-BJCP, Judge with Sensory Training
+  ✓ CERT       | John Bates                     | Certified ⚠️ CONFLICT
+  ✗ Non-Cert   | Josh Rawls                     | Non-BJCP
+  ✗ Non-Cert   | Kim Truesdell                  | Non-BJCP
+  ✓ CERT       | Mark McCurdy                   | Certified
+  ✓ CERT       | Steve Brown                    | Certified
+  ✗ Non-Cert   | Taryn Dunn                     | Non-BJCP
+  ✓ CERT       | Terry-Lynn Faught              | Certified, Judge with Sensory Training
+
+SUGGESTED PAIRINGS (5 pairs, ~7.2 beers/pair):
+  Pair 1:
+    • Brian Schoolcraft              (National)
+    • Caroline Forster               (Non-BJCP)
+  Pair 2:
+    • John Bates                     (Certified)
+    • Donald Callan                  (Non-BJCP, Judge with Sensory Training)
+  Pair 3:
+    • Mark McCurdy                   (Certified)
+    • Josh Rawls                     (Non-BJCP)
+  Pair 4:
+    • Steve Brown                    (Certified)
+    • Kim Truesdell                  (Non-BJCP)
+  Pair 5:
+    • Terry-Lynn Faught              (Certified, Judge with Sensory Training)
+    • Taryn Dunn                     (Non-BJCP)
+
+ENTRY CONFLICTS (judge cannot evaluate their own entry):
+  • John Bates                     entered: M4A
+
+RECOMMENDED ACTIONS:
+  → Reassign 1 judge(s) with entry conflicts to different tables
+
+================================================================================
+⚠️  SITE: 02/21 AM Grapevine T82 Fruit Beer
+================================================================================
+Table: T82 | Entries: 30
+Judges: 5 total (2 certified, 3 non-certified)
+Quality: OVERWORKED | 15.0 beers/pair (2 pairs possible)
+
+ISSUES:
+  • Workload: 15.0 beers/pair
+  • Pairing imbalance: 2C vs 3NC
+
+CURRENT JUDGES:
+  ✗ Non-Cert   | Brian Street                   | Non-BJCP, Judge with Sensory Training
+  ✓ CERT       | John Bates                     | Certified
+  ✗ Non-Cert   | Kim Truesdell                  | Non-BJCP
+  ✓ CERT       | Mark McCurdy                   | Certified
+  ✗ Non-Cert   | Tim Mercer                     | Non-BJCP
+
+SUGGESTED PAIRINGS (2 pairs, ~15.0 beers/pair):
+  Pair 1:
+    • John Bates                     (Certified)
+    • Brian Street                   (Non-BJCP, Judge with Sensory Training)
+  Pair 2:
+    • Mark McCurdy                   (Certified)
+    • Kim Truesdell                  (Non-BJCP)
+
+================================================================================
+⚠️  SITE: 02/28 AM Keller T66 British Stout
+================================================================================
+Table: T66 | Entries: 26
+Judges: 14 total (5 certified, 9 non-certified)
+Quality: EXCELLENT | 5.2 beers/pair (5 pairs possible)
+
+ISSUES:
+  • Pairing imbalance: 5C vs 9NC
+  • 1 entry conflicts
+
+CURRENT JUDGES:
+  ✗ Non-Cert   | Brian Street                   | Non-BJCP, Judge with Sensory Training ⚠️ CONFLICT
+  ✗ Non-Cert   | James Klee                     | Non-BJCP
+  ✓ CERT       | John Bates                     | Certified
+  ✓ CERT       | John Skelton                   | Certified
+  ✗ Non-Cert   | Kim Truesdell                  | Non-BJCP
+  ✓ CERT       | Kyle Lapointe                  | National
+  ✗ Non-Cert   | Mark Schuler                   | Non-BJCP
+  ✓ CERT       | Matthew Morriss                | Certified, Professional Brewer
+  ✗ Non-Cert   | Mike MacCrory                  | Non-BJCP
+  ✓ CERT       | Mike Treadway                  | Certified
+  ✗ Non-Cert   | Reni Morriss                   | Recognized, Judge with Sensory Training
+  ✗ Non-Cert   | Stacy Myers                    | Non-BJCP
+  ✗ Non-Cert   | Tierney Klee                   | Provisional, Judge with Sensory Training
+  ✗ Non-Cert   | Tim Mercer                     | Non-BJCP
+
+SUGGESTED PAIRINGS (5 pairs, ~5.2 beers/pair):
+  Pair 1:
+    • Kyle Lapointe                  (National)
+    • Reni Morriss                   (Recognized, Judge with Sensory Training)
+  Pair 2:
+    • John Bates                     (Certified)
+    • Tierney Klee                   (Provisional, Judge with Sensory Training)
+  Pair 3:
+    • John Skelton                   (Certified)
+    • Brian Street                   (Non-BJCP, Judge with Sensory Training)
+  Pair 4:
+    • Matthew Morriss                (Certified, Professional Brewer)
+    • James Klee                     (Non-BJCP)
+  Pair 5:
+    • Mike Treadway                  (Certified)
+    • Kim Truesdell                  (Non-BJCP)
+
+ENTRY CONFLICTS (judge cannot evaluate their own entry):
+  • Brian Street                   entered: 16B, 16A
+
+RECOMMENDED ACTIONS:
+  → Reassign 1 judge(s) with entry conflicts to different tables
+
+================================================================================
+⚠️  SITE: 02/21 PM Dallas T79 Belgian Blonde and Saison
+================================================================================
+Table: T79 | Entries: 32
+Judges: 14 total (5 certified, 9 non-certified)
+Quality: EXCELLENT | 6.4 beers/pair (5 pairs possible)
+
+ISSUES:
+  • Pairing imbalance: 5C vs 9NC
+
+CURRENT JUDGES:
+  ✓ CERT       | Barry Forrest                  | Certified
+  ✗ Non-Cert   | Bill Hamilton                  | Rank Pending
+  ✗ Non-Cert   | Brian Street                   | Non-BJCP, Judge with Sensory Training
+  ✗ Non-Cert   | Jerry Richard                  | Non-BJCP
+  ✗ Non-Cert   | Kevin Meyer                    | Non-BJCP
+  ✗ Non-Cert   | Kim Truesdell                  | Non-BJCP
+  ✗ Non-Cert   | Mark Schuler                   | Non-BJCP
+  ✗ Non-Cert   | Marqus Burleson                | Non-BJCP
+  ✗ Non-Cert   | Michael Moss                   | Non-BJCP
+  ✓ CERT       | Mike Grover                    | National
+  ✓ CERT       | Steve Littel                   | Certified, Judge with Sensory Training
+  ✓ CERT       | Steve Russell                  | Certified
+  ✗ Non-Cert   | Tony Silveira                  | Non-BJCP, Certified Cicerone
+  ✓ CERT       | Vicki Brown                    | Certified
+
+SUGGESTED PAIRINGS (5 pairs, ~6.4 beers/pair):
+  Pair 1:
+    • Mike Grover                    (National)
+    • Bill Hamilton                  (Rank Pending)
+  Pair 2:
+    • Barry Forrest                  (Certified)
+    • Brian Street                   (Non-BJCP, Judge with Sensory Training)
+  Pair 3:
+    • Steve Littel                   (Certified, Judge with Sensory Training)
+    • Jerry Richard                  (Non-BJCP)
+  Pair 4:
+    • Steve Russell                  (Certified)
+    • Kevin Meyer                    (Non-BJCP)
+  Pair 5:
+    • Vicki Brown                    (Certified)
+    • Kim Truesdell                  (Non-BJCP)
+
+================================================================================
+⚠️  SITE: 02/28 PM Keller T63 Brown British Beer
+================================================================================
+Table: T63 | Entries: 36
+Judges: 17 total (7 certified, 10 non-certified)
+Quality: EXCELLENT | 5.1 beers/pair (7 pairs possible)
+
+ISSUES:
+  • Pairing imbalance: 7C vs 10NC
+  • 1 entry conflicts
+
+CURRENT JUDGES:
+  ✗ Non-Cert   | Brandon Melton                 | Non-BJCP
+  ✗ Non-Cert   | Brian Street                   | Non-BJCP, Judge with Sensory Training ⚠️ CONFLICT
+  ✗ Non-Cert   | Don Huether                    | Non-BJCP
+  ✗ Non-Cert   | James Klee                     | Non-BJCP
+  ✓ CERT       | John Shank                     | Certified
+  ✓ CERT       | John Skelton                   | Certified
+  ✗ Non-Cert   | Josh Rawls                     | Non-BJCP
+  ✓ CERT       | Joshua Hayes                   | Certified
+  ✗ Non-Cert   | Kim Truesdell                  | Non-BJCP
+  ✓ CERT       | Kyle Lapointe                  | National
+  ✓ CERT       | Matthew Morriss                | Certified, Professional Brewer
+  ✗ Non-Cert   | Mike MacCrory                  | Non-BJCP
+  ✓ CERT       | Mike Treadway                  | Certified
+  ✗ Non-Cert   | Reni Morriss                   | Recognized, Judge with Sensory Training
+  ✗ Non-Cert   | Tierney Klee                   | Provisional, Judge with Sensory Training
+  ✗ Non-Cert   | Tim Mercer                     | Non-BJCP
+  ✓ CERT       | Vicki Brown                    | Certified
+
+SUGGESTED PAIRINGS (7 pairs, ~5.1 beers/pair):
+  Pair 1:
+    • Kyle Lapointe                  (National)
+    • Reni Morriss                   (Recognized, Judge with Sensory Training)
+  Pair 2:
+    • John Shank                     (Certified)
+    • Tierney Klee                   (Provisional, Judge with Sensory Training)
+  Pair 3:
+    • John Skelton                   (Certified)
+    • Brandon Melton                 (Non-BJCP)
+  Pair 4:
+    • Joshua Hayes                   (Certified)
+    • Brian Street                   (Non-BJCP, Judge with Sensory Training)
+  Pair 5:
+    • Matthew Morriss                (Certified, Professional Brewer)
+    • Don Huether                    (Non-BJCP)
+  Pair 6:
+    • Mike Treadway                  (Certified)
+    • James Klee                     (Non-BJCP)
+  Pair 7:
+    • Vicki Brown                    (Certified)
+    • Josh Rawls                     (Non-BJCP)
+
+ENTRY CONFLICTS (judge cannot evaluate their own entry):
+  • Brian Street                   entered: 13A
+
+RECOMMENDED ACTIONS:
+  → Reassign 1 judge(s) with entry conflicts to different tables
+
+================================================================================
+⚠️  SITE: 02/06 Dallas T72 American IPA
+================================================================================
+Table: T72 | Entries: 28
+Judges: 16 total (5 certified, 11 non-certified)
+Quality: EXCELLENT | 5.6 beers/pair (5 pairs possible)
+
+ISSUES:
+  • Pairing imbalance: 5C vs 11NC
+
+CURRENT JUDGES:
+  ✗ Non-Cert   | Amanda Garland                 | Non-BJCP
+  ✗ Non-Cert   | Bill Hamilton                  | Rank Pending
+  ✓ CERT       | Brandon Montgomery             | Certified
+  ✗ Non-Cert   | Donald Callan                  | Non-BJCP, Judge with Sensory Training
+  ✗ Non-Cert   | Douglas Hicks                  | Recognized
+  ✗ Non-Cert   | Douglas Robinson               | Non-BJCP
+  ✓ CERT       | Eric Morgan                    | Certified
+  ✗ Non-Cert   | James Smith                    | Non-BJCP
+  ✗ Non-Cert   | Kevin Meyer                    | Non-BJCP
+  ✗ Non-Cert   | Kim Truesdell                  | Non-BJCP
+  ✗ Non-Cert   | Matt Parulis                   | Non-BJCP
+  ✓ CERT       | Mike Grover                    | National
+  ✗ Non-Cert   | Steve Steinheimer              | Non-BJCP
+  ✓ CERT       | Terry Olinger                  | Certified, Judge with Sensory Training
+  ✓ CERT       | Walter Hodges                  | Certified
+  ✗ Non-Cert   | William Lawrence               | Non-BJCP
+
+SUGGESTED PAIRINGS (5 pairs, ~5.6 beers/pair):
+  Pair 1:
+    • Mike Grover                    (National)
+    • Bill Hamilton                  (Rank Pending)
+  Pair 2:
+    • Brandon Montgomery             (Certified)
+    • Douglas Hicks                  (Recognized)
+  Pair 3:
+    • Eric Morgan                    (Certified)
+    • Amanda Garland                 (Non-BJCP)
+  Pair 4:
+    • Terry Olinger                  (Certified, Judge with Sensory Training)
+    • Donald Callan                  (Non-BJCP, Judge with Sensory Training)
+  Pair 5:
+    • Walter Hodges                  (Certified)
+    • Douglas Robinson               (Non-BJCP)
+
+RECOMMENDED ACTIONS:
+  → Add 1 more certified judge(s)
+
+================================================================================
+⚠️  SITE: 02/07 PM Grapevine T52 Commonwealth
+================================================================================
+Table: T52 | Entries: 22
+Judges: 10 total (3 certified, 7 non-certified)
+Quality: EXCELLENT | 7.3 beers/pair (3 pairs possible)
+
+ISSUES:
+  • Pairing imbalance: 3C vs 7NC
+  • 2 entry conflicts
+
+CURRENT JUDGES:
+  ✗ Non-Cert   | Brian Street                   | Non-BJCP, Judge with Sensory Training ⚠️ CONFLICT
+  ✗ Non-Cert   | Caroline Forster               | Non-BJCP
+  ✗ Non-Cert   | Donald Callan                  | Non-BJCP, Judge with Sensory Training
+  ✗ Non-Cert   | Jerry Keeney                   | Recognized
+  ✓ CERT       | John Shank                     | Certified
+  ✓ CERT       | John Skelton                   | Certified
+  ✗ Non-Cert   | Joseph Cromeans                | Non-BJCP
+  ✗ Non-Cert   | Kim Truesdell                  | Non-BJCP
+  ✓ CERT       | Mark McCurdy                   | Certified ⚠️ CONFLICT
+  ✗ Non-Cert   | Tim Mercer                     | Non-BJCP
+
+SUGGESTED PAIRINGS (3 pairs, ~7.3 beers/pair):
+  Pair 1:
+    • John Shank                     (Certified)
+    • Jerry Keeney                   (Recognized)
+  Pair 2:
+    • John Skelton                   (Certified)
+    • Brian Street                   (Non-BJCP, Judge with Sensory Training)
+  Pair 3:
+    • Mark McCurdy                   (Certified)
+    • Caroline Forster               (Non-BJCP)
+
+ENTRY CONFLICTS (judge cannot evaluate their own entry):
+  • Brian Street                   entered: 12C
+  • Mark McCurdy                   entered: 12C
+
+RECOMMENDED ACTIONS:
+  → Add 1 more certified judge(s)
+  → Reassign 2 judge(s) with entry conflicts to different tables
+
+================================================================================
+⚠️  SITE: 02/14 AM Grapevine T51 Light Ale
+================================================================================
+Table: T51 | Entries: 25
+Judges: 10 total (3 certified, 7 non-certified)
+Quality: EXCELLENT | 8.3 beers/pair (3 pairs possible)
+
+ISSUES:
+  • Pairing imbalance: 3C vs 7NC
+
+CURRENT JUDGES:
+  ✗ Non-Cert   | Brian Street                   | Non-BJCP, Judge with Sensory Training
+  ✗ Non-Cert   | Caroline Forster               | Non-BJCP
+  ✗ Non-Cert   | Jerry Keeney                   | Recognized
+  ✓ CERT       | John Skelton                   | Certified
+  ✗ Non-Cert   | Joseph Cromeans                | Non-BJCP
+  ✓ CERT       | Keith Green                    | Certified
+  ✗ Non-Cert   | Kim Truesdell                  | Non-BJCP
+  ✓ CERT       | Mark McCurdy                   | Certified
+  ✗ Non-Cert   | Mike MacCrory                  | Non-BJCP
+  ✗ Non-Cert   | Tim Mercer                     | Non-BJCP
+
+SUGGESTED PAIRINGS (3 pairs, ~8.3 beers/pair):
+  Pair 1:
+    • John Skelton                   (Certified)
+    • Jerry Keeney                   (Recognized)
+  Pair 2:
+    • Keith Green                    (Certified)
+    • Brian Street                   (Non-BJCP, Judge with Sensory Training)
+  Pair 3:
+    • Mark McCurdy                   (Certified)
+    • Caroline Forster               (Non-BJCP)
+
+RECOMMENDED ACTIONS:
+  → Add 1 more certified judge(s)
+
+================================================================================
+⚠️  SITE: 02/28 AM Arlington T62 British Bitter
+================================================================================
+Table: T62 | Entries: 35
+Judges: 9 total (6 certified, 3 non-certified)
+Quality: EXCELLENT | 8.8 beers/pair (4 pairs possible)
+
+ISSUES:
+  • 1 entry conflicts
+
+CURRENT JUDGES:
+  ✓ CERT       | Amanda Long                    | Certified
+  ✗ Non-Cert   | Brian Street                   | Non-BJCP, Judge with Sensory Training ⚠️ CONFLICT
+  ✗ Non-Cert   | Greg Smith                     | Non-BJCP
+  ✓ CERT       | Jarrett Long                   | Certified
+  ✓ CERT       | John Mosher                    | Certified
+  ✓ CERT       | John Skelton                   | Certified
+  ✓ CERT       | Mark Wedge                     | National
+  ✗ Non-Cert   | Mike MacCrory                  | Non-BJCP
+  ✓ CERT       | Nigel Curtis                   | Certified
+
+SUGGESTED PAIRINGS (4 pairs, ~8.8 beers/pair):
+  Pair 1:
+    • Mark Wedge                     (National)
+    • Brian Street                   (Non-BJCP, Judge with Sensory Training)
+  Pair 2:
+    • Amanda Long                    (Certified)
+    • Greg Smith                     (Non-BJCP)
+  Pair 3:
+    • Jarrett Long                   (Certified)
+    • Mike MacCrory                  (Non-BJCP)
+  Pair 4:
+    • John Mosher                    (Certified)
+    • John Skelton                   (Certified)
+
+ENTRY CONFLICTS (judge cannot evaluate their own entry):
+  • Brian Street                   entered: 11C
+
+RECOMMENDED ACTIONS:
+  → Reassign 1 judge(s) with entry conflicts to different tables
+
+================================================================================
+⚠️  SITE: 02/27 Grapevine T84 Autumn Winter Seasonal
+================================================================================
+Table: T84 | Entries: 20
+Judges: 8 total (4 certified, 4 non-certified)
+Quality: EXCELLENT | 5.0 beers/pair (4 pairs possible)
+
+ISSUES:
+  • 1 entry conflicts
+
+CURRENT JUDGES:
+  ✓ CERT       | James Duke                     | Certified
+  ✗ Non-Cert   | Jerry Keeney                   | Recognized
+  ✓ CERT       | John Shank                     | Certified
+  ✓ CERT       | Joshua Hayes                   | Certified ⚠️ CONFLICT
+  ✗ Non-Cert   | Kim Truesdell                  | Non-BJCP
+  ✓ CERT       | Mark McCurdy                   | Certified
+  ✗ Non-Cert   | Mike MacCrory                  | Non-BJCP
+  ✗ Non-Cert   | Tim Mercer                     | Non-BJCP
+
+SUGGESTED PAIRINGS (4 pairs, ~5.0 beers/pair):
+  Pair 1:
+    • James Duke                     (Certified)
+    • Jerry Keeney                   (Recognized)
+  Pair 2:
+    • John Shank                     (Certified)
+    • Kim Truesdell                  (Non-BJCP)
+  Pair 3:
+    • Joshua Hayes                   (Certified)
+    • Mike MacCrory                  (Non-BJCP)
+  Pair 4:
+    • Mark McCurdy                   (Certified)
+    • Tim Mercer                     (Non-BJCP)
+
+ENTRY CONFLICTS (judge cannot evaluate their own entry):
+  • Joshua Hayes                   entered: 30B
+
+RECOMMENDED ACTIONS:
+  → Reassign 1 judge(s) with entry conflicts to different tables
+
+================================================================================
+⚠️  SITE: 02/28 AM Grapevine T93 Specialty Cider And Perry
+================================================================================
+Table: T93 | Entries: 36
+Judges: 5 total (1 certified, 4 non-certified)
+Quality: CRITICAL | 36.0 beers/pair (1 pairs possible)
+
+ISSUES:
+  • Workload: 36.0 beers/pair
+  • Pairing imbalance: 1C vs 4NC
+  • 1 entry conflicts
+
+CURRENT JUDGES:
+  ✗ Non-Cert   | Brian Street                   | Non-BJCP, Judge with Sensory Training ⚠️ CONFLICT
+  ✗ Non-Cert   | Caroline Forster               | Non-BJCP
+  ✗ Non-Cert   | Kim Truesdell                  | Non-BJCP
+  ✓ CERT       | Mark McCurdy                   | Certified
+  ✗ Non-Cert   | Tim Mercer                     | Non-BJCP
+
+SUGGESTED PAIRINGS (1 pairs, ~36.0 beers/pair):
+  Pair 1:
+    • Mark McCurdy                   (Certified)
+    • Brian Street                   (Non-BJCP, Judge with Sensory Training)
+
+ENTRY CONFLICTS (judge cannot evaluate their own entry):
+  • Brian Street                   entered: C2E, C2B
+
+RECOMMENDED ACTIONS:
+  → Add 2 more certified judge(s)
+  → Add 2 more certified judge(s) to reduce workload to 12 beers/pair
+  → Reassign 1 judge(s) with entry conflicts to different tables
+
+================================================================================
+SUMMARY
+================================================================================
+Total sites analyzed: 44
+Sites with issues: 31
+Sites running smoothly: 13
+
+TOP PRIORITIES:
+
+================================================================================
+Analysis complete!
+================================================================================

@@ -9,7 +9,7 @@ site_judges = defaultdict(set)
 with open(csv_path, newline="", encoding="utf-8") as f:
     reader = csv.DictReader(f)
     # Debug: check what DictReader sees
-    # print("Fieldnames:", reader.fieldnames)
+    print("Fieldnames:", reader.fieldnames)
     
         # Clean up header names: strip BOM/whitespace and surrounding quotes
     cleaned = []
@@ -27,7 +27,8 @@ with open(csv_path, newline="", encoding="utf-8") as f:
         first = row["First Name"].strip()
         last = row["Last Name"].strip()
         rank = row.get("BJCP Rank", "Unknown").strip()
-        judge_name = f"{first} {last} ({rank})"
+        entries = row.get("Entries", "").strip()
+        judge_name = f"{first} {last} | {rank} | {entries}"
 
         availability = (row.get("Availability") or "").strip()
 
@@ -47,3 +48,9 @@ site_judges = {site: sorted(judges) for site, judges in site_judges.items()}
 
 for site, judges in site_judges.items():
     print(site, "->", judges)
+
+with open("judges_by_site.csv", "w", newline="") as f:
+    writer = csv.writer(f)
+    writer.writerow(["Site", "Judges"])
+    for slot, judges in site_judges.items():
+        writer.writerow([slot, "; ".join(judges)])
