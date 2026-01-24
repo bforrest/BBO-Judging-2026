@@ -10,6 +10,7 @@ Output: Judges_and_Tables_generated.csv
 """
 
 import csv
+import os
 from collections import defaultdict
 
 def clean_headers(fieldnames):
@@ -56,6 +57,24 @@ def main():
             reader = csv.DictReader(f)
             rows_read = 0
             
+
+def load_existing_pairings(path):
+    """Load existing pairing values keyed by (name, table)."""
+    pairings = {}
+    if not os.path.exists(path):
+        return pairings
+    try:
+        with open(path, newline="", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                name = (row.get('FULL NAME') or '').strip()
+                table = (row.get('DESIRED TABLE TO JUDGE') or '').strip()
+                pairing = (row.get('PAIRING') or '').strip()
+                if name and table and pairing:
+                    pairings[(name, table)] = pairing
+    except Exception:
+        pass
+    return pairings
             for row in reader:
                 rows_read += 1
                 first = row.get("First Name", "").strip()
@@ -67,6 +86,7 @@ def main():
                 
                 if not first or not last:
                     continue
+    existing_pairings = load_existing_pairings(output_file)
                 
                 full_name = f"{first} {last}"
                 slots = parse_availability(availability)
@@ -96,10 +116,11 @@ def main():
     
     try:
         with open(output_file, 'w', newline='', encoding='utf-8') as f:
-            fieldnames = ['FULL NAME', 'DESIRED TABLE TO JUDGE', 'PAIRING', 'BJCP ID', 'RANKING', 'SUBSTYLES ENTERED']
+                    pairing_value = existing_pairings.get((full_name, slot), '')
+                    judges_data.append({
             writer = csv.DictWriter(f, fieldnames=fieldnames)
             writer.writeheader()
-            writer.writerows(judges_data)
+                        'PAIRING': pairing_value,
         
         print(f"✅ Successfully created {output_file}")
         print(f"   Total assignments: {len(judges_data)}")
