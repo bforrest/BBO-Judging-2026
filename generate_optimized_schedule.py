@@ -1,3 +1,25 @@
+# =============================================================================
+# UTILITY: CALCULATE NUMBER OF JUDGING PAIRS
+# =============================================================================
+def get_num_pairs(judges_at_table):
+    """Calculate the number of judging pairs for a table, using explicit pairings if present, else fallback logic."""
+    pairing_numbers = set()
+    for j in judges_at_table:
+        pairing = j.get('pairing')
+        if pairing and pairing.strip():
+            pairing_numbers.add(pairing.strip())
+    num_pairs = len(pairing_numbers)
+    certified_count = sum(1 for j in judges_at_table if is_certified_or_higher(j['rank']))
+    non_certified_count = len(judges_at_table) - certified_count
+    if num_pairs == 0:
+        if certified_count >= 2:
+            possible_pairs = min(certified_count, len(judges_at_table) // 2)
+            if certified_count >= 3 and len(judges_at_table) == 7 and non_certified_count == 2:
+                possible_pairs = 3
+            num_pairs = max(1, possible_pairs)
+        else:
+            num_pairs = max(1, (len(judges_at_table) + 1) // 2)
+    return num_pairs
 #!/usr/bin/env python3
 """
 BBO 2026 Judging Schedule Visualizer
@@ -288,7 +310,7 @@ for date in by_date_loc:
         for table, judges_at_table in by_date_loc[date][location].items():
             entry_count = table_entry_counts.get(table, 0)
             table_substyles = table_styles.get(table, [])
-            
+
             # Check for conflicts
             judges_with_conflicts = []
             for j in judges_at_table:
@@ -298,19 +320,23 @@ for date in by_date_loc:
                         'name': j['name'],
                         'conflicts': judge_conflicts
                     })
-            
-            # Calculate workload
+
+            # Calculate workload using actual pairings (match HTML logic)
+
+
+            num_pairs = get_num_pairs(judges_at_table)
+            print(f"Analyzing {date} {location} {table}: {entry_count} entries, {len(judges_at_table)} judges, {num_pairs} pairs")
             certified_count = sum(1 for j in judges_at_table if is_certified_or_higher(j['rank']))
-            num_pairs = certified_count if certified_count > 0 else len(judges_at_table) / 2
+            non_certified_count = len(judges_at_table) - certified_count
             beers_per_pair = entry_count / num_pairs if num_pairs > 0 and entry_count > 0 else 0
-            
+
             needs_more_judges = beers_per_pair > 9 and entry_count > 0
             needs_replacement = len(judges_with_conflicts) > 0
-            
+
             if needs_more_judges or needs_replacement:
                 # Find suitable replacement/additional judges
                 location_key = get_location_key(location)
-                
+
                 # Get judges not currently assigned to this table
                 # Normalize names to handle different formats (e.g., "First Last" vs "Last, First")
                 assigned_judge_names = set()
@@ -328,32 +354,32 @@ for date in by_date_loc:
                         if len(parts) >= 2:
                             reversed_name = f"{parts[-1]}, {' '.join(parts[:-1])}"
                             assigned_judge_names.add(reversed_name)
-                
+
                 # Find candidates: active, not assigned to this table, no conflicts, reasonable distance
                 candidates = []
                 for judge_name, dist_info in all_judges_roster.items():
                     if judge_name in assigned_judge_names:
                         continue
-                    
+
                     # Check if already assigned somewhere else on this date
                     already_assigned = any(
                         judge_name == j['name'] and j['date'] == date
                         for j in judges
                     )
-                    
+
                     if already_assigned:
                         continue
-                    
+
                     # Check for conflicts with this table using all_judge_substyles
                     judge_substyles = all_judge_substyles.get(judge_name, [])
-                    
+
                     has_conflict = any(s in table_substyles for s in judge_substyles)
                     if has_conflict:
                         continue
-                    
+
                     distance = dist_info.get(location_key, 999)
                     rank = dist_info.get('rank', '')
-                    
+
                     if distance > 0 and distance < 100:  # Reasonable driving distance
                         candidates.append({
                             'name': judge_name,
@@ -361,10 +387,10 @@ for date in by_date_loc:
                             'rank': rank,
                             'certified': is_certified_or_higher(rank)
                         })
-                
+
                 # Sort candidates by distance only (shortest distance first)
                 candidates.sort(key=lambda x: x['distance'])
-                
+
                 table_analysis.append({
                     'date': date,
                     'location': location,
@@ -801,27 +827,20 @@ for date in sorted(by_date_loc.keys()):
             # -------------------------------------------------------------
             has_workload_warning = False
             workload_info = ''
-            
-            # Count certified+ judges at this table
+
+            # Get entry count for this table
+            entry_count = table_entry_counts.get(table, 0)
+
+
+            num_pairs = get_num_pairs(judges_at_table)
             certified_judges = [j for j in judges_at_table if is_certified_or_higher(j['rank'])]
             certified_count = len(certified_judges)
             non_certified_count = len(judges_at_table) - certified_count
-            
-            # Get entry count for this table
-            entry_count = table_entry_counts.get(table, 0)
-            
-            if entry_count > 0 and certified_count >= 1:
-                # Each certified+ judge forms one qualified pair (paired with a non-certified judge)
-                # Number of qualified pairs = number of certified+ judges
-                num_pairs = certified_count
-                
-                # Calculate beers per pair
-                beers_per_pair = entry_count / num_pairs if num_pairs > 0 else entry_count
-                
-                # Flag if exceeds 9 beers per pair
+            if entry_count > 0 and num_pairs > 0:
+                beers_per_pair = entry_count / num_pairs
                 if beers_per_pair > 9:
                     has_workload_warning = True
-                    workload_info = f'⚠️ {int(beers_per_pair)} beers/pair ({entry_count} entries ÷ {num_pairs} qualified pairs) • {certified_count} Certified+ • {non_certified_count} Below Certified'
+                    workload_info = f'⚠️ {int(beers_per_pair)} beers/pair ({entry_count} entries ÷ {num_pairs} pairs) • {certified_count} Certified+ • {non_certified_count} Below Certified'
             
             # Add 'conflict' or 'workload-warning' CSS class if there's a problem
             warning_class = ''
@@ -1050,14 +1069,13 @@ h1 { text-align: center; color: #2c3e50; }
                         has_conflict = True
                         break
                 
-                # Check workload
+
+                num_pairs = get_num_pairs(judges_at_table)
                 certified_judges = [j for j in judges_at_table if is_certified_or_higher(j['rank'])]
                 certified_count = len(certified_judges)
                 non_certified_count = len(judges_at_table) - certified_count
-                
-                if entry_count > 0 and certified_count >= 1:
-                    num_pairs = certified_count
-                    beers_per_pair = entry_count / num_pairs if num_pairs > 0 else entry_count
+                if entry_count > 0 and num_pairs > 0:
+                    beers_per_pair = entry_count / num_pairs
                     if beers_per_pair > 9:
                         has_workload_warning = True
                 
