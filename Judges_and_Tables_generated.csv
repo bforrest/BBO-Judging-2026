@@ -1,14 +1,14 @@
 FULL NAME,DESIRED TABLE TO JUDGE,PAIRING,BJCP ID,RANKING,SUBSTYLES ENTERED
 Emily Allen,02/06 Arlington T68 American Pale Ale,,,Non-BJCP,
 Steve Ballantyne,02/06 Arlington T68 American Pale Ale,,,Non-BJCP,
-C.J. Barley,02/06 Arlington T68 American Pale Ale,,,Non-BJCP,
-John Bates,02/06 Arlington T68 American Pale Ale,,F1264,Level 3: Certified,"1D, 5D, 11A, 13B, 14B, 17D, 17A, 23D, 24C, 25B, 26B, 27A8, 30C, C1A, C2B, C2E, LSX5, M2C, M4A"
+C.J. Barley,02/06 Arlington T68 American Pale Ale,1,,Non-BJCP,
+John Bates,02/06 Arlington T68 American Pale Ale,1,F1264,Level 3: Certified,"1D, 5D, 11A, 13B, 14B, 17D, 17A, 23D, 24C, 25B, 26B, 27A8, 30C, C1A, C2B, C2E, LSX5, M2C, M4A"
 Donald Callan,02/06 Arlington T68 American Pale Ale,,N/A,"Non-BJCP, Judge with Sensory Training",
 Bill Hamilton,02/06 Arlington T68 American Pale Ale,,WDHAMILT0N01,Rank Pending,
-James Klee,02/06 Arlington T68 American Pale Ale,,,Non-BJCP,"3A, 15A"
-Tierney Klee,02/06 Arlington T68 American Pale Ale,,,"Provisional, Judge with Sensory Training",
-Amanda Long,02/06 Arlington T68 American Pale Ale,,F1356,Level 3: Certified,13A
-Jarrett Long,02/06 Arlington T68 American Pale Ale,,F1357,Level 3: Certified,"1C, 3D, 6A, 9C, 10B, 12A, 13B, 15C, 16B, 17D, 18A, 20C, 21B3, 21B5, 25A, 26A, 27A7, 29B, 30C, 33B, 33A, C2B, C2D, M1C, M1B, M1B, M2E, M2B, M4C"
+James Klee,02/06 Arlington T68 American Pale Ale,2,,Non-BJCP,"3A, 15A"
+Tierney Klee,02/06 Arlington T68 American Pale Ale,3,,"Provisional, Judge with Sensory Training",
+Amanda Long,02/06 Arlington T68 American Pale Ale,2,F1356,Level 3: Certified,13A
+Jarrett Long,02/06 Arlington T68 American Pale Ale,3,F1357,Level 3: Certified,"1C, 3D, 6A, 9C, 10B, 12A, 13B, 15C, 16B, 17D, 18A, 20C, 21B3, 21B5, 25A, 26A, 27A7, 29B, 30C, 33B, 33A, C2B, C2D, M1C, M1B, M1B, M2E, M2B, M4C"
 Michael Porter,02/06 Arlington T68 American Pale Ale,,A0207,Recognized,13A
 Mark Schuler,02/06 Arlington T68 American Pale Ale,,,Non-BJCP,
 Greg Smith,02/06 Arlington T68 American Pale Ale,,,Non-BJCP,"3D, 5B, 17D, 19A, 24B, 26D"
@@ -48,22 +48,22 @@ Steve Wesstrom,02/06 Grapevine T60 Strong European,,A0210,Level 3: Certified,"21
 Emily Allen,02/06 Keller T77 European Sour Ale,,,Non-BJCP,
 Steve Ballantyne,02/06 Keller T77 European Sour Ale,,,Non-BJCP,
 Donald Callan,02/06 Keller T77 European Sour Ale,,N/A,"Non-BJCP, Judge with Sensory Training",
-Tim Mercer,02/06 Keller T77 European Sour Ale,,,Non-BJCP,"22B, 27A2, C1A, M2B, M3B, M4C"
-Matthew Morriss,02/06 Keller T77 European Sour Ale,,F0399,"Certified, Professional Brewer",
-Reni Morriss,02/06 Keller T77 European Sour Ale,,F1354,"Recognized, Judge with Sensory Training",
-John Mosher,02/06 Keller T77 European Sour Ale,,F0829,Level 3: Certified,
-Stacy Myers,02/06 Keller T77 European Sour Ale,,,Non-BJCP,"6C, 7B, 13A, 15C, 16D, 21C, 27A8"
-Mike Treadway,02/06 Keller T77 European Sour Ale,,,Level 3: Certified,
+Tim Mercer,02/06 Keller T77 European Sour Ale,3,,Non-BJCP,"22B, 27A2, C1A, M2B, M3B, M4C"
+Matthew Morriss,02/06 Keller T77 European Sour Ale,1,F0399,"Certified, Professional Brewer",
+Reni Morriss,02/06 Keller T77 European Sour Ale,1,F1354,"Recognized, Judge with Sensory Training",
+John Mosher,02/06 Keller T77 European Sour Ale,2,F0829,Level 3: Certified,
+Stacy Myers,02/06 Keller T77 European Sour Ale,2,,Non-BJCP,"6C, 7B, 13A, 15C, 16D, 21C, 27A8"
+Mike Treadway,02/06 Keller T77 European Sour Ale,3,,Level 3: Certified,
 John Bates,02/07 AM Arlington T53 Pale German,,F1264,Level 3: Certified,"1D, 5D, 11A, 13B, 14B, 17D, 17A, 23D, 24C, 25B, 26B, 27A8, 30C, C1A, C2B, C2E, LSX5, M2C, M4A"
 Donald Callan,02/07 AM Arlington T53 Pale German,,N/A,"Non-BJCP, Judge with Sensory Training",
 Bill Hamilton,02/07 AM Arlington T53 Pale German,,WDHAMILT0N01,Rank Pending,
-Amanda Long,02/07 AM Arlington T53 Pale German,,F1356,Level 3: Certified,13A
-Jarrett Long,02/07 AM Arlington T53 Pale German,,F1357,Level 3: Certified,"1C, 3D, 6A, 9C, 10B, 12A, 13B, 15C, 16B, 17D, 18A, 20C, 21B3, 21B5, 25A, 26A, 27A7, 29B, 30C, 33B, 33A, C2B, C2D, M1C, M1B, M1B, M2E, M2B, M4C"
-Michael Moss,02/07 AM Arlington T53 Pale German,,,Non-BJCP,
-Steve Russell,02/07 AM Arlington T53 Pale German,,F1231,Level 3: Certified,"17C, 26C"
+Amanda Long,02/07 AM Arlington T53 Pale German,1,F1356,Level 3: Certified,13A
+Jarrett Long,02/07 AM Arlington T53 Pale German,2,F1357,Level 3: Certified,"1C, 3D, 6A, 9C, 10B, 12A, 13B, 15C, 16B, 17D, 18A, 20C, 21B3, 21B5, 25A, 26A, 27A7, 29B, 30C, 33B, 33A, C2B, C2D, M1C, M1B, M1B, M2E, M2B, M4C"
+Michael Moss,02/07 AM Arlington T53 Pale German,3,,Non-BJCP,
+Steve Russell,02/07 AM Arlington T53 Pale German,3,F1231,Level 3: Certified,"17C, 26C"
 John Skelton,02/07 AM Arlington T53 Pale German,,F1358,Level 3: Certified,"1A, 17C, 17D, 17B, 18A, 18B, 19A, 22C, 22B, 29A, 30C"
-Greg Smith,02/07 AM Arlington T53 Pale German,,,Non-BJCP,"3D, 5B, 17D, 19A, 24B, 26D"
-Brian Street,02/07 AM Arlington T53 Pale German,,,"Non-BJCP, Judge with Sensory Training","1B, 2B, 3B, 6B, 10C, 11C, 12C, 13A, 16D, 16A, 16B, 17C, 20A, 20C, 21A, 21B2, 21B3, 23A, 24C, 27A2, 28C, 33B, 34C, C2B, C2E, M1B, M4C"
+Greg Smith,02/07 AM Arlington T53 Pale German,1,,Non-BJCP,"3D, 5B, 17D, 19A, 24B, 26D"
+Brian Street,02/07 AM Arlington T53 Pale German,2,,"Non-BJCP, Judge with Sensory Training","1B, 2B, 3B, 6B, 10C, 11C, 12C, 13A, 16D, 16A, 16B, 17C, 20A, 20C, 21A, 21B2, 21B3, 23A, 24C, 27A2, 28C, 33B, 34C, C2B, C2E, M1B, M4C"
 Aaron Wagner,02/07 AM Arlington T53 Pale German,,,Non-BJCP,"1A, 13B"
 Harry Anderson,02/07 AM Dallas T55 Kolsch and Blonde,,,Non-BJCP,30C
 David Bierschenk,02/07 AM Dallas T55 Kolsch and Blonde,,,Non-BJCP,"13A, 16B, 27A5"
@@ -97,29 +97,29 @@ John Skelton,02/07 AM Grapevine T74 Hazy Exp IPA,,F1358,Level 3: Certified,"1A, 
 Brian Street,02/07 AM Grapevine T74 Hazy Exp IPA,,,"Non-BJCP, Judge with Sensory Training","1B, 2B, 3B, 6B, 10C, 11C, 12C, 13A, 16D, 16A, 16B, 17C, 20A, 20C, 21A, 21B2, 21B3, 23A, 24C, 27A2, 28C, 33B, 34C, C2B, C2E, M1B, M4C"
 Aaron Wagner,02/07 AM Grapevine T74 Hazy Exp IPA,,,Non-BJCP,"1A, 13B"
 C.J. Barley,02/07 AM Keller T59 Dark European Lager,,,Non-BJCP,
-John Bates,02/07 AM Keller T59 Dark European Lager,,F1264,Level 3: Certified,"1D, 5D, 11A, 13B, 14B, 17D, 17A, 23D, 24C, 25B, 26B, 27A8, 30C, C1A, C2B, C2E, LSX5, M2C, M4A"
+John Bates,02/07 AM Keller T59 Dark European Lager,1,F1264,Level 3: Certified,"1D, 5D, 11A, 13B, 14B, 17D, 17A, 23D, 24C, 25B, 26B, 27A8, 30C, C1A, C2B, C2E, LSX5, M2C, M4A"
 Donald Callan,02/07 AM Keller T59 Dark European Lager,,N/A,"Non-BJCP, Judge with Sensory Training",
 Loring Knutson,02/07 AM Keller T59 Dark European Lager,,E5855,Level 3: Certified,"8B, 9C, 16B, 21C, 26C, 33B"
 Nancy Knutson,02/07 AM Keller T59 Dark European Lager,,E5856,Level 3: Certified,
-Tim Mercer,02/07 AM Keller T59 Dark European Lager,,,Non-BJCP,"22B, 27A2, C1A, M2B, M3B, M4C"
-Matthew Morriss,02/07 AM Keller T59 Dark European Lager,,F0399,"Certified, Professional Brewer",
-Reni Morriss,02/07 AM Keller T59 Dark European Lager,,F1354,"Recognized, Judge with Sensory Training",
-Stacy Myers,02/07 AM Keller T59 Dark European Lager,,,Non-BJCP,"6C, 7B, 13A, 15C, 16D, 21C, 27A8"
+Tim Mercer,02/07 AM Keller T59 Dark European Lager,1,,Non-BJCP,"22B, 27A2, C1A, M2B, M3B, M4C"
+Matthew Morriss,02/07 AM Keller T59 Dark European Lager,2,F0399,"Certified, Professional Brewer",
+Reni Morriss,02/07 AM Keller T59 Dark European Lager,2,F1354,"Recognized, Judge with Sensory Training",
+Stacy Myers,02/07 AM Keller T59 Dark European Lager,3,,Non-BJCP,"6C, 7B, 13A, 15C, 16D, 21C, 27A8"
 John Skelton,02/07 AM Keller T59 Dark European Lager,,F1358,Level 3: Certified,"1A, 17C, 17D, 17B, 18A, 18B, 19A, 22C, 22B, 29A, 30C"
 Brian Street,02/07 AM Keller T59 Dark European Lager,,,"Non-BJCP, Judge with Sensory Training","1B, 2B, 3B, 6B, 10C, 11C, 12C, 13A, 16D, 16A, 16B, 17C, 20A, 20C, 21A, 21B2, 21B3, 23A, 24C, 27A2, 28C, 33B, 34C, C2B, C2E, M1B, M4C"
-Mike Treadway,02/07 AM Keller T59 Dark European Lager,,,Level 3: Certified,
+Mike Treadway,02/07 AM Keller T59 Dark European Lager,3,,Level 3: Certified,
 Aaron Wagner,02/07 AM Keller T59 Dark European Lager,,,Non-BJCP,"1A, 13B"
 Emily Allen,02/07 PM Arlington T61 German Wheat,,,Non-BJCP,
 C.J. Barley,02/07 PM Arlington T61 German Wheat,,,Non-BJCP,
-Steve Brown,02/07 PM Arlington T61 German Wheat,,F0286,Level 3: Certified,"5B, M2D"
+Steve Brown,02/07 PM Arlington T61 German Wheat,1,F0286,Level 3: Certified,"5B, M2D"
 Donald Callan,02/07 PM Arlington T61 German Wheat,,N/A,"Non-BJCP, Judge with Sensory Training",
-Tierney Klee,02/07 PM Arlington T61 German Wheat,,,"Provisional, Judge with Sensory Training",
+Tierney Klee,02/07 PM Arlington T61 German Wheat,1,,"Provisional, Judge with Sensory Training",
 Amanda Long,02/07 PM Arlington T61 German Wheat,,F1356,Level 3: Certified,13A
-Jarrett Long,02/07 PM Arlington T61 German Wheat,,F1357,Level 3: Certified,"1C, 3D, 6A, 9C, 10B, 12A, 13B, 15C, 16B, 17D, 18A, 20C, 21B3, 21B5, 25A, 26A, 27A7, 29B, 30C, 33B, 33A, C2B, C2D, M1C, M1B, M1B, M2E, M2B, M4C"
-Michael Moss,02/07 PM Arlington T61 German Wheat,,,Non-BJCP,
-Steve Russell,02/07 PM Arlington T61 German Wheat,,F1231,Level 3: Certified,"17C, 26C"
+Jarrett Long,02/07 PM Arlington T61 German Wheat,3,F1357,Level 3: Certified,"1C, 3D, 6A, 9C, 10B, 12A, 13B, 15C, 16B, 17D, 18A, 20C, 21B3, 21B5, 25A, 26A, 27A7, 29B, 30C, 33B, 33A, C2B, C2D, M1C, M1B, M1B, M2E, M2B, M4C"
+Michael Moss,02/07 PM Arlington T61 German Wheat,2,,Non-BJCP,
+Steve Russell,02/07 PM Arlington T61 German Wheat,2,F1231,Level 3: Certified,"17C, 26C"
 John Skelton,02/07 PM Arlington T61 German Wheat,,F1358,Level 3: Certified,"1A, 17C, 17D, 17B, 18A, 18B, 19A, 22C, 22B, 29A, 30C"
-Brian Street,02/07 PM Arlington T61 German Wheat,,,"Non-BJCP, Judge with Sensory Training","1B, 2B, 3B, 6B, 10C, 11C, 12C, 13A, 16D, 16A, 16B, 17C, 20A, 20C, 21A, 21B2, 21B3, 23A, 24C, 27A2, 28C, 33B, 34C, C2B, C2E, M1B, M4C"
+Brian Street,02/07 PM Arlington T61 German Wheat,3,,"Non-BJCP, Judge with Sensory Training","1B, 2B, 3B, 6B, 10C, 11C, 12C, 13A, 16D, 16A, 16B, 17C, 20A, 20C, 21A, 21B2, 21B3, 23A, 24C, 27A2, 28C, 33B, 34C, C2B, C2E, M1B, M4C"
 Kim Truesdell,02/07 PM Arlington T61 German Wheat,,,Non-BJCP,
 Harry Anderson,02/07 PM Dallas T69 Amber And Brown American,1,,Non-BJCP,30C
 David Bierschenk,02/07 PM Dallas T69 Amber And Brown American,,,Non-BJCP,"13A, 16B, 27A5"
@@ -149,20 +149,20 @@ John Shank,02/07 PM Grapevine T52 Commonwealth,,A0363,Level 3: Certified,"15B, 1
 John Skelton,02/07 PM Grapevine T52 Commonwealth,,F1358,Level 3: Certified,"1A, 17C, 17D, 17B, 18A, 18B, 19A, 22C, 22B, 29A, 30C"
 Brian Street,02/07 PM Grapevine T52 Commonwealth,,,"Non-BJCP, Judge with Sensory Training","1B, 2B, 3B, 6B, 10C, 11C, 12C, 13A, 16D, 16A, 16B, 17C, 20A, 20C, 21A, 21B2, 21B3, 23A, 24C, 27A2, 28C, 33B, 34C, C2B, C2E, M1B, M4C"
 Kim Truesdell,02/07 PM Grapevine T52 Commonwealth,,,Non-BJCP,
-John Bates,02/07 PM Keller T70 American Porter And Stout,,F1264,Level 3: Certified,"1D, 5D, 11A, 13B, 14B, 17D, 17A, 23D, 24C, 25B, 26B, 27A8, 30C, C1A, C2B, C2E, LSX5, M2C, M4A"
+John Bates,02/07 PM Keller T70 American Porter And Stout,1,F1264,Level 3: Certified,"1D, 5D, 11A, 13B, 14B, 17D, 17A, 23D, 24C, 25B, 26B, 27A8, 30C, C1A, C2B, C2E, LSX5, M2C, M4A"
 Donald Callan,02/07 PM Keller T70 American Porter And Stout,,N/A,"Non-BJCP, Judge with Sensory Training",
 Loring Knutson,02/07 PM Keller T70 American Porter And Stout,,E5855,Level 3: Certified,"8B, 9C, 16B, 21C, 26C, 33B"
 Nancy Knutson,02/07 PM Keller T70 American Porter And Stout,,E5856,Level 3: Certified,
 Brandon Melton,02/07 PM Keller T70 American Porter And Stout,,,Non-BJCP,
-Tim Mercer,02/07 PM Keller T70 American Porter And Stout,,,Non-BJCP,"22B, 27A2, C1A, M2B, M3B, M4C"
+Tim Mercer,02/07 PM Keller T70 American Porter And Stout,1,,Non-BJCP,"22B, 27A2, C1A, M2B, M3B, M4C"
 Matthew Morriss,02/07 PM Keller T70 American Porter And Stout,,F0399,"Certified, Professional Brewer",
-Reni Morriss,02/07 PM Keller T70 American Porter And Stout,,F1354,"Recognized, Judge with Sensory Training",
-John Mosher,02/07 PM Keller T70 American Porter And Stout,,F0829,Level 3: Certified,
-Stacy Myers,02/07 PM Keller T70 American Porter And Stout,,,Non-BJCP,"6C, 7B, 13A, 15C, 16D, 21C, 27A8"
+Reni Morriss,02/07 PM Keller T70 American Porter And Stout,2,F1354,"Recognized, Judge with Sensory Training",
+John Mosher,02/07 PM Keller T70 American Porter And Stout,2,F0829,Level 3: Certified,
+Stacy Myers,02/07 PM Keller T70 American Porter And Stout,3,,Non-BJCP,"6C, 7B, 13A, 15C, 16D, 21C, 27A8"
 Michael Porter,02/07 PM Keller T70 American Porter And Stout,,A0207,Recognized,13A
 John Skelton,02/07 PM Keller T70 American Porter And Stout,,F1358,Level 3: Certified,"1A, 17C, 17D, 17B, 18A, 18B, 19A, 22C, 22B, 29A, 30C"
 Brian Street,02/07 PM Keller T70 American Porter And Stout,,,"Non-BJCP, Judge with Sensory Training","1B, 2B, 3B, 6B, 10C, 11C, 12C, 13A, 16D, 16A, 16B, 17C, 20A, 20C, 21A, 21B2, 21B3, 23A, 24C, 27A2, 28C, 33B, 34C, C2B, C2E, M1B, M4C"
-Mike Treadway,02/07 PM Keller T70 American Porter And Stout,,,Level 3: Certified,
+Mike Treadway,02/07 PM Keller T70 American Porter And Stout,3,,Level 3: Certified,
 Kim Truesdell,02/07 PM Keller T70 American Porter And Stout,,,Non-BJCP,
 John Bates,02/09 Grapevine T73 Specialty IPA,,F1264,Level 3: Certified,"1D, 5D, 11A, 13B, 14B, 17D, 17A, 23D, 24C, 25B, 26B, 27A8, 30C, C1A, C2B, C2E, LSX5, M2C, M4A"
 Mark McCurdy,02/09 Grapevine T73 Specialty IPA,,E3908,Level 3: Certified,"1B, 5C, 6A, 6C, 7A, 8A, 10C, 11B, 12C, 15A, 15B, 16B, 17C, 18A, 19A, 20A, 21B1, 24B, 25A, 25C, 33B"
