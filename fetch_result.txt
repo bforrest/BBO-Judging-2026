@@ -1,0 +1,14 @@
+Fetching data from https://bcoemfix.bluebonnetbrewoff.org/index.php?section=entry...
+Found H2 element: Current Medal Category Counts
+Found table, extracting data...
+Extracted 45 rows
+Saving data to medal_category_counts.csv...
+Successfully saved 45 rows to medal_category_counts.csv
+
+Preview of extracted data:
+Row 0: ['Table Number', 'Table Name', 'Count']
+Row 1: ['50', 'Pale Lager', '36']
+Row 2: ['51', 'Light Ale', '25']
+Row 3: ['52', 'Commonwealth Beer', '23']
+Row 4: ['53', 'Pale  German Beer', '30']
+... and 40 more rows

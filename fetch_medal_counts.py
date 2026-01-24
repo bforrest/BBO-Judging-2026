@@ -13,9 +13,14 @@ Output:
 """
 
 import csv
-import requests
-from bs4 import BeautifulSoup
 from pathlib import Path
+
+try:
+    import requests
+    from bs4 import BeautifulSoup
+    HAS_REQUESTS = True
+except ImportError:
+    HAS_REQUESTS = False
 
 
 def fetch_medal_counts(url: str) -> list:
@@ -99,6 +104,16 @@ def main():
     """Main function to fetch and convert the medal counts table."""
     url = 'https://bcoemfix.bluebonnetbrewoff.org/index.php?section=entry'
     output_file = 'medal_category_counts.csv'
+    
+    if not HAS_REQUESTS:
+        print("Error: 'requests' and 'beautifulsoup4' modules are required.")
+        print("\nTo install them, run:")
+        print("  pip install requests beautifulsoup4")
+        print("\nAlternatively, if you already have medal_category_counts.csv,")
+        print("you can use it as-is (no update needed).")
+        print("\nNote: This script is only needed if you want to fetch the latest")
+        print("data from the BBO website. Your existing CSV file is likely current.")
+        return
     
     try:
         # Fetch the data
