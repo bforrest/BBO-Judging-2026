@@ -15,7 +15,7 @@ Greg Smith,02/06 Arlington T68 American Pale Ale,,,Non-BJCP,"3D, 5B, 17D, 19A, 2
 Donald Callan,02/06 Dallas T72 American IPA,,N/A,"Non-BJCP, Judge with Sensory Training",
 Amanda Garland,02/06 Dallas T72 American IPA,,,Non-BJCP,"C1A, C1D"
 Mike Grover,02/06 Dallas T72 American IPA,1,F0293,Level 4: National,10B
-Bill Hamilton,02/06 Dallas T72 American IPA,1,WDHAMILT0N01,Rank Pending,
+Bill Hamilton,02/06 Dallas T72 American IPA,,WDHAMILT0N01,Rank Pending,
 Douglas Hicks,02/06 Dallas T72 American IPA,5,,Recognized,"20A, 25B, 26B"
 Walter Hodges,02/06 Dallas T72 American IPA,2,F1301,Level 3: Certified,"5D, 10A, 20B, 22D, 26A, 26C"
 William Lawrence,02/06 Dallas T72 American IPA,2,,Non-BJCP,"4B, 5D, 6A, 8A, 11B, 12C, 13B, 16B, 25A"
@@ -25,7 +25,7 @@ Eric Morgan,02/06 Dallas T72 American IPA,5,F1456,Level 3: Certified,
 Terry Olinger,02/06 Dallas T72 American IPA,4,F1458,"Certified, Judge with Sensory Training","6A, 7A, 9A, 19C, 30A"
 Matt Parulis,02/06 Dallas T72 American IPA,4,,Non-BJCP,"20B, 30C, 31A"
 Douglas Robinson,02/06 Dallas T72 American IPA,,,Non-BJCP,
-James Smith,02/06 Dallas T72 American IPA,,,Non-BJCP,"10A, 11C, 18B, 18A, M4B"
+James Smith,02/06 Dallas T72 American IPA,1,,Non-BJCP,"10A, 11C, 18B, 18A, M4B"
 Steve Steinheimer,02/06 Dallas T72 American IPA,,,Non-BJCP,
 Kim Truesdell,02/06 Dallas T72 American IPA,,,Non-BJCP,
 Steve Ballantyne,02/06 Grapevine T60 Strong European,,,Non-BJCP,
@@ -67,7 +67,7 @@ Brian Street,02/07 AM Arlington T53 Pale German,2,,"Non-BJCP, Judge with Sensory
 Aaron Wagner,02/07 AM Arlington T53 Pale German,,,Non-BJCP,"1A, 13B"
 Harry Anderson,02/07 AM Dallas T55 Kolsch and Blonde,,,Non-BJCP,30C
 David Bierschenk,02/07 AM Dallas T55 Kolsch and Blonde,,,Non-BJCP,"13A, 16B, 27A5"
-Marqus Burleson,02/07 AM Dallas T55 Kolsch and Blonde,,,Non-BJCP,"1A, 16B"
+Marqus Burleson,02/07 AM Dallas T55 Kolsch and Blonde,4,,Non-BJCP,"1A, 16B"
 Donald Callan,02/07 AM Dallas T55 Kolsch and Blonde,,N/A,"Non-BJCP, Judge with Sensory Training",
 Marcio Fazzani,02/07 AM Dallas T55 Kolsch and Blonde,1,F1499,"Certified, Judge with Sensory Training","14C, 18B, 21A, 26D"
 Barry Forrest,02/07 AM Dallas T55 Kolsch and Blonde,2,F1355,Level 3: Certified,"4A, 4B, 5D, 15A, 15C, 16D, 19B, 22C, 23A, 23C, 24B, 26D, 27A3, 29A, C2F, LSX5"
@@ -78,13 +78,13 @@ Walter Hodges,02/07 AM Dallas T55 Kolsch and Blonde,3,F1301,Level 3: Certified,"
 William Lawrence,02/07 AM Dallas T55 Kolsch and Blonde,,,Non-BJCP,"4B, 5D, 6A, 8A, 11B, 12C, 13B, 16B, 25A"
 Steve Littel,02/07 AM Dallas T55 Kolsch and Blonde,2,F1457,"Certified, Judge with Sensory Training","1B, 6A, 8B, 10A, 24A"
 Michael Moss,02/07 AM Dallas T55 Kolsch and Blonde,,,Non-BJCP,
-Terry Olinger,02/07 AM Dallas T55 Kolsch and Blonde,3,F1458,"Certified, Judge with Sensory Training","6A, 7A, 9A, 19C, 30A"
+Terry Olinger,02/07 AM Dallas T55 Kolsch and Blonde,4,F1458,"Certified, Judge with Sensory Training","6A, 7A, 9A, 19C, 30A"
 Steve Russell,02/07 AM Dallas T55 Kolsch and Blonde,,F1231,Level 3: Certified,"17C, 26C"
 Mark Schuler,02/07 AM Dallas T55 Kolsch and Blonde,,,Non-BJCP,
 Tony Silveira,02/07 AM Dallas T55 Kolsch and Blonde,,,"Non-BJCP, Certified Cicerone","6A, 9A, 14B, 15B, 22C, 26A, 26C, 26D"
 Steve Steinheimer,02/07 AM Dallas T55 Kolsch and Blonde,,,Non-BJCP,
 Brian Street,02/07 AM Dallas T55 Kolsch and Blonde,,,"Non-BJCP, Judge with Sensory Training","1B, 2B, 3B, 6B, 10C, 11C, 12C, 13A, 16D, 16A, 16B, 17C, 20A, 20C, 21A, 21B2, 21B3, 23A, 24C, 27A2, 28C, 33B, 34C, C2B, C2E, M1B, M4C"
-John Sutton,02/07 AM Dallas T55 Kolsch and Blonde,,,Non-BJCP,"20B, 21A"
+John Sutton,02/07 AM Dallas T55 Kolsch and Blonde,3,,Non-BJCP,"20B, 21A"
 Aaron Wagner,02/07 AM Dallas T55 Kolsch and Blonde,,,Non-BJCP,"1A, 13B"
 John Bates,02/07 AM Grapevine T74 Hazy Exp IPA,,F1264,Level 3: Certified,"1D, 5D, 11A, 13B, 14B, 17D, 17A, 23D, 24C, 25B, 26B, 27A8, 30C, C1A, C2B, C2E, LSX5, M2C, M4A"
 Donald Callan,02/07 AM Grapevine T74 Hazy Exp IPA,,N/A,"Non-BJCP, Judge with Sensory Training",
@@ -122,8 +122,8 @@ John Skelton,02/07 PM Arlington T61 German Wheat,,F1358,Level 3: Certified,"1A, 
 Brian Street,02/07 PM Arlington T61 German Wheat,3,,"Non-BJCP, Judge with Sensory Training","1B, 2B, 3B, 6B, 10C, 11C, 12C, 13A, 16D, 16A, 16B, 17C, 20A, 20C, 21A, 21B2, 21B3, 23A, 24C, 27A2, 28C, 33B, 34C, C2B, C2E, M1B, M4C"
 Kim Truesdell,02/07 PM Arlington T61 German Wheat,,,Non-BJCP,
 Harry Anderson,02/07 PM Dallas T69 Amber And Brown American,1,,Non-BJCP,30C
-David Bierschenk,02/07 PM Dallas T69 Amber And Brown American,,,Non-BJCP,"13A, 16B, 27A5"
-Donald Callan,02/07 PM Dallas T69 Amber And Brown American,2,N/A,"Non-BJCP, Judge with Sensory Training",
+David Bierschenk,02/07 PM Dallas T69 Amber And Brown American,2,,Non-BJCP,"13A, 16B, 27A5"
+Donald Callan,02/07 PM Dallas T69 Amber And Brown American,,N/A,"Non-BJCP, Judge with Sensory Training",
 Marcio Fazzani,02/07 PM Dallas T69 Amber And Brown American,1,F1499,"Certified, Judge with Sensory Training","14C, 18B, 21A, 26D"
 Mike Grover,02/07 PM Dallas T69 Amber And Brown American,2,F0293,Level 4: National,10B
 Walter Hodges,02/07 PM Dallas T69 Amber And Brown American,3,F1301,Level 3: Certified,"5D, 10A, 20B, 22D, 26A, 26C"
