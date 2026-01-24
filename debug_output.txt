@@ -1,0 +1,32 @@
+Fieldnames from DictReader:
+  0: 'First Name'
+  1: 'Last Name'
+  2: 'Email Address'
+  3: 'BJCP Rank'
+  4: 'Certified Mead Judge?'
+  5: 'Certified Cider Judge?'
+  6: 'BJCP ID'
+  7: 'Availability'
+  8: 'Preferred Styles'
+  9: 'Non-Preferred Styles'
+  10: 'Entries'
+
+--- First 3 rows ---
+
+Row 0:
+  First Name: 'Emily'
+  Last Name: 'Allen'
+  Availability (first 80 chars): '02/06 Arlington T68 American Pale Ale  | 02/06 Keller T77 European Sour Ale  | 0'...
+  Entries: ''
+
+Row 1:
+  First Name: 'Harry'
+  Last Name: 'Anderson'
+  Availability (first 80 chars): '02/07 AM Dallas T55 Kolsch and Blonde  | 02/07 PM Dallas T69 Amber And Brown Ame'...
+  Entries: '30C'
+
+Row 2:
+  First Name: 'Steve'
+  Last Name: 'Ballantyne'
+  Availability (first 80 chars): '02/06 Arlington T68 American Pale Ale  | 02/06 Grapevine T60 Strong European  | '...
+  Entries: ''

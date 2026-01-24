@@ -1,0 +1,14 @@
+Reading from: Bluebonnet_Brew-Off_For_2026_Available_Judge_Emails_2026-01-23.csv
+Writing to: Judges_and_Tables_generated.csv
+
+✅ Successfully created Judges_and_Tables_generated.csv
+   Total assignments: 494
+   Unique judges: 81
+
+Preview of first 5 rows:
+  1. Emily Allen → 02/06 Arlington T68 American Pale Ale (Non-BJCP)
+  2. Emily Allen → 02/06 Keller T77 European Sour Ale (Non-BJCP)
+  3. Emily Allen → 02/07 PM Arlington T61 German Wheat (Non-BJCP)
+  4. Emily Allen → 02/13 Arlington T67 Strong British Ale (Non-BJCP)
+  5. Emily Allen → 02/14 PM Arlington T57 Euro Ambers and Bocks (Non-BJCP)
+  ... and 489 more assignments
