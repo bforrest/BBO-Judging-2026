@@ -749,6 +749,8 @@ RANKS = {
     'Certified+ Mead': 3,
     'Certified+Mead': 3,
     'Certified+Mead+cider': 3,
+    'Certified, Judge with Sensory Training': 3,
+    'Certified, Professional Brewer': 3,
     'national': 4,
     'Level 4: National': 4
 }
