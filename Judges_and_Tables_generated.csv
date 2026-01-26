@@ -1,4 +1,4 @@
-FULL NAME,DESIRED TABLE TO JUDGE,PAIRING,BJCP ID,RANKING,SUBSTYLES ENTERED
+FULL NAME,DESIRED TABLE TO JUDGE,DESIRED TABLE TO JUDGE,BJCP ID,RANKING,SUBSTYLES ENTERED
 Emily Allen,02/06 Arlington T68 American Pale Ale,,,Non-BJCP,
 Steve Ballantyne,02/06 Arlington T68 American Pale Ale,,,Non-BJCP,
 C.J. Barley,02/06 Arlington T68 American Pale Ale,1,,Non-BJCP,
@@ -28,22 +28,22 @@ Douglas Robinson,02/06 Dallas T72 American IPA,,,Non-BJCP,
 James Smith,02/06 Dallas T72 American IPA,1,,Non-BJCP,"10A, 11C, 18B, 18A, M4B"
 Steve Steinheimer,02/06 Dallas T72 American IPA,,,Non-BJCP,
 Kim Truesdell,02/06 Dallas T72 American IPA,,,Non-BJCP,
-Steve Ballantyne,02/06 Grapevine T60 Strong European,,,Non-BJCP,
+Steve Ballantyne,02/06 Grapevine T60 Strong European,1,,Non-BJCP,
 John Bates,02/06 Grapevine T60 Strong European,,F1264,Level 3: Certified,"1D, 5D, 11A, 13B, 14B, 17D, 17A, 23D, 24C, 25B, 26B, 27A8, 30C, C1A, C2B, C2E, LSX5, M2C, M4A"
-Steve Brown,02/06 Grapevine T60 Strong European,,F0286,Level 3: Certified,"5B, M2D"
+Steve Brown,02/06 Grapevine T60 Strong European,1,F0286,Level 3: Certified,"5B, M2D"
 Donald Callan,02/06 Grapevine T60 Strong European,,N/A,"Non-BJCP, Judge with Sensory Training",
 Joseph Cromeans,02/06 Grapevine T60 Strong European,,,Non-BJCP,
-Joshua Hayes,02/06 Grapevine T60 Strong European,,F1460,Level 3: Certified,"21A, 22C, 23F, 30B"
-Jerry Keeney,02/06 Grapevine T60 Strong European,,F1461,Recognized,
+Joshua Hayes,02/06 Grapevine T60 Strong European,2,F1460,Level 3: Certified,"21A, 22C, 23F, 30B"
+Jerry Keeney,02/06 Grapevine T60 Strong European,2,F1461,Recognized,
 Mark McCurdy,02/06 Grapevine T60 Strong European,,E3908,Level 3: Certified,"1B, 5C, 6A, 6C, 7A, 8A, 10C, 11B, 12C, 15A, 15B, 16B, 17C, 18A, 19A, 20A, 21B1, 24B, 25A, 25C, 33B"
 Brandon Melton,02/06 Grapevine T60 Strong European,,,Non-BJCP,
 Tim Mercer,02/06 Grapevine T60 Strong European,,,Non-BJCP,"22B, 27A2, C1A, M2B, M3B, M4C"
 Michael Moss,02/06 Grapevine T60 Strong European,,,Non-BJCP,
 Steve Russell,02/06 Grapevine T60 Strong European,,F1231,Level 3: Certified,"17C, 26C"
-Brian Schoolcraft,02/06 Grapevine T60 Strong European,,A0367,Level 4: National,"6A, 7A"
-John Skelton,02/06 Grapevine T60 Strong European,,F1358,Level 3: Certified,"1A, 17C, 17D, 17B, 18A, 18B, 19A, 22C, 22B, 29A, 30C"
-Alf Syftestad,02/06 Grapevine T60 Strong European,,F1455,"Certified, Judge with Sensory Training","22C, 30A"
-Kim Truesdell,02/06 Grapevine T60 Strong European,,,Non-BJCP,
+Brian Schoolcraft,02/06 Grapevine T60 Strong European,3,A0367,Level 4: National,"6A, 7A"
+John Skelton,02/06 Grapevine T60 Strong European,4,F1358,Level 3: Certified,"1A, 17C, 17D, 17B, 18A, 18B, 19A, 22C, 22B, 29A, 30C"
+Alf Syftestad,02/06 Grapevine T60 Strong European,4,F1455,"Certified, Judge with Sensory Training","22C, 30A"
+Kim Truesdell,02/06 Grapevine T60 Strong European,3,,Non-BJCP,
 Steve Wesstrom,02/06 Grapevine T60 Strong European,,A0210,Level 3: Certified,"21C, 33B"
 Emily Allen,02/06 Keller T77 European Sour Ale,,,Non-BJCP,
 Steve Ballantyne,02/06 Keller T77 European Sour Ale,,,Non-BJCP,
@@ -88,12 +88,12 @@ John Sutton,02/07 AM Dallas T55 Kolsch and Blonde,3,,Non-BJCP,"20B, 21A"
 Aaron Wagner,02/07 AM Dallas T55 Kolsch and Blonde,,,Non-BJCP,"1A, 13B"
 John Bates,02/07 AM Grapevine T74 Hazy Exp IPA,,F1264,Level 3: Certified,"1D, 5D, 11A, 13B, 14B, 17D, 17A, 23D, 24C, 25B, 26B, 27A8, 30C, C1A, C2B, C2E, LSX5, M2C, M4A"
 Donald Callan,02/07 AM Grapevine T74 Hazy Exp IPA,,N/A,"Non-BJCP, Judge with Sensory Training",
-Joseph Cromeans,02/07 AM Grapevine T74 Hazy Exp IPA,,,Non-BJCP,
+Joseph Cromeans,02/07 AM Grapevine T74 Hazy Exp IPA,1,,Non-BJCP,
 Walter Hansen,02/07 AM Grapevine T74 Hazy Exp IPA,,,Non-BJCP,
-Jerry Keeney,02/07 AM Grapevine T74 Hazy Exp IPA,,F1461,Recognized,
-Mark McCurdy,02/07 AM Grapevine T74 Hazy Exp IPA,,E3908,Level 3: Certified,"1B, 5C, 6A, 6C, 7A, 8A, 10C, 11B, 12C, 15A, 15B, 16B, 17C, 18A, 19A, 20A, 21B1, 24B, 25A, 25C, 33B"
+Jerry Keeney,02/07 AM Grapevine T74 Hazy Exp IPA,2,F1461,Recognized,
+Mark McCurdy,02/07 AM Grapevine T74 Hazy Exp IPA,1,E3908,Level 3: Certified,"1B, 5C, 6A, 6C, 7A, 8A, 10C, 11B, 12C, 15A, 15B, 16B, 17C, 18A, 19A, 20A, 21B1, 24B, 25A, 25C, 33B"
 Tim Mercer,02/07 AM Grapevine T74 Hazy Exp IPA,,,Non-BJCP,"22B, 27A2, C1A, M2B, M3B, M4C"
-John Skelton,02/07 AM Grapevine T74 Hazy Exp IPA,,F1358,Level 3: Certified,"1A, 17C, 17D, 17B, 18A, 18B, 19A, 22C, 22B, 29A, 30C"
+John Skelton,02/07 AM Grapevine T74 Hazy Exp IPA,2,F1358,Level 3: Certified,"1A, 17C, 17D, 17B, 18A, 18B, 19A, 22C, 22B, 29A, 30C"
 Brian Street,02/07 AM Grapevine T74 Hazy Exp IPA,,,"Non-BJCP, Judge with Sensory Training","1B, 2B, 3B, 6B, 10C, 11C, 12C, 13A, 16D, 16A, 16B, 17C, 20A, 20C, 21A, 21B2, 21B3, 23A, 24C, 27A2, 28C, 33B, 34C, C2B, C2E, M1B, M4C"
 Aaron Wagner,02/07 AM Grapevine T74 Hazy Exp IPA,,,Non-BJCP,"1A, 13B"
 C.J. Barley,02/07 AM Keller T59 Dark European Lager,,,Non-BJCP,
@@ -140,13 +140,13 @@ Brian Street,02/07 PM Dallas T69 Amber And Brown American,,,"Non-BJCP, Judge wit
 John Sutton,02/07 PM Dallas T69 Amber And Brown American,,,Non-BJCP,"20B, 21A"
 Kim Truesdell,02/07 PM Dallas T69 Amber And Brown American,4,,Non-BJCP,
 Donald Callan,02/07 PM Grapevine T52 Commonwealth,,N/A,"Non-BJCP, Judge with Sensory Training",
-Joseph Cromeans,02/07 PM Grapevine T52 Commonwealth,,,Non-BJCP,
+Joseph Cromeans,02/07 PM Grapevine T52 Commonwealth,1,,Non-BJCP,
 Caroline Forster,02/07 PM Grapevine T52 Commonwealth,,,Non-BJCP,
-Jerry Keeney,02/07 PM Grapevine T52 Commonwealth,,F1461,Recognized,
+Jerry Keeney,02/07 PM Grapevine T52 Commonwealth,2,F1461,Recognized,
 Mark McCurdy,02/07 PM Grapevine T52 Commonwealth,,E3908,Level 3: Certified,"1B, 5C, 6A, 6C, 7A, 8A, 10C, 11B, 12C, 15A, 15B, 16B, 17C, 18A, 19A, 20A, 21B1, 24B, 25A, 25C, 33B"
 Tim Mercer,02/07 PM Grapevine T52 Commonwealth,,,Non-BJCP,"22B, 27A2, C1A, M2B, M3B, M4C"
-John Shank,02/07 PM Grapevine T52 Commonwealth,,A0363,Level 3: Certified,"15B, 15A"
-John Skelton,02/07 PM Grapevine T52 Commonwealth,,F1358,Level 3: Certified,"1A, 17C, 17D, 17B, 18A, 18B, 19A, 22C, 22B, 29A, 30C"
+John Shank,02/07 PM Grapevine T52 Commonwealth,1,A0363,Level 3: Certified,"15B, 15A"
+John Skelton,02/07 PM Grapevine T52 Commonwealth,2,F1358,Level 3: Certified,"1A, 17C, 17D, 17B, 18A, 18B, 19A, 22C, 22B, 29A, 30C"
 Brian Street,02/07 PM Grapevine T52 Commonwealth,,,"Non-BJCP, Judge with Sensory Training","1B, 2B, 3B, 6B, 10C, 11C, 12C, 13A, 16D, 16A, 16B, 17C, 20A, 20C, 21A, 21B2, 21B3, 23A, 24C, 27A2, 28C, 33B, 34C, C2B, C2E, M1B, M4C"
 Kim Truesdell,02/07 PM Grapevine T52 Commonwealth,,,Non-BJCP,
 John Bates,02/07 PM Keller T70 American Porter And Stout,1,F1264,Level 3: Certified,"1D, 5D, 11A, 13B, 14B, 17D, 17A, 23D, 24C, 25B, 26B, 27A8, 30C, C1A, C2B, C2E, LSX5, M2C, M4A"
@@ -164,10 +164,10 @@ John Skelton,02/07 PM Keller T70 American Porter And Stout,,F1358,Level 3: Certi
 Brian Street,02/07 PM Keller T70 American Porter And Stout,,,"Non-BJCP, Judge with Sensory Training","1B, 2B, 3B, 6B, 10C, 11C, 12C, 13A, 16D, 16A, 16B, 17C, 20A, 20C, 21A, 21B2, 21B3, 23A, 24C, 27A2, 28C, 33B, 34C, C2B, C2E, M1B, M4C"
 Mike Treadway,02/07 PM Keller T70 American Porter And Stout,3,,Level 3: Certified,
 Kim Truesdell,02/07 PM Keller T70 American Porter And Stout,,,Non-BJCP,
-John Bates,02/09 Grapevine T73 Specialty IPA,,F1264,Level 3: Certified,"1D, 5D, 11A, 13B, 14B, 17D, 17A, 23D, 24C, 25B, 26B, 27A8, 30C, C1A, C2B, C2E, LSX5, M2C, M4A"
-Mark McCurdy,02/09 Grapevine T73 Specialty IPA,,E3908,Level 3: Certified,"1B, 5C, 6A, 6C, 7A, 8A, 10C, 11B, 12C, 15A, 15B, 16B, 17C, 18A, 19A, 20A, 21B1, 24B, 25A, 25C, 33B"
-Tim Mercer,02/09 Grapevine T73 Specialty IPA,,,Non-BJCP,"22B, 27A2, C1A, M2B, M3B, M4C"
-John Skelton,02/09 Grapevine T73 Specialty IPA,,F1358,Level 3: Certified,"1A, 17C, 17D, 17B, 18A, 18B, 19A, 22C, 22B, 29A, 30C"
+John Bates,02/09 Grapevine T73 Specialty IPA,1,F1264,Level 3: Certified,"1D, 5D, 11A, 13B, 14B, 17D, 17A, 23D, 24C, 25B, 26B, 27A8, 30C, C1A, C2B, C2E, LSX5, M2C, M4A"
+Mark McCurdy,02/09 Grapevine T73 Specialty IPA,1,E3908,Level 3: Certified,"1B, 5C, 6A, 6C, 7A, 8A, 10C, 11B, 12C, 15A, 15B, 16B, 17C, 18A, 19A, 20A, 21B1, 24B, 25A, 25C, 33B"
+Tim Mercer,02/09 Grapevine T73 Specialty IPA,2,,Non-BJCP,"22B, 27A2, C1A, M2B, M3B, M4C"
+John Skelton,02/09 Grapevine T73 Specialty IPA,2,F1358,Level 3: Certified,"1A, 17C, 17D, 17B, 18A, 18B, 19A, 22C, 22B, 29A, 30C"
 Emily Allen,02/13 Arlington T67 Strong British Ale,,,Non-BJCP,
 Steve Ballantyne,02/13 Arlington T67 Strong British Ale,,,Non-BJCP,
 C.J. Barley,02/13 Arlington T67 Strong British Ale,,,Non-BJCP,
@@ -197,15 +197,15 @@ Douglas Robinson,02/13 Dallas T75 Strong American Ale,,,Non-BJCP,
 James Smith,02/13 Dallas T75 Strong American Ale,,,Non-BJCP,"10A, 11C, 18B, 18A, M4B"
 Kim Truesdell,02/13 Dallas T75 Strong American Ale,,,Non-BJCP,
 John Bates,02/13 Grapevine T71 Imperial Stout,,F1264,Level 3: Certified,"1D, 5D, 11A, 13B, 14B, 17D, 17A, 23D, 24C, 25B, 26B, 27A8, 30C, C1A, C2B, C2E, LSX5, M2C, M4A"
-Steve Brown,02/13 Grapevine T71 Imperial Stout,,F0286,Level 3: Certified,"5B, M2D"
-Joseph Cromeans,02/13 Grapevine T71 Imperial Stout,,,Non-BJCP,
-James Duke,02/13 Grapevine T71 Imperial Stout,,F1360,Level 3: Certified,
-Mike MacCrory,02/13 Grapevine T71 Imperial Stout,,,Non-BJCP,15C
-Mark McCurdy,02/13 Grapevine T71 Imperial Stout,,E3908,Level 3: Certified,"1B, 5C, 6A, 6C, 7A, 8A, 10C, 11B, 12C, 15A, 15B, 16B, 17C, 18A, 19A, 20A, 21B1, 24B, 25A, 25C, 33B"
+Steve Brown,02/13 Grapevine T71 Imperial Stout,1,F0286,Level 3: Certified,"5B, M2D"
+Joseph Cromeans,02/13 Grapevine T71 Imperial Stout,1,,Non-BJCP,
+James Duke,02/13 Grapevine T71 Imperial Stout,2,F1360,Level 3: Certified,
+Mike MacCrory,02/13 Grapevine T71 Imperial Stout,2,,Non-BJCP,15C
+Mark McCurdy,02/13 Grapevine T71 Imperial Stout,3,E3908,Level 3: Certified,"1B, 5C, 6A, 6C, 7A, 8A, 10C, 11B, 12C, 15A, 15B, 16B, 17C, 18A, 19A, 20A, 21B1, 24B, 25A, 25C, 33B"
 Tim Mercer,02/13 Grapevine T71 Imperial Stout,,,Non-BJCP,"22B, 27A2, C1A, M2B, M3B, M4C"
-Max Milan,02/13 Grapevine T71 Imperial Stout,,,Non-BJCP,
-John Skelton,02/13 Grapevine T71 Imperial Stout,,F1358,Level 3: Certified,"1A, 17C, 17D, 17B, 18A, 18B, 19A, 22C, 22B, 29A, 30C"
-Kim Truesdell,02/13 Grapevine T71 Imperial Stout,,,Non-BJCP,
+Max Milan,02/13 Grapevine T71 Imperial Stout,3,,Non-BJCP,
+John Skelton,02/13 Grapevine T71 Imperial Stout,4,F1358,Level 3: Certified,"1A, 17C, 17D, 17B, 18A, 18B, 19A, 22C, 22B, 29A, 30C"
+Kim Truesdell,02/13 Grapevine T71 Imperial Stout,4,,Non-BJCP,
 Steve Ballantyne,02/13 Keller T76 Barleywines,1,,Non-BJCP,
 James Duke,02/13 Keller T76 Barleywines,,F1360,Level 3: Certified,
 Kyle Lapointe,02/13 Keller T76 Barleywines,1,F0480,Level 4: National,
@@ -236,14 +236,14 @@ Walter Hodges,02/14 AM Dallas T90 Melomel,4,F1301,Level 3: Certified,"5D, 10A, 2
 Terry Olinger,02/14 AM Dallas T90 Melomel,4,F1458,"Certified, Judge with Sensory Training","6A, 7A, 9A, 19C, 30A"
 James Smith,02/14 AM Dallas T90 Melomel,3,,Non-BJCP,"10A, 11C, 18B, 18A, M4B"
 Kim Truesdell,02/14 AM Dallas T90 Melomel,,,Non-BJCP,
-Joseph Cromeans,02/14 AM Grapevine T51 Light Ale,,,Non-BJCP,
-Caroline Forster,02/14 AM Grapevine T51 Light Ale,,,Non-BJCP,
-Keith Green,02/14 AM Grapevine T51 Light Ale,,F1227,Level 3: Certified,"1D, 9B, 15B, 19A"
-Jerry Keeney,02/14 AM Grapevine T51 Light Ale,,F1461,Recognized,
+Joseph Cromeans,02/14 AM Grapevine T51 Light Ale,1,,Non-BJCP,
+Caroline Forster,02/14 AM Grapevine T51 Light Ale,3,,Non-BJCP,
+Keith Green,02/14 AM Grapevine T51 Light Ale,1,F1227,Level 3: Certified,"1D, 9B, 15B, 19A"
+Jerry Keeney,02/14 AM Grapevine T51 Light Ale,2,F1461,Recognized,
 Mike MacCrory,02/14 AM Grapevine T51 Light Ale,,,Non-BJCP,15C
-Mark McCurdy,02/14 AM Grapevine T51 Light Ale,,E3908,Level 3: Certified,"1B, 5C, 6A, 6C, 7A, 8A, 10C, 11B, 12C, 15A, 15B, 16B, 17C, 18A, 19A, 20A, 21B1, 24B, 25A, 25C, 33B"
+Mark McCurdy,02/14 AM Grapevine T51 Light Ale,2,E3908,Level 3: Certified,"1B, 5C, 6A, 6C, 7A, 8A, 10C, 11B, 12C, 15A, 15B, 16B, 17C, 18A, 19A, 20A, 21B1, 24B, 25A, 25C, 33B"
 Tim Mercer,02/14 AM Grapevine T51 Light Ale,,,Non-BJCP,"22B, 27A2, C1A, M2B, M3B, M4C"
-John Skelton,02/14 AM Grapevine T51 Light Ale,,F1358,Level 3: Certified,"1A, 17C, 17D, 17B, 18A, 18B, 19A, 22C, 22B, 29A, 30C"
+John Skelton,02/14 AM Grapevine T51 Light Ale,3,F1358,Level 3: Certified,"1A, 17C, 17D, 17B, 18A, 18B, 19A, 22C, 22B, 29A, 30C"
 Brian Street,02/14 AM Grapevine T51 Light Ale,,,"Non-BJCP, Judge with Sensory Training","1B, 2B, 3B, 6B, 10C, 11C, 12C, 13A, 16D, 16A, 16B, 17C, 20A, 20C, 21A, 21B2, 21B3, 23A, 24C, 27A2, 28C, 33B, 34C, C2B, C2E, M1B, M4C"
 Kim Truesdell,02/14 AM Grapevine T51 Light Ale,,,Non-BJCP,
 John Bates,02/14 AM Keller T50 Pale Lager,,F1264,Level 3: Certified,"1D, 5D, 11A, 13B, 14B, 17D, 17A, 23D, 24C, 25B, 26B, 27A8, 30C, C1A, C2B, C2E, LSX5, M2C, M4A"
@@ -296,15 +296,16 @@ Brian Street,02/14 PM Keller T56 Oktoberfest,,,"Non-BJCP, Judge with Sensory Tra
 Alf Syftestad,02/14 PM Keller T56 Oktoberfest,,F1455,"Certified, Judge with Sensory Training","22C, 30A"
 Mike Treadway,02/14 PM Keller T56 Oktoberfest,4,,Level 3: Certified,
 Kim Truesdell,02/14 PM Keller T56 Oktoberfest,4,,Non-BJCP,
-Vicki Brown,02/16 Grapevine T85 Smoke Beer,,F0285,Level 3: Certified,
+Vicki Brown,02/16 Grapevine T85 Smoke Beer,1,F0285,Level 3: Certified,
 Walter Hansen,02/16 Grapevine T85 Smoke Beer,,,Non-BJCP,
-Karl King,02/16 Grapevine T85 Smoke Beer,,,Recognized,"5C, 6C, 7A, 8B, 9A"
+Karl King,02/16 Grapevine T85 Smoke Beer,2,,Recognized,"5C, 6C, 7A, 8B, 9A"
 Mark McCurdy,02/16 Grapevine T85 Smoke Beer,,E3908,Level 3: Certified,"1B, 5C, 6A, 6C, 7A, 8A, 10C, 11B, 12C, 15A, 15B, 16B, 17C, 18A, 19A, 20A, 21B1, 24B, 25A, 25C, 33B"
-Tim Mercer,02/16 Grapevine T85 Smoke Beer,,,Non-BJCP,"22B, 27A2, C1A, M2B, M3B, M4C"
-Jerry Richard,02/16 Grapevine T85 Smoke Beer,,,Non-BJCP,
-Brian Schoolcraft,02/16 Grapevine T85 Smoke Beer,,A0367,Level 4: National,"6A, 7A"
-John Shank,02/16 Grapevine T85 Smoke Beer,,A0363,Level 3: Certified,"15B, 15A"
-John Skelton,02/16 Grapevine T85 Smoke Beer,,F1358,Level 3: Certified,"1A, 17C, 17D, 17B, 18A, 18B, 19A, 22C, 22B, 29A, 30C"
+Tim Mercer,02/16 Grapevine T85 Smoke Beer,3,,Non-BJCP,"22B, 27A2, C1A, M2B, M3B, M4C"
+Jerry Richard,02/16 Grapevine T85 Smoke Beer,1,,Non-BJCP,
+Brian Schoolcraft,02/16 Grapevine T85 Smoke Beer,2,A0367,Level 4: National,"6A, 7A"
+Jonathan Rollins,02/16 Grapevine T85 Smoke Beer,4,,Non-BJCP,"23E, 23F, 27A5, 34C"
+John Shank,02/16 Grapevine T85 Smoke Beer,3,A0363,Level 3: Certified,"15B, 15A"
+John Skelton,02/16 Grapevine T85 Smoke Beer,4,F1358,Level 3: Certified,"1A, 17C, 17D, 17B, 18A, 18B, 19A, 22C, 22B, 29A, 30C"
 C.J. Barley,02/20 Arlington T81 Strong Dark Belgian Ale,1,,Non-BJCP,
 Donald Callan,02/20 Arlington T81 Strong Dark Belgian Ale,,N/A,"Non-BJCP, Judge with Sensory Training",
 James Duke,02/20 Arlington T81 Strong Dark Belgian Ale,1,F1360,Level 3: Certified,
@@ -325,16 +326,16 @@ Steve Steinheimer,02/20 Dallas T80 Strong Light Belgian Ale,,,Non-BJCP,
 John Sutton,02/20 Dallas T80 Strong Light Belgian Ale,,,Non-BJCP,"20B, 21A"
 Alf Syftestad,02/20 Dallas T80 Strong Light Belgian Ale,3,F1455,"Certified, Judge with Sensory Training","22C, 30A"
 Kim Truesdell,02/20 Dallas T80 Strong Light Belgian Ale,,,Non-BJCP,
-John Bates,02/20 Grapevine T91 Spiced And Specialty Mead,,F1264,Level 3: Certified,"1D, 5D, 11A, 13B, 14B, 17D, 17A, 23D, 24C, 25B, 26B, 27A8, 30C, C1A, C2B, C2E, LSX5, M2C, M4A"
-Steve Brown,02/20 Grapevine T91 Spiced And Specialty Mead,,F0286,Level 3: Certified,"5B, M2D"
+John Bates,02/20 Grapevine T91 Spiced And Specialty Mead,1,F1264,Level 3: Certified,"1D, 5D, 11A, 13B, 14B, 17D, 17A, 23D, 24C, 25B, 26B, 27A8, 30C, C1A, C2B, C2E, LSX5, M2C, M4A"
+Steve Brown,02/20 Grapevine T91 Spiced And Specialty Mead,2,F0286,Level 3: Certified,"5B, M2D"
 Donald Callan,02/20 Grapevine T91 Spiced And Specialty Mead,,N/A,"Non-BJCP, Judge with Sensory Training",
-Taryn Dunn,02/20 Grapevine T91 Spiced And Specialty Mead,,,Non-BJCP,
-Terry-Lynn Faught,02/20 Grapevine T91 Spiced And Specialty Mead,,F1487,"Certified, Judge with Sensory Training",
-Caroline Forster,02/20 Grapevine T91 Spiced And Specialty Mead,,,Non-BJCP,
+Taryn Dunn,02/20 Grapevine T91 Spiced And Specialty Mead,1,,Non-BJCP,
+Terry-Lynn Faught,02/20 Grapevine T91 Spiced And Specialty Mead,3,F1487,"Certified, Judge with Sensory Training",
+Caroline Forster,02/20 Grapevine T91 Spiced And Specialty Mead,2,,Non-BJCP,
 Mark McCurdy,02/20 Grapevine T91 Spiced And Specialty Mead,,E3908,Level 3: Certified,"1B, 5C, 6A, 6C, 7A, 8A, 10C, 11B, 12C, 15A, 15B, 16B, 17C, 18A, 19A, 20A, 21B1, 24B, 25A, 25C, 33B"
-Josh Rawls,02/20 Grapevine T91 Spiced And Specialty Mead,,,Non-BJCP,"15B, 18B, 20A, 21B, 34C"
-Brian Schoolcraft,02/20 Grapevine T91 Spiced And Specialty Mead,,A0367,Level 4: National,"6A, 7A"
-Kim Truesdell,02/20 Grapevine T91 Spiced And Specialty Mead,,,Non-BJCP,
+Josh Rawls,02/20 Grapevine T91 Spiced And Specialty Mead,3,,Non-BJCP,"15B, 18B, 20A, 21B, 34C"
+Brian Schoolcraft,02/20 Grapevine T91 Spiced And Specialty Mead,4,A0367,Level 4: National,"6A, 7A"
+Kim Truesdell,02/20 Grapevine T91 Spiced And Specialty Mead,4,,Non-BJCP,
 John Bates,02/21 AM Arlington T83 Spice Herb Vegetable Beer,,F1264,Level 3: Certified,"1D, 5D, 11A, 13B, 14B, 17D, 17A, 23D, 24C, 25B, 26B, 27A8, 30C, C1A, C2B, C2E, LSX5, M2C, M4A"
 Vicki Brown,02/21 AM Arlington T83 Spice Herb Vegetable Beer,1,F0285,Level 3: Certified,
 James Duke,02/21 AM Arlington T83 Spice Herb Vegetable Beer,2,F1360,Level 3: Certified,
@@ -355,10 +356,10 @@ Mark Schuler,02/21 AM Dallas T65 Stout and Porter,2,,Non-BJCP,
 Tony Silveira,02/21 AM Dallas T65 Stout and Porter,1,,"Non-BJCP, Certified Cicerone","6A, 9A, 14B, 15B, 22C, 26A, 26C, 26D"
 Brian Street,02/21 AM Dallas T65 Stout and Porter,,,"Non-BJCP, Judge with Sensory Training","1B, 2B, 3B, 6B, 10C, 11C, 12C, 13A, 16D, 16A, 16B, 17C, 20A, 20C, 21A, 21B2, 21B3, 23A, 24C, 27A2, 28C, 33B, 34C, C2B, C2E, M1B, M4C"
 Kim Truesdell,02/21 AM Dallas T65 Stout and Porter,,,Non-BJCP,
-John Bates,02/21 AM Grapevine T82 Fruit Beer,,F1264,Level 3: Certified,"1D, 5D, 11A, 13B, 14B, 17D, 17A, 23D, 24C, 25B, 26B, 27A8, 30C, C1A, C2B, C2E, LSX5, M2C, M4A"
-Mark McCurdy,02/21 AM Grapevine T82 Fruit Beer,,E3908,Level 3: Certified,"1B, 5C, 6A, 6C, 7A, 8A, 10C, 11B, 12C, 15A, 15B, 16B, 17C, 18A, 19A, 20A, 21B1, 24B, 25A, 25C, 33B"
-Tim Mercer,02/21 AM Grapevine T82 Fruit Beer,,,Non-BJCP,"22B, 27A2, C1A, M2B, M3B, M4C"
-Brian Street,02/21 AM Grapevine T82 Fruit Beer,,,"Non-BJCP, Judge with Sensory Training","1B, 2B, 3B, 6B, 10C, 11C, 12C, 13A, 16D, 16A, 16B, 17C, 20A, 20C, 21A, 21B2, 21B3, 23A, 24C, 27A2, 28C, 33B, 34C, C2B, C2E, M1B, M4C"
+John Bates,02/21 AM Grapevine T82 Fruit Beer,1,F1264,Level 3: Certified,"1D, 5D, 11A, 13B, 14B, 17D, 17A, 23D, 24C, 25B, 26B, 27A8, 30C, C1A, C2B, C2E, LSX5, M2C, M4A"
+Mark McCurdy,02/21 AM Grapevine T82 Fruit Beer,2,E3908,Level 3: Certified,"1B, 5C, 6A, 6C, 7A, 8A, 10C, 11B, 12C, 15A, 15B, 16B, 17C, 18A, 19A, 20A, 21B1, 24B, 25A, 25C, 33B"
+Tim Mercer,02/21 AM Grapevine T82 Fruit Beer,1,,Non-BJCP,"22B, 27A2, C1A, M2B, M3B, M4C"
+Brian Street,02/21 AM Grapevine T82 Fruit Beer,2,,"Non-BJCP, Judge with Sensory Training","1B, 2B, 3B, 6B, 10C, 11C, 12C, 13A, 16D, 16A, 16B, 17C, 20A, 20C, 21A, 21B2, 21B3, 23A, 24C, 27A2, 28C, 33B, 34C, C2B, C2E, M1B, M4C"
 Kim Truesdell,02/21 AM Grapevine T82 Fruit Beer,,,Non-BJCP,
 Steve Brown,02/21 PM Arlington T64 Scottish and Irish Ale,1,F0286,Level 3: Certified,"5B, M2D"
 James Duke,02/21 PM Arlington T64 Scottish and Irish Ale,2,F1360,Level 3: Certified,
@@ -403,14 +404,14 @@ Jerry Richard,02/27 Dallas T86 Wood Aged Beer,,,Non-BJCP,
 John Sutton,02/27 Dallas T86 Wood Aged Beer,1,,Non-BJCP,"20B, 21A"
 Alf Syftestad,02/27 Dallas T86 Wood Aged Beer,1,F1455,"Certified, Judge with Sensory Training","22C, 30A"
 Kim Truesdell,02/27 Dallas T86 Wood Aged Beer,,,Non-BJCP,
-James Duke,02/27 Grapevine T84 Autumn Winter Seasonal,,F1360,Level 3: Certified,
-Joshua Hayes,02/27 Grapevine T84 Autumn Winter Seasonal,,F1460,Level 3: Certified,"21A, 22C, 23F, 30B"
-Jerry Keeney,02/27 Grapevine T84 Autumn Winter Seasonal,,F1461,Recognized,
+James Duke,02/27 Grapevine T84 Autumn Winter Seasonal,1,F1360,Level 3: Certified,
+Joshua Hayes,02/27 Grapevine T84 Autumn Winter Seasonal,2,F1460,Level 3: Certified,"21A, 22C, 23F, 30B"
+Jerry Keeney,02/27 Grapevine T84 Autumn Winter Seasonal,1,F1461,Recognized,
 Mike MacCrory,02/27 Grapevine T84 Autumn Winter Seasonal,,,Non-BJCP,15C
-Mark McCurdy,02/27 Grapevine T84 Autumn Winter Seasonal,,E3908,Level 3: Certified,"1B, 5C, 6A, 6C, 7A, 8A, 10C, 11B, 12C, 15A, 15B, 16B, 17C, 18A, 19A, 20A, 21B1, 24B, 25A, 25C, 33B"
+Mark McCurdy,02/27 Grapevine T84 Autumn Winter Seasonal,3,E3908,Level 3: Certified,"1B, 5C, 6A, 6C, 7A, 8A, 10C, 11B, 12C, 15A, 15B, 16B, 17C, 18A, 19A, 20A, 21B1, 24B, 25A, 25C, 33B"
 Tim Mercer,02/27 Grapevine T84 Autumn Winter Seasonal,,,Non-BJCP,"22B, 27A2, C1A, M2B, M3B, M4C"
-John Shank,02/27 Grapevine T84 Autumn Winter Seasonal,,A0363,Level 3: Certified,"15B, 15A"
-Kim Truesdell,02/27 Grapevine T84 Autumn Winter Seasonal,,,Non-BJCP,
+John Shank,02/27 Grapevine T84 Autumn Winter Seasonal,3,A0363,Level 3: Certified,"15B, 15A"
+Kim Truesdell,02/27 Grapevine T84 Autumn Winter Seasonal,2,,Non-BJCP,
 C.J. Barley,02/27 Keller T87 American Wild Ale,,,Non-BJCP,
 Steve Brown,02/27 Keller T87 American Wild Ale,,F0286,Level 3: Certified,"5B, M2D"
 Kyle Lapointe,02/27 Keller T87 American Wild Ale,2,F0480,Level 4: National,
@@ -440,7 +441,8 @@ Tony Silveira,02/28 AM Dallas T88 Specialty Beer,2,,"Non-BJCP, Certified Ciceron
 Brian Street,02/28 AM Dallas T88 Specialty Beer,,,"Non-BJCP, Judge with Sensory Training","1B, 2B, 3B, 6B, 10C, 11C, 12C, 13A, 16D, 16A, 16B, 17C, 20A, 20C, 21A, 21B2, 21B3, 23A, 24C, 27A2, 28C, 33B, 34C, C2B, C2E, M1B, M4C"
 Kim Truesdell,02/28 AM Dallas T88 Specialty Beer,,,Non-BJCP,
 Caroline Forster,02/28 AM Grapevine T93 Specialty Cider And Perry,,,Non-BJCP,
-Mark McCurdy,02/28 AM Grapevine T93 Specialty Cider And Perry,,E3908,Level 3: Certified,"1B, 5C, 6A, 6C, 7A, 8A, 10C, 11B, 12C, 15A, 15B, 16B, 17C, 18A, 19A, 20A, 21B1, 24B, 25A, 25C, 33B"
+Mark McCurdy,02/28 AM Grapevine T93 Specialty Cider And Perry,1,E3908,Level 3: Certified,"1B, 5C, 6A, 6C, 7A, 8A, 10C, 11B, 12C, 15A, 15B, 16B, 17C, 18A, 19A, 20A, 21B1, 24B, 25A, 25C, 33B"
+Caroline Forster,02/28 AM Grapevine T93 Specialty Cider And Perry,1,,Non-BJCP,
 Tim Mercer,02/28 AM Grapevine T93 Specialty Cider And Perry,,,Non-BJCP,"22B, 27A2, C1A, M2B, M3B, M4C"
 Brian Street,02/28 AM Grapevine T93 Specialty Cider And Perry,,,"Non-BJCP, Judge with Sensory Training","1B, 2B, 3B, 6B, 10C, 11C, 12C, 13A, 16D, 16A, 16B, 17C, 20A, 20C, 21A, 21B2, 21B3, 23A, 24C, 27A2, 28C, 33B, 34C, C2B, C2E, M1B, M4C"
 Kim Truesdell,02/28 AM Grapevine T93 Specialty Cider And Perry,,,Non-BJCP,
