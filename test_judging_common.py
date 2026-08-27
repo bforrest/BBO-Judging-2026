@@ -113,6 +113,35 @@ def test_load_entry_counts_missing_file():
     assert load_entry_counts("/nonexistent/path.csv") == {}
 
 
+def test_load_styles_by_table_skips_blank_rows():
+    """Regression test: blank rows (empty Table Number) should be skipped.
+
+    Previously, blank rows would create a phantom "T" key with an empty style set.
+    This test ensures that blank rows are completely skipped and don't create
+    any spurious entries.
+    """
+    with tempfile.NamedTemporaryFile(mode='w', suffix='.csv', delete=False, newline='') as f:
+        f.write("Medal Category Name,Table Number,BJCP Style Name,BJCP Style Id,JUDGE FRESH\n")
+        f.write("Pale Lager,50,American Light Lager,01A,X\n")
+        f.write(",,,,\n")  # blank row
+        f.write("IPA,51,American IPA,14B,X\n")
+        f.write(",,,,\n")  # another blank row
+        path = f.name
+    try:
+        table_styles, table_names = load_styles_by_table(path)
+        # Should have exactly 2 tables, not 3 or 4
+        assert len(table_styles) == 2, f"Expected 2 tables, got {len(table_styles)}: {table_styles.keys()}"
+        assert len(table_names) == 2, f"Expected 2 tables, got {len(table_names)}: {table_names.keys()}"
+        # Should have the real tables
+        assert "T50" in table_styles
+        assert "T51" in table_styles
+        # Should NOT have a phantom "T" key
+        assert "T" not in table_styles, "Phantom 'T' key should not exist"
+        assert "T" not in table_names, "Phantom 'T' key should not exist in table_names"
+    finally:
+        os.unlink(path)
+
+
 if __name__ == '__main__':
     tests = [obj for name, obj in list(globals().items()) if name.startswith('test_')]
     for test in tests:

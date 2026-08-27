@@ -88,7 +88,11 @@ def load_styles_by_table(path):
     with open(path, newline='', encoding='utf-8') as f:
         reader = csv.DictReader(f)
         for row in reader:
-            table = f"T{row['Table Number'].strip()}"
+            table_number = row['Table Number'].strip()
+            # Skip rows with blank Table Number
+            if not table_number:
+                continue
+            table = f"T{table_number}"
             table_styles.setdefault(table, set()).add(row['BJCP Style Id'].strip())
             table_names[table] = row['Medal Category Name'].strip()
     return table_styles, table_names
