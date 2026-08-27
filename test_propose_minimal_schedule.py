@@ -90,6 +90,66 @@ def test_pick_site_minimizes_total_distance():
     assert pick_site(['Dallas', 'Keller'], pairs, distances) == 'Dallas'  # 13 < 42
 
 
+from propose_minimal_schedule import build_schedule
+
+
+def test_build_schedule_places_all_tables():
+    tables = [
+        {'table': 'T1', 'name': 'A', 'styles': set(), 'entry_count': 9, 'required_pairs': 1},
+        {'table': 'T2', 'name': 'B', 'styles': set(), 'entry_count': 9, 'required_pairs': 1},
+    ]
+    profiles = {
+        'Judge1': {'rank': 'Level 3: Certified', 'substyles': set(), 'availability': {('02/07', 'AM')}},
+        'Judge2': {'rank': 'Non-BJCP', 'substyles': set(), 'availability': {('02/07', 'AM')}},
+        'Judge3': {'rank': 'Level 3: Certified', 'substyles': set(), 'availability': {('02/07', 'AM')}},
+        'Judge4': {'rank': 'Non-BJCP', 'substyles': set(), 'availability': {('02/07', 'AM')}},
+    }
+    schedule, slots = build_schedule(tables, profiles, {}, ['Dallas', 'Keller'])
+    assert len(schedule) == 2
+    assert slots == [('02/07', 'AM')]
+    assert all(e['site'] is not None for e in schedule)
+
+
+def test_build_schedule_consolidates_into_second_session_same_date():
+    # Three tables, but only enough judges for two pairs total, split across
+    # AM and PM availability on the *same* date. Expect both sessions used
+    # on that one date rather than a table left unfilled or a new date opened
+    # unnecessarily.
+    tables = [
+        {'table': 'T1', 'name': 'A', 'styles': set(), 'entry_count': 9, 'required_pairs': 1},
+        {'table': 'T2', 'name': 'B', 'styles': set(), 'entry_count': 9, 'required_pairs': 1},
+    ]
+    profiles = {
+        'Judge1': {'rank': 'Level 3: Certified', 'substyles': set(), 'availability': {('02/07', 'AM')}},
+        'Judge2': {'rank': 'Non-BJCP', 'substyles': set(), 'availability': {('02/07', 'AM')}},
+        'Judge3': {'rank': 'Level 3: Certified', 'substyles': set(), 'availability': {('02/07', 'PM')}},
+        'Judge4': {'rank': 'Non-BJCP', 'substyles': set(), 'availability': {('02/07', 'PM')}},
+    }
+    schedule, slots = build_schedule(tables, profiles, {}, ['Dallas'])
+    assert sorted(slots) == [('02/07', 'AM'), ('02/07', 'PM')]
+    assert all(e['site'] is not None for e in schedule)
+
+
+def test_build_schedule_leaves_table_unfilled_when_no_slot_covers_it():
+    tables = [
+        {'table': 'T1', 'name': 'A', 'styles': set(), 'entry_count': 9, 'required_pairs': 1},
+        {'table': 'T2', 'name': 'B', 'styles': set(), 'entry_count': 9, 'required_pairs': 1},
+    ]
+    # Only one certified/non-certified pair exists, and they're only ever
+    # available for a single (date, session) - not enough capacity to cover
+    # both tables, and no other availability exists to open a new slot into.
+    profiles = {
+        'Judge1': {'rank': 'Level 3: Certified', 'substyles': set(), 'availability': {('02/07', 'AM')}},
+        'Judge2': {'rank': 'Non-BJCP', 'substyles': set(), 'availability': {('02/07', 'AM')}},
+    }
+    schedule, slots = build_schedule(tables, profiles, {}, ['Dallas'])
+    filled = [e for e in schedule if e['site'] is not None]
+    unfilled = [e for e in schedule if e['site'] is None]
+    assert len(filled) == 1
+    assert len(unfilled) == 1
+    assert unfilled[0]['unfilled_pairs_needed'] == 1
+
+
 if __name__ == '__main__':
     tests = [obj for name, obj in list(globals().items()) if name.startswith('test_')]
     for test in tests:

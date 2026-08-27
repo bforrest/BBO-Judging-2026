@@ -127,3 +127,169 @@ def pick_site(available_sites, pairs, distances):
         return sum(distances.get(j, {}).get(site, 0.0) for j in judges)
 
     return min(available_sites, key=total_distance)
+
+
+def build_schedule(tables, judge_profiles, distances, sites, max_distance=MAX_DISTANCE_MILES):
+    """Greedily place every table into the fewest (date, session) slots
+    drawn from judges' declared availability.
+
+    Returns (schedule, slots):
+      schedule: list of dicts, one per table:
+        {table, name, slot, site, pairs, unfilled_pairs_needed}
+        `site`/`pairs` are None/[] and `unfilled_pairs_needed` is set when
+        a table couldn't be staffed in any available slot.
+      slots: list of (date, session) tuples, in the order they were opened.
+    """
+    sessions_by_date = defaultdict(set)
+    for profile in judge_profiles.values():
+        for date, session in profile['availability']:
+            sessions_by_date[date].add(session)
+    available_dates = sorted(sessions_by_date.keys())
+
+    def session_sort_key(session):
+        return (session is None, session or '')
+
+    def eligible(table):
+        return eligible_judges_for_table(table, judge_profiles, distances, sites, max_distance)
+
+    tables_sorted = sorted(tables, key=lambda t: (len(eligible(t)), -t['required_pairs']))
+
+    slots = []
+    slot_sites_used = defaultdict(set)
+    slot_judges_used = defaultdict(set)
+    schedule = []
+
+    def open_new_slot():
+        # Prefer completing a date that already has one session open.
+        for date in available_dates:
+            sessions_open = {s for d, s in slots if d == date}
+            remaining = sessions_by_date[date] - sessions_open
+            if sessions_open and remaining:
+                next_session = sorted(remaining, key=session_sort_key)[0]
+                slot = (date, next_session)
+                slots.append(slot)
+                return slot
+        # Otherwise open the earliest not-yet-used (date, session).
+        for date in available_dates:
+            for session in sorted(sessions_by_date[date], key=session_sort_key):
+                slot = (date, session)
+                if slot not in slots:
+                    slots.append(slot)
+                    return slot
+        return None
+
+    def try_fit(table, slot, elig):
+        available_sites = [s for s in sites if s not in slot_sites_used[slot]]
+        if not available_sites:
+            return None
+        used_judges = slot_judges_used[slot]
+        candidates = [
+            j for j in elig
+            if j not in used_judges and slot in judge_profiles[j]['availability']
+            and judge_feasible_sites(j, distances, available_sites, max_distance)
+        ]
+        pairs = form_pairs(candidates, table['required_pairs'], judge_profiles)
+        if pairs is None:
+            return None
+        common_sites = set(available_sites)
+        for judge in (j for pair in pairs for j in pair):
+            common_sites &= judge_feasible_sites(judge, distances, available_sites, max_distance)
+        if not common_sites:
+            return None
+        site = pick_site(sorted(common_sites), pairs, distances)
+        return site, pairs
+
+    for table in tables_sorted:
+        elig = eligible(table)
+        placed = False
+        for slot in list(slots):
+            fit = try_fit(table, slot, elig)
+            if fit is not None:
+                site, pairs = fit
+                schedule.append({'table': table['table'], 'name': table['name'],
+                                  'slot': slot, 'site': site, 'pairs': pairs,
+                                  'unfilled_pairs_needed': None})
+                slot_sites_used[slot].add(site)
+                for pair in pairs:
+                    slot_judges_used[slot].update(pair)
+                placed = True
+                break
+        if placed:
+            continue
+
+        new_slot = open_new_slot()
+        if new_slot is None:
+            schedule.append({'table': table['table'], 'name': table['name'],
+                              'slot': None, 'site': None, 'pairs': [],
+                              'unfilled_pairs_needed': table['required_pairs']})
+            continue
+
+        fit = try_fit(table, new_slot, elig)
+        if fit is None:
+            schedule.append({'table': table['table'], 'name': table['name'],
+                              'slot': new_slot, 'site': None, 'pairs': [],
+                              'unfilled_pairs_needed': table['required_pairs']})
+            continue
+        site, pairs = fit
+        schedule.append({'table': table['table'], 'name': table['name'],
+                          'slot': new_slot, 'site': site, 'pairs': pairs,
+                          'unfilled_pairs_needed': None})
+        slot_sites_used[new_slot].add(site)
+        for pair in pairs:
+            slot_judges_used[new_slot].update(pair)
+
+    return schedule, slots
+
+
+def format_report(schedule, slots, sites, actual_dates=10, actual_slots=14):
+    days_used = sorted({day for day, _ in slots})
+    lines = []
+    lines.append("BBO Judging Schedule Proposal")
+    lines.append("=" * 40)
+    lines.append(f"Proposed: {len(days_used)} days, {len(slots)} sessions, for {len(schedule)} tables")
+    lines.append(f"2026 actual: {actual_dates} days, {actual_slots} sessions")
+    theoretical_floor = math.ceil(len(schedule) / len(sites)) if sites else len(schedule)
+    lines.append(f"Theoretical floor ({len(sites)} sites, full parallelism): {theoretical_floor} sessions")
+    lines.append("")
+
+    unfilled = [e for e in schedule if e['site'] is None]
+    if unfilled:
+        lines.append(f"UNFILLED ({len(unfilled)} tables could not be staffed):")
+        for e in unfilled:
+            lines.append(f"  {e['table']} {e['name']}: needs {e['unfilled_pairs_needed']} pairs")
+        lines.append("")
+
+    for day in days_used:
+        lines.append(f"Day {day}:")
+        for session in ('AM', 'PM', None):
+            slot = (day, session)
+            if slot not in slots:
+                continue
+            entries = [e for e in schedule if e['slot'] == slot]
+            if not entries:
+                continue
+            label = session if session else "(single session)"
+            lines.append(f"  {label}:")
+            for e in sorted(entries, key=lambda e: e['table']):
+                pair_strs = ", ".join(f"{a} & {b}" for a, b in e['pairs'])
+                lines.append(f"    {e['table']} {e['name']} @ {e['site']}: {pair_strs}")
+
+    return "\n".join(lines)
+
+
+def main():
+    rows = load_assignments("Judges_and_Tables_generated.csv")
+    table_styles, table_names = load_styles_by_table("styles by table.csv")
+    entry_counts = load_entry_counts("medal_category_counts.csv")
+    distances = load_judge_distances()
+
+    tables = build_tables(table_styles, table_names, entry_counts)
+    judge_profiles = build_judge_profiles(rows)
+    sites = sorted({row['slot'][2] for row in rows if row['slot']})
+
+    schedule, slots = build_schedule(tables, judge_profiles, distances, sites)
+    print(format_report(schedule, slots, sites))
+
+
+if __name__ == '__main__':
+    main()
