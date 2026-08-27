@@ -111,10 +111,12 @@ def test_build_schedule_places_all_tables():
 
 
 def test_build_schedule_consolidates_into_second_session_same_date():
-    # Three tables, but only enough judges for two pairs total, split across
-    # AM and PM availability on the *same* date. Expect both sessions used
-    # on that one date rather than a table left unfilled or a new date opened
-    # unnecessarily.
+    # Two tables, but only enough judges for two pairs at once, split across
+    # AM and PM availability on 02/07. A second, later date (02/20) is also
+    # available to the PM pair, so this actually exercises the "prefer
+    # completing an already-open date" logic: the scheduler must open
+    # 02/07's PM session for the second table rather than opening the new
+    # 02/20 date, even though 02/20 is also a real, usable candidate.
     tables = [
         {'table': 'T1', 'name': 'A', 'styles': set(), 'entry_count': 9, 'required_pairs': 1},
         {'table': 'T2', 'name': 'B', 'styles': set(), 'entry_count': 9, 'required_pairs': 1},
@@ -122,11 +124,13 @@ def test_build_schedule_consolidates_into_second_session_same_date():
     profiles = {
         'Judge1': {'rank': 'Level 3: Certified', 'substyles': set(), 'availability': {('02/07', 'AM')}},
         'Judge2': {'rank': 'Non-BJCP', 'substyles': set(), 'availability': {('02/07', 'AM')}},
-        'Judge3': {'rank': 'Level 3: Certified', 'substyles': set(), 'availability': {('02/07', 'PM')}},
-        'Judge4': {'rank': 'Non-BJCP', 'substyles': set(), 'availability': {('02/07', 'PM')}},
+        'Judge3': {'rank': 'Level 3: Certified', 'substyles': set(),
+                   'availability': {('02/07', 'PM'), ('02/20', 'AM')}},
+        'Judge4': {'rank': 'Non-BJCP', 'substyles': set(),
+                   'availability': {('02/07', 'PM'), ('02/20', 'AM')}},
     }
     schedule, slots = build_schedule(tables, profiles, {}, ['Dallas'])
-    assert sorted(slots) == [('02/07', 'AM'), ('02/07', 'PM')]
+    assert slots == [('02/07', 'AM'), ('02/07', 'PM')]
     assert all(e['site'] is not None for e in schedule)
 
 

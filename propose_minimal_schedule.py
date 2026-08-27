@@ -159,11 +159,14 @@ def build_schedule(tables, judge_profiles, distances, sites, max_distance=MAX_DI
     slot_judges_used = defaultdict(set)
     schedule = []
 
-    def open_new_slot():
+    def open_new_slot(excluded=frozenset()):
         # Prefer completing a date that already has one session open.
         for date in available_dates:
             sessions_open = {s for d, s in slots if d == date}
-            remaining = sessions_by_date[date] - sessions_open
+            remaining = {
+                s for s in sessions_by_date[date] - sessions_open
+                if (date, s) not in excluded
+            }
             if sessions_open and remaining:
                 next_session = sorted(remaining, key=session_sort_key)[0]
                 slot = (date, next_session)
@@ -173,7 +176,7 @@ def build_schedule(tables, judge_profiles, distances, sites, max_distance=MAX_DI
         for date in available_dates:
             for session in sorted(sessions_by_date[date], key=session_sort_key):
                 slot = (date, session)
-                if slot not in slots:
+                if slot not in slots and slot not in excluded:
                     slots.append(slot)
                     return slot
         return None
@@ -217,26 +220,38 @@ def build_schedule(tables, judge_profiles, distances, sites, max_distance=MAX_DI
         if placed:
             continue
 
-        new_slot = open_new_slot()
-        if new_slot is None:
+        found_slot = None
+        found_fit = None
+        excluded_slots = set()
+        while True:
+            new_slot = open_new_slot(excluded_slots)
+            if new_slot is None:
+                break
+            fit = try_fit(table, new_slot, elig)
+            if fit is not None:
+                found_slot = new_slot
+                found_fit = fit
+                break
+            # This newly opened slot doesn't work for this table either -
+            # remove it so it doesn't linger and inflate the day/session
+            # count, exclude it so it isn't offered again, then try opening
+            # the next one.
+            slots.pop()
+            excluded_slots.add(new_slot)
+
+        if found_slot is None:
             schedule.append({'table': table['table'], 'name': table['name'],
                               'slot': None, 'site': None, 'pairs': [],
                               'unfilled_pairs_needed': table['required_pairs']})
             continue
 
-        fit = try_fit(table, new_slot, elig)
-        if fit is None:
-            schedule.append({'table': table['table'], 'name': table['name'],
-                              'slot': new_slot, 'site': None, 'pairs': [],
-                              'unfilled_pairs_needed': table['required_pairs']})
-            continue
-        site, pairs = fit
+        site, pairs = found_fit
         schedule.append({'table': table['table'], 'name': table['name'],
-                          'slot': new_slot, 'site': site, 'pairs': pairs,
+                          'slot': found_slot, 'site': site, 'pairs': pairs,
                           'unfilled_pairs_needed': None})
-        slot_sites_used[new_slot].add(site)
+        slot_sites_used[found_slot].add(site)
         for pair in pairs:
-            slot_judges_used[new_slot].update(pair)
+            slot_judges_used[found_slot].update(pair)
 
     return schedule, slots
 
