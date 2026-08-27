@@ -59,7 +59,10 @@ def load_assignments(path):
 
     Returns a list of dicts, each the original row plus a 'slot' key holding
     the parse_slot(...) tuple (or None if unparseable).
+    Returns an empty list if the file doesn't exist (fail open).
     """
+    if not os.path.exists(path):
+        return []
     rows = []
     with open(path, newline='', encoding='utf-8') as f:
         reader = csv.DictReader(f)
@@ -76,7 +79,10 @@ def load_styles_by_table(path):
     Returns (table_styles, table_names):
       table_styles: dict table ('T55') -> set of BJCP style ids
       table_names: dict table ('T55') -> Medal Category Name
+    Returns empty dicts if the file doesn't exist (fail open).
     """
+    if not os.path.exists(path):
+        return {}, {}
     table_styles = {}
     table_names = {}
     with open(path, newline='', encoding='utf-8') as f:
@@ -92,7 +98,10 @@ def load_entry_counts(path):
     """Load medal_category_counts.csv.
 
     Returns dict table ('T55') -> entry count (int).
+    Returns an empty dict if the file doesn't exist (fail open).
     """
+    if not os.path.exists(path):
+        return {}
     counts = {}
     with open(path, newline='', encoding='utf-8') as f:
         reader = csv.DictReader(f)

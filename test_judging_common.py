@@ -99,6 +99,20 @@ def test_load_judge_distances_missing_file():
     assert load_judge_distances("/nonexistent/path.csv") == {}
 
 
+def test_load_assignments_missing_file():
+    assert load_assignments("/nonexistent/path.csv") == []
+
+
+def test_load_styles_by_table_missing_file():
+    table_styles, table_names = load_styles_by_table("/nonexistent/path.csv")
+    assert table_styles == {}
+    assert table_names == {}
+
+
+def test_load_entry_counts_missing_file():
+    assert load_entry_counts("/nonexistent/path.csv") == {}
+
+
 if __name__ == '__main__':
     tests = [obj for name, obj in list(globals().items()) if name.startswith('test_')]
     for test in tests:
