@@ -309,7 +309,7 @@ def load_judge_distances(path=DEFAULT_JUDGE_WORKSHEET_PATH):
 - [ ] **Step 4: Run test to verify it passes**
 
 Run: `python3 test_judging_common.py`
-Expected: all tests print `PASS:` and the run ends with `9 tests passed`
+Expected: all tests print `PASS:` and the run ends with `10 tests passed`
 
 - [ ] **Step 5: Commit**
 
@@ -865,7 +865,7 @@ def pick_site(available_sites, pairs, distances):
 - [ ] **Step 4: Run test to verify it passes**
 
 Run: `python3 test_propose_minimal_schedule.py`
-Expected: all 9 tests print `PASS:` and the run ends with `9 tests passed`
+Expected: all 10 tests print `PASS:` and the run ends with `10 tests passed`
 
 - [ ] **Step 5: Commit**
 
@@ -1133,7 +1133,7 @@ Note: this appends *after* the functions from Task 3 and *before* the `if __name
 - [ ] **Step 4: Run test to verify it passes**
 
 Run: `python3 test_propose_minimal_schedule.py`
-Expected: all 12 tests print `PASS:` and the run ends with `12 tests passed`
+Expected: all 13 tests print `PASS:` and the run ends with `13 tests passed`
 
 - [ ] **Step 5: Commit**
 
