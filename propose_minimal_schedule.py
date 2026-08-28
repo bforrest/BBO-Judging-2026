@@ -3,15 +3,28 @@
 Propose a minimal-day BBO judging schedule from judge availability and
 travel distance, ignoring the site each table was historically run at.
 
-KNOWN LIMITATION: the greedy placement does not achieve full coverage — a
-meaningful fraction of tables (24 of 44 on the real 2026 data) are left
-UNFILLED. The root cause is that `form_pairs` picks judges without regard
-to site, and `try_fit` only intersects those judges' feasible sites
-afterwards; that intersection is frequently empty even when a site-aware
-pick would have worked. Because of this, the proposed day/session counts
-describe only the subset of tables actually placed and are NOT a
-like-for-like comparison against the 2026 baseline. See the "Known
-limitations" section of the design spec for detail.
+Pairing is site-aware: for each candidate slot, `try_fit` tries each open
+site in turn, restricts the judge pool to those feasible at that specific
+site, and only then pairs by rank — rather than pairing by rank first and
+checking site feasibility afterward, which could (and on the real 2026
+data, did) produce pairs whose feasible sites never overlapped even when
+a fully valid same-site set of pairs existed in the same pool.
+
+KNOWN LIMITATION: the greedy placement still does not achieve full
+coverage — on the real 2026 data it places 35 of 44 tables, leaving 9
+UNFILLED. This remaining gap is the expected behavior of a greedy,
+non-backtracking heuristic (once a table's judges are committed to a
+slot, the algorithm never revisits that choice to free them up for a
+higher-need table it processes later) rather than the site-blind-pairing
+bug this file used to have. See the "Known limitations" and "Out of
+scope" sections of the design spec for detail.
+
+Three named-judge site rules also apply: `SITE_ANCHORS` restricts a
+handful of site-host judges to their home site only, and
+`DALLAS_HOST_CANDIDATES` requires at least one of two named judges to be
+available (per their existing judge-availability data) before Dallas is
+offered as a candidate site for a slot at all — neither of those two
+personally judges at Dallas.
 
 See docs/superpowers/specs/2026-08-27-judge-utilization-and-schedule-optimization-design.md
 """
@@ -30,6 +43,21 @@ from judging_common import (
 
 TARGET_BEERS_PER_PAIR = 9
 MAX_DISTANCE_MILES = 20
+
+# Site hosts: the site is literally this judge's home or workplace, so
+# they're never placed anywhere else.
+SITE_ANCHORS = {
+    "Amanda Long": "Arlington",
+    "Jarrett Long": "Arlington",
+    "Reni Morriss": "Keller",
+    "Matthew Morriss": "Keller",
+    "Mark McCurdy": "Grapevine",
+}
+
+# Dallas has no single anchor - either of these two must be present to
+# run the site, but neither of them personally judges there.
+DALLAS_SITE = "Dallas"
+DALLAS_HOST_CANDIDATES = {"Terry Olinger", "Mike Grover"}
 
 
 def build_tables(table_styles, table_names, entry_counts):
@@ -76,20 +104,56 @@ def build_judge_profiles(rows):
 
 
 def judge_feasible_sites(judge_name, distances, sites, max_distance=MAX_DISTANCE_MILES):
-    """Return the set of sites within max_distance for this judge.
+    """Return the set of sites this judge could be assigned to judge at.
 
-    A judge with no distance data is treated as feasible everywhere (fail
-    open, per the shared-loader convention). That covers two cases that
-    must behave identically: the judge is missing from `distances`
-    entirely, and the judge is present with an empty dict — which is what
-    `load_judge_distances` writes when every distance column on their
-    worksheet row is blank. Treating the empty case as "feasible nowhere"
-    would silently drop the judge from the whole proposal.
+    Three rules, in order:
+    - A site-anchored judge (`SITE_ANCHORS`) is only ever feasible at
+      their home site, regardless of computed distance — it's literally
+      their home or workplace, and they're never placed elsewhere.
+    - A Dallas host candidate (`DALLAS_HOST_CANDIDATES`) is never
+      feasible to judge AT Dallas — they run the site instead of judging
+      there — even though their own availability data may list Dallas
+      candidate rows (that same data doubles as the site's host-presence
+      signal; see `site_host_requirement_met`).
+    - Otherwise: a judge with no distance data is treated as feasible
+      everywhere (fail open, per the shared-loader convention). That
+      covers two cases that must behave identically: the judge is
+      missing from `distances` entirely, and the judge is present with
+      an empty dict — which is what `load_judge_distances` writes when
+      every distance column on their worksheet row is blank. Treating
+      the empty case as "feasible nowhere" would silently drop the judge
+      from the whole proposal.
     """
+    anchor_site = SITE_ANCHORS.get(judge_name)
+    if anchor_site is not None:
+        return {anchor_site} & set(sites)
+
     judge_distances = distances.get(judge_name)
     if not judge_distances:
-        return set(sites)
-    return {site for site in sites if judge_distances.get(site, math.inf) <= max_distance}
+        feasible = set(sites)
+    else:
+        feasible = {site for site in sites if judge_distances.get(site, math.inf) <= max_distance}
+
+    if judge_name in DALLAS_HOST_CANDIDATES:
+        feasible = feasible - {DALLAS_SITE}
+    return feasible
+
+
+def site_host_requirement_met(site, slot, judge_profiles):
+    """Check any site-specific host-presence requirement for this slot.
+
+    Dallas requires at least one of `DALLAS_HOST_CANDIDATES` to have an
+    existing availability row for this (date, session) — using their
+    regular judge-availability data as the presence signal, not a
+    separate data source. Sites with no host requirement always pass.
+    """
+    if site != DALLAS_SITE:
+        return True
+    return any(
+        slot in judge_profiles[name]['availability']
+        for name in DALLAS_HOST_CANDIDATES
+        if name in judge_profiles
+    )
 
 
 def eligible_judges_for_table(table, judge_profiles, distances, sites, max_distance=MAX_DISTANCE_MILES):
@@ -134,14 +198,14 @@ def form_pairs(available_judges, required_pairs, judge_profiles):
     return pairs
 
 
+def total_travel_distance(pairs, site, distances):
+    """Total distance to `site` summed across every judge in `pairs`."""
+    return sum(distances.get(j, {}).get(site, 0.0) for pair in pairs for j in pair)
+
+
 def pick_site(available_sites, pairs, distances):
     """Pick the site minimizing total judge travel distance for `pairs`."""
-    judges = [j for pair in pairs for j in pair]
-
-    def total_distance(site):
-        return sum(distances.get(j, {}).get(site, 0.0) for j in judges)
-
-    return min(available_sites, key=total_distance)
+    return min(available_sites, key=lambda site: total_travel_distance(pairs, site, distances))
 
 
 def build_schedule(tables, judge_profiles, distances, sites, max_distance=MAX_DISTANCE_MILES):
@@ -197,25 +261,36 @@ def build_schedule(tables, judge_profiles, distances, sites, max_distance=MAX_DI
         return None
 
     def try_fit(table, slot, elig):
-        available_sites = [s for s in sites if s not in slot_sites_used[slot]]
+        available_sites = [
+            s for s in sites
+            if s not in slot_sites_used[slot] and site_host_requirement_met(s, slot, judge_profiles)
+        ]
         if not available_sites:
             return None
         used_judges = slot_judges_used[slot]
-        candidates = [
+        base_candidates = [
             j for j in elig
             if j not in used_judges and slot in judge_profiles[j]['availability']
-            and judge_feasible_sites(j, distances, available_sites, max_distance)
         ]
-        pairs = form_pairs(candidates, table['required_pairs'], judge_profiles)
-        if pairs is None:
+        # Site-aware pairing: pick a candidate site FIRST, restrict the
+        # pool to judges feasible there, then pair — instead of pairing by
+        # rank alone and checking site feasibility afterward. Pairing
+        # first can (and on real data, does) produce a set of pairs whose
+        # feasible sites don't overlap, even when a different, fully
+        # valid same-site set of pairs exists in the same candidate pool.
+        candidate_feasible_sites = {
+            j: judge_feasible_sites(j, distances, available_sites, max_distance)
+            for j in base_candidates
+        }
+        successes = []
+        for site in available_sites:
+            site_candidates = [j for j in base_candidates if site in candidate_feasible_sites[j]]
+            pairs = form_pairs(site_candidates, table['required_pairs'], judge_profiles)
+            if pairs is not None:
+                successes.append((site, pairs))
+        if not successes:
             return None
-        common_sites = set(available_sites)
-        for judge in (j for pair in pairs for j in pair):
-            common_sites &= judge_feasible_sites(judge, distances, available_sites, max_distance)
-        if not common_sites:
-            return None
-        site = pick_site(sorted(common_sites), pairs, distances)
-        return site, pairs
+        return min(successes, key=lambda site_pairs: total_travel_distance(site_pairs[1], site_pairs[0], distances))
 
     for table in tables_sorted:
         elig = eligible(table)

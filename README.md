@@ -152,21 +152,23 @@ python3 propose_minimal_schedule.py
 
 Treats each table's site as a free variable (rather than fixed by host preference) and greedily packs tables into the fewest `(date, session)` slots that judges' declared availability and travel distance can support. Two constants near the top of the file are meant to be tuned for "what if" comparisons: `TARGET_BEERS_PER_PAIR` (default 9) and `MAX_DISTANCE_MILES` (default 20, how far a judge can reasonably be asked to travel).
 
-**Known limitation:** the current pairing logic picks judges without regard to site, then checks site feasibility afterward — so a meaningful number of tables typically come back `UNFILLED` even when a site-aware assignment would have worked. This is a real gap in the algorithm, not a data problem; see the spec's "Known limitations" section for the root cause and what a fix would take.
+A handful of named site-host judges get special treatment: five judges (`SITE_ANCHORS` in the file) are anchored to their home site and never placed elsewhere, and two more (`DALLAS_HOST_CANDIDATES`) never judge at Dallas but at least one of them must be available to "run" it before Dallas is even offered as a candidate site for a slot.
+
+**Known limitation:** pairing is site-aware (it tries each candidate site and pairs judges restricted to that site, rather than pairing by rank first and checking site feasibility afterward), but the scheduler is still a greedy, non-backtracking heuristic — once a table's judges are committed to a slot, they're never freed up for a higher-need table processed later. On the real 2026 data this leaves 9 of 44 tables `UNFILLED`. See the spec's "Known limitations" section for detail.
 
 Sample output:
 ```
 BBO Judging Schedule Proposal
 ========================================
-Proposed: 8 days, 11 sessions, placing 20 of 44 tables (24 unfilled)
+Proposed: 9 days, 13 sessions, placing 35 of 44 tables (9 unfilled)
 2026 actual: 10 days, 14 sessions, 44 tables (full coverage)
-Theoretical floor for the 20 placed tables (4 sites, full parallelism): 5 sessions
+Theoretical floor for the 35 placed tables (4 sites, full parallelism): 9 sessions
 
 NOTE: coverage is incomplete, so the day/session counts above are NOT comparable
 to the 2026 baseline or to the all-44-table floor of 11 sessions.
 
-UNFILLED (24 tables could not be staffed):
-  T76 Barleywines: needs 4 pairs
+UNFILLED (9 tables could not be staffed):
+  T50 Pale Lager: needs 4 pairs
   ...
 ```
 

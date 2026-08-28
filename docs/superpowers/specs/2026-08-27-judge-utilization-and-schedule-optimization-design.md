@@ -212,13 +212,13 @@ convention rather than introducing one:
   finding exactly (explained-by-conflict, not idle) and surface the
   02/21 double-booking anomaly. `propose_minimal_schedule.py` is **not**
   guaranteed to place all 44 tables — see the greedy-coverage entry under
-  Known limitations; on the real 2026 data it places 20 and leaves 24
-  unfilled. The slot/date sanity check therefore applies only to the
-  subset of tables actually placed: the reported day/session count must
-  be at or above the theoretical floor for *that subset*, and the report
-  must state placed-vs-unfilled counts plainly so the numbers are not
-  mistaken for a like-for-like win against the 14-slot / 10-date 2026
-  baseline.
+  Known limitations; on the real 2026 data (after the site-aware pairing
+  fix) it places 35 and leaves 9 unfilled. The slot/date sanity check
+  therefore applies only to the subset of tables actually placed: the
+  reported day/session count must be at or above the theoretical floor
+  for *that subset*, and the report must state placed-vs-unfilled counts
+  plainly so the numbers are not mistaken for a like-for-like win against
+  the 14-slot / 10-date 2026 baseline.
 
 ## Known limitations (to document in script docstrings/output)
 
@@ -239,104 +239,83 @@ convention rather than introducing one:
   treated as feasible everywhere. (Five 2026 judges are in the latter
   group, including Mark Wedge.)
 - **The greedy scheduler does not achieve full coverage.** On the real
-  2026 data `propose_minimal_schedule.py` places only 20 of 44 tables and
-  reports 24 as UNFILLED. Root cause: `form_pairs` selects judges purely
-  on rank and availability, with no regard to which sites those judges
-  can reach; `try_fit` then intersects the chosen judges' feasible sites
-  *after the fact*, and that intersection is frequently empty even when a
-  different, site-aware choice of judges from the same candidate pool
-  would have produced a workable pair set at a workable site. The greedy
-  pass does not backtrack to try another set of judges. Consequences to
+  2026 data `propose_minimal_schedule.py` places 35 of 44 tables and
+  reports 9 as UNFILLED. This used to be much worse (20 placed / 24
+  unfilled) due to a site-blind pairing bug — see "Site-aware pairing
+  (fixed)" below — but the remaining gap is inherent to a greedy,
+  non-backtracking heuristic: once a table's judges are committed to a
+  slot, the algorithm never revisits that choice to free them up for a
+  higher-need table processed later. Fixing that fully means adding
+  backtracking or a true solver — deliberately out of scope, consistent
+  with the "true optimal solver" item under Out of scope. Consequences to
   keep in mind when reading the output:
   - The proposed day/session counts describe only the placed subset and
     are **not** comparable to the 2026 baseline or to the all-44-table
     theoretical floor. The report says so explicitly.
-  - The UNFILLED list is an artifact of the heuristic, not proof that
-    those tables were unstaffable from the available judge pool.
+  - The UNFILLED list reflects the greedy pass's ordering, not proof
+    those tables were unstaffable from the available judge pool — a
+    different processing order could place a different subset.
 
-  Fixing this means making pair selection site-aware (choose a candidate
-  site first, filter judges to those who can reach it, then pair) or
-  adding backtracking — deliberately out of scope for this iteration, and
-  consistent with the "true optimal solver" item under Out of scope.
+  **Site-aware pairing (fixed).** The original version of `try_fit`
+  picked judges by rank first and checked site feasibility afterward,
+  which could — and on the real data, did — produce a set of pairs whose
+  feasible sites never overlapped, even when a fully valid same-site set
+  of pairs existed in the same candidate pool. Confirmed concretely: table
+  T76 (Barleywines, needs 4 pairs) had 75 eligible judges and the old
+  `form_pairs` call successfully formed 4 rank-valid pairs whose feasible
+  sites had no common intersection (one judge Dallas-only, another pair
+  Grapevine/Dallas-only and unable to reach Dallas together), even though
+  an all-Grapevine-feasible set of 4 pairs existed in the same pool.
 
-  **Scoped follow-up (not implemented, for a future session):** confirmed
-  concretely on real data — table T76 (Barleywines, needs 4 pairs) has 75
-  eligible judges and `form_pairs` successfully forms 4 valid rank-pairs,
-  but the 4 pairs' feasible-site sets have no common intersection (one
-  judge is Dallas-only, another pair is Grapevine/Dallas-only and can't
-  reach Dallas together), even though an all-Grapevine-feasible set of 4
-  pairs existed in the same 75-judge pool. This is exactly the bug, not
-  an edge case.
+  Fix shipped: `try_fit` now picks a candidate site first, restricts the
+  judge pool to those feasible **at that specific site**, and only then
+  runs `form_pairs` on the site-restricted pool — for every open site in
+  the slot, not just one. Among every site where `form_pairs` fully
+  succeeds, it picks the one minimizing total travel distance across the
+  resulting pairs (`total_travel_distance`, extracted from `pick_site`'s
+  distance arithmetic so both functions share it). This raised real-data
+  coverage from 20/44 to 35/44 placed. `form_pairs`, `judge_feasible_sites`,
+  `eligible_judges_for_table`, and `pick_site`'s public signature are
+  unchanged; only `try_fit`'s internals in `propose_minimal_schedule.py`
+  were rewritten. Three pre-existing `build_schedule` tests that used
+  `"Dallas"` as a stand-in for "any generic site" had to be renamed to
+  neutral site names, since Dallas now carries its own host-presence rule
+  (see below) that those tests never intended to exercise.
 
-  Fix: invert `try_fit`'s order of operations. Today it filters candidates
-  by slot-availability and (site-agnostic) feasibility, runs `form_pairs`
-  once, and only *then* intersects the chosen judges' feasible sites. The
-  new version should, for a given slot: for each site still open in that
-  slot, filter the candidate pool to judges feasible **at that specific
-  site**, then run `form_pairs` on that site-restricted pool. Collect
-  every site where `form_pairs` fully succeeds (returns all
-  `required_pairs`), and — per the decision made when this was scoped —
-  pick the site minimizing total travel distance across the resulting
-  pairs among those successes (reusing `pick_site`'s existing distance
-  arithmetic, just invoked once per successful candidate site instead of
-  once after the fact). If no site succeeds, the table is genuinely
-  unfillable at this slot, and `try_fit` returns `None` as before.
+  **Site-host constraints (implemented).** A handful of named judges are
+  physically tied to a specific site (it's their home or workplace), which
+  the distance-based feasibility model can't capture on its own. Two of
+  the four names given verbally didn't match the CSV and were corrected
+  before implementation: `Marc McCurdy` → `Mark McCurdy`,
+  `Matt Morriss` → `Matthew Morriss` (`Jarrett Long`, `Amanda Long`,
+  `Reni Morriss`, `Terry Olinger`, and `Mike Grover` all matched as given).
 
-  This only changes `try_fit`'s internals in `propose_minimal_schedule.py`
-  — `form_pairs`, `judge_feasible_sites`, `eligible_judges_for_table`, and
-  `pick_site` stay as-is and get called from a different place/order, not
-  redefined. No change to `judging_common.py` or
-  `analyze_judge_utilization.py`. Expect to update or replace a couple of
-  the existing `build_schedule` tests in `test_propose_minimal_schedule.py`
-  whose fixtures assumed the old pick-then-check behavior (a case
-  structured like today's "T76 fails" scenario should now succeed).
-  Validate against real data by confirming the placed-table count rises
-  materially above 20/44 — full coverage isn't guaranteed even after this
-  fix (genuine judge/distance scarcity can still leave a table unfillable),
-  but a large unexplained gap surviving the fix would mean the redesign
-  itself has a bug, not that the limitation persists as documented here.
+  - **Site anchors** (`SITE_ANCHORS` in `propose_minimal_schedule.py`) —
+    `Amanda Long` and `Jarrett Long` (Arlington), `Reni Morriss` and
+    `Matthew Morriss` (Keller), `Mark McCurdy` (Grapevine): for these
+    five, `judge_feasible_sites` returns *only* their home site,
+    overriding the normal distance computation entirely rather than
+    intersecting with it. They're ordinary judges in every other respect
+    — still subject to the usual certification pairing rule, and not
+    required to appear in every session at their site, just permanently
+    excluded from being placed anywhere else.
+  - **Dallas host requirement** (`DALLAS_HOST_CANDIDATES`) — `Terry
+    Olinger` and `Mike Grover`: neither may be selected into a Dallas
+    judging pair (`judge_feasible_sites` subtracts Dallas from their
+    normal computed set), and separately, `site_host_requirement_met`
+    only offers Dallas as a candidate site for a given `(date, session)`
+    slot if at least one of them has *any* existing availability row for
+    that slot — their regular judge-availability data doubles as the
+    presence signal, no new data needed. If neither has an availability
+    row for that slot, Dallas is dropped from that slot's candidate
+    sites entirely, the same as if every site were already booked.
 
-  **Additional scoped follow-up: site-host constraints.** A handful of
-  named judges are physically tied to a specific site (it's their home or
-  workplace) and need hard rules the distance-based feasibility model
-  doesn't capture on its own. Confirmed real-data spelling (two of the
-  four names given verbally didn't match the CSV — `Marc McCurdy` is
-  really `Mark McCurdy`; `Matt Morriss` is really `Matthew Morriss`;
-  `Jarrett Long`, `Amanda Long`, `Reni Morriss`, `Terry Olinger`, and
-  `Mike Grover` all matched as given):
-
-  - **Site anchors** — `Amanda Long` and `Jarrett Long` (Arlington),
-    `Reni Morriss` and `Matthew Morriss` (Keller), `Mark McCurdy`
-    (Grapevine): for these five, `judge_feasible_sites` must return
-    *only* their home site, overriding the normal distance computation
-    entirely rather than intersecting with it. They're ordinary judges
-    in every other respect — still subject to the usual certification
-    pairing rule, and not required to appear in every session at their
-    site, just permanently excluded from being placed anywhere else.
-  - **Dallas host requirement** — `Terry Olinger` and `Mike Grover`:
-    neither may be selected into a Dallas judging pair (their feasible
-    sites are their normal computed set *minus* Dallas), but Dallas
-    should only be offered as a candidate site for a given
-    `(date, session)` slot if at least one of them has *any* existing
-    availability row for that slot — using their regular judge-
-    availability data as the presence signal, no new data needed. If
-    neither has an availability row for that slot, Dallas is dropped
-    from that slot's candidate sites entirely, the same as if every
-    site were already booked.
-
-  Both rules are pure filters on the same two functions the pairing
-  redesign above already touches (`judge_feasible_sites` for the site
-  anchors and judge exclusion; the per-slot candidate-site list for the
-  Dallas host check) — implement them together with that redesign, not
-  as a separate pass. No change to `judging_common.py` or
-  `analyze_judge_utilization.py`. A hardcoded small config (e.g. two
-  dicts/sets of judge name → site) at the top of
-  `propose_minimal_schedule.py`, alongside `TARGET_BEERS_PER_PAIR` and
-  `MAX_DISTANCE_MILES`, is sufficient — no need for a new data file for
-  five to seven names. Test by asserting `judge_feasible_sites` for each
-  anchored judge returns exactly their one site regardless of the
-  `distances` dict passed in, and that a slot with no host-candidate
-  availability drops Dallas from that slot's site list.
+  Both rules live entirely in `propose_minimal_schedule.py` — no change
+  to `judging_common.py` or `analyze_judge_utilization.py`. Covered by
+  unit tests on `judge_feasible_sites` and `site_host_requirement_met`
+  directly, plus `build_schedule`-level tests proving an anchored judge
+  never appears outside their home site and that Dallas is genuinely
+  unavailable without a host present.
 
 ## Out of scope
 

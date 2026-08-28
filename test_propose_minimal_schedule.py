@@ -7,6 +7,7 @@ from propose_minimal_schedule import (
     form_pairs,
     judge_feasible_sites,
     pick_site,
+    site_host_requirement_met,
 )
 
 
@@ -101,6 +102,35 @@ def test_pick_site_minimizes_total_distance():
     assert pick_site(['Dallas', 'Keller'], pairs, distances) == 'Dallas'  # 13 < 42
 
 
+def test_judge_feasible_sites_site_anchor_overrides_distance():
+    # A site-anchored judge (their home/workplace) is only ever feasible
+    # at that one site, even if distance data says another site is closer.
+    distances = {"Amanda Long": {"Arlington": 50.0, "Keller": 1.0}}
+    result = judge_feasible_sites("Amanda Long", distances, ["Arlington", "Keller"], max_distance=20)
+    assert result == {"Arlington"}, result
+
+
+def test_judge_feasible_sites_dallas_host_candidate_excluded_from_dallas():
+    # Terry/Mike run the Dallas site instead of judging there, even when
+    # their own distance data would otherwise make Dallas feasible.
+    distances = {"Terry Olinger": {"Dallas": 1.0, "Keller": 5.0}}
+    result = judge_feasible_sites("Terry Olinger", distances, ["Dallas", "Keller"], max_distance=20)
+    assert result == {"Keller"}, result
+
+
+def test_site_host_requirement_met_dallas_needs_a_host_present():
+    profiles = {
+        'Terry Olinger': {'availability': {('02/07', 'AM')}},
+        'Mike Grover': {'availability': set()},
+    }
+    assert site_host_requirement_met('Dallas', ('02/07', 'AM'), profiles) is True
+    assert site_host_requirement_met('Dallas', ('02/07', 'PM'), profiles) is False
+
+
+def test_site_host_requirement_met_non_dallas_site_has_no_requirement():
+    assert site_host_requirement_met('Arlington', ('02/07', 'AM'), {}) is True
+
+
 from propose_minimal_schedule import build_schedule
 
 
@@ -115,7 +145,9 @@ def test_build_schedule_places_all_tables():
         'Judge3': {'rank': 'Level 3: Certified', 'substyles': set(), 'availability': {('02/07', 'AM')}},
         'Judge4': {'rank': 'Non-BJCP', 'substyles': set(), 'availability': {('02/07', 'AM')}},
     }
-    schedule, slots = build_schedule(tables, profiles, {}, ['Dallas', 'Keller'])
+    # Arlington/Keller here are just two arbitrary site names with no
+    # special rules attached (unlike Dallas, which requires a host judge).
+    schedule, slots = build_schedule(tables, profiles, {}, ['Arlington', 'Keller'])
     assert len(schedule) == 2
     assert slots == [('02/07', 'AM')]
     assert all(e['site'] is not None for e in schedule)
@@ -140,7 +172,7 @@ def test_build_schedule_consolidates_into_second_session_same_date():
         'Judge4': {'rank': 'Non-BJCP', 'substyles': set(),
                    'availability': {('02/07', 'PM'), ('02/20', 'AM')}},
     }
-    schedule, slots = build_schedule(tables, profiles, {}, ['Dallas'])
+    schedule, slots = build_schedule(tables, profiles, {}, ['Arlington'])
     assert slots == [('02/07', 'AM'), ('02/07', 'PM')]
     assert all(e['site'] is not None for e in schedule)
 
@@ -157,12 +189,105 @@ def test_build_schedule_leaves_table_unfilled_when_no_slot_covers_it():
         'Judge1': {'rank': 'Level 3: Certified', 'substyles': set(), 'availability': {('02/07', 'AM')}},
         'Judge2': {'rank': 'Non-BJCP', 'substyles': set(), 'availability': {('02/07', 'AM')}},
     }
-    schedule, slots = build_schedule(tables, profiles, {}, ['Dallas'])
+    schedule, slots = build_schedule(tables, profiles, {}, ['Arlington'])
     filled = [e for e in schedule if e['site'] is not None]
     unfilled = [e for e in schedule if e['site'] is None]
     assert len(filled) == 1
     assert len(unfilled) == 1
     assert unfilled[0]['unfilled_pairs_needed'] == 1
+
+
+def test_build_schedule_site_aware_pairing_places_previously_unfillable_table():
+    # Reproduces the real T76 bug: rank-only pairing can produce pairs
+    # whose feasible sites don't overlap, even though a fully valid,
+    # single-site set of pairs exists in the same candidate pool. Judge
+    # insertion order below is deliberately interleaved (SiteA/SiteB
+    # alternating) so a naive rank-only pairing pass would form two
+    # cross-site (mismatched) pairs instead of the two valid, same-site
+    # pairs that actually exist in this pool. Generic site names (not
+    # Dallas/Arlington/etc.) so this test is unaffected by any site-
+    # specific rule and purely exercises the pairing algorithm.
+    slot = ('02/06', None)
+    profiles = {
+        'CertSiteA1':    {'rank': 'Level 3: Certified', 'substyles': set(), 'availability': {slot}},
+        'CertSiteB1':    {'rank': 'Level 3: Certified', 'substyles': set(), 'availability': {slot}},
+        'CertSiteA2':    {'rank': 'Level 3: Certified', 'substyles': set(), 'availability': {slot}},
+        'CertSiteB2':    {'rank': 'Level 3: Certified', 'substyles': set(), 'availability': {slot}},
+        'NoncertSiteB1': {'rank': 'Non-BJCP', 'substyles': set(), 'availability': {slot}},
+        'NoncertSiteA1': {'rank': 'Non-BJCP', 'substyles': set(), 'availability': {slot}},
+        'NoncertSiteB2': {'rank': 'Non-BJCP', 'substyles': set(), 'availability': {slot}},
+        'NoncertSiteA2': {'rank': 'Non-BJCP', 'substyles': set(), 'availability': {slot}},
+    }
+    distances = {
+        'CertSiteA1': {'SiteA': 1.0}, 'CertSiteA2': {'SiteA': 1.0},
+        'NoncertSiteA1': {'SiteA': 1.0}, 'NoncertSiteA2': {'SiteA': 1.0},
+        'CertSiteB1': {'SiteB': 1.0}, 'CertSiteB2': {'SiteB': 1.0},
+        'NoncertSiteB1': {'SiteB': 1.0}, 'NoncertSiteB2': {'SiteB': 1.0},
+    }
+    tables = [
+        {'table': 'T1', 'name': 'Big Table', 'styles': set(), 'entry_count': 18, 'required_pairs': 2},
+    ]
+    schedule, slots = build_schedule(tables, profiles, distances, ['SiteA', 'SiteB'], max_distance=20)
+    assert len(schedule) == 1
+    site = schedule[0]['site']
+    assert site in ('SiteA', 'SiteB'), schedule[0]
+    # Every judge in the resulting pairs must actually be feasible at the
+    # chosen site - proves the pairing was site-consistent, not lucky.
+    for judge_a, judge_b in schedule[0]['pairs']:
+        assert site in judge_feasible_sites(judge_a, distances, [site], 20), (site, judge_a)
+        assert site in judge_feasible_sites(judge_b, distances, [site], 20), (site, judge_b)
+
+
+def test_build_schedule_never_places_anchored_judge_outside_home_site():
+    slot = ('02/06', None)
+    tables = [
+        {'table': 'T1', 'name': 'A', 'styles': set(), 'entry_count': 9, 'required_pairs': 1},
+    ]
+    profiles = {
+        'Amanda Long': {'rank': 'Level 3: Certified', 'substyles': set(), 'availability': {slot}},
+        'Some Noncert': {'rank': 'Non-BJCP', 'substyles': set(), 'availability': {slot}},
+    }
+    # SiteX is a generic site name, not Dallas - this test is specifically
+    # about the anchor rule, and Dallas's own host requirement would
+    # otherwise make Amanda's exclusion trivially true for the wrong
+    # reason. Even though distance data would make SiteX look closer,
+    # Amanda is anchored to Arlington and must never be placed at SiteX.
+    distances = {'Amanda Long': {'SiteX': 1.0, 'Arlington': 50.0}}
+    schedule, slots = build_schedule(tables, profiles, distances, ['SiteX', 'Arlington'], max_distance=20)
+    assert schedule[0]['site'] == 'Arlington', schedule[0]
+
+
+def test_build_schedule_drops_dallas_when_no_host_available():
+    slot = ('02/06', None)
+    tables = [
+        {'table': 'T1', 'name': 'A', 'styles': set(), 'entry_count': 9, 'required_pairs': 1},
+    ]
+    profiles = {
+        'Cert1': {'rank': 'Level 3: Certified', 'substyles': set(), 'availability': {slot}},
+        'Noncert1': {'rank': 'Non-BJCP', 'substyles': set(), 'availability': {slot}},
+        # Neither Dallas host candidate has an availability row this slot.
+    }
+    schedule, slots = build_schedule(tables, profiles, {}, ['Dallas'], max_distance=20)
+    assert schedule[0]['site'] is None, schedule[0]
+    assert schedule[0]['unfilled_pairs_needed'] == 1
+
+
+def test_build_schedule_allows_dallas_when_host_available():
+    slot = ('02/06', None)
+    tables = [
+        {'table': 'T1', 'name': 'A', 'styles': set(), 'entry_count': 9, 'required_pairs': 1},
+    ]
+    profiles = {
+        'Cert1': {'rank': 'Level 3: Certified', 'substyles': set(), 'availability': {slot}},
+        'Noncert1': {'rank': 'Non-BJCP', 'substyles': set(), 'availability': {slot}},
+        'Terry Olinger': {'rank': 'Non-BJCP', 'substyles': set(), 'availability': {slot}},
+    }
+    schedule, slots = build_schedule(tables, profiles, {}, ['Dallas'], max_distance=20)
+    assert schedule[0]['site'] == 'Dallas', schedule[0]
+    # Terry is present (unlocking Dallas) but never one of the judging pair -
+    # he runs the site instead of judging there.
+    judges_used = {j for pair in schedule[0]['pairs'] for j in pair}
+    assert 'Terry Olinger' not in judges_used, schedule[0]
 
 
 if __name__ == '__main__':
