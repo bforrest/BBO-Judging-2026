@@ -22,22 +22,7 @@ Each pair individually is fine. But the four pairs together share no common site
 The root cause: form_pairs picks who's certified-paired-with-whom purely on rank, with zero regard to site. Only afterward does try_fit check whether the site sets intersect — by then it's too late, because a different set of 4 pairs (e.g., all Grapevine-feasible judges, of which there are clearly several) would have worked fine. The algorithm just never considered that alternative.
 
 
-UNFILLED (24 tables could not be staffed):
-  T76 Barleywines: needs 4 pairs
-  T62 British Bitter: needs 4 pairs
-  T68 Pale American Ale: needs 4 pairs
-  T79 Belgian Blonde and Saison: needs 4 pairs
-  T88 Specialty Beer: needs 4 pairs
-  T93 Specialty Cider And Perry: needs 4 pairs
-  T73 Specialty IPA: needs 3 pairs
-  T74 Hazy and Experimental IPA: needs 3 pairs
-  T77 European Sour Ale: needs 3 pairs
-  T67 Strong British Ale: needs 4 pairs
-  T85 Smoke Beer: needs 4 pairs
-  T90 Melomel: needs 4 pairs
-  T71 Imperial Stout: needs 3 pairs
-  T82 Fruit Beer: needs 4 pairs
-  T87 American Wild Ale: needs 3 pairs
+UNFILLED (9 tables could not be staffed):
   T50 Pale Lager: needs 4 pairs
   T53 Pale German Beer: needs 4 pairs
   T54 Pale European Lager: needs 4 pairs
@@ -50,40 +35,58 @@ UNFILLED (24 tables could not be staffed):
 
 Day 02/06:
   (single session):
-    T66 British Stout @ Grapevine: Amanda Long & Emily Allen, Mike Grover & Steve Ballantyne, Walter Hodges & C.J. Barley
+    T61 German Wheat Beer @ Keller: Joshua Hayes & James Klee, Steve Russell & Tierney Klee, Matthew Morriss & Greg Smith, Mike Treadway & Matt Parulis
+    T65 Stout and Porter @ Arlington: Amanda Long & Emily Allen, Steve Brown & Steve Ballantyne, Brian Schoolcraft & C.J. Barley, Steve Wesstrom & Bill Hamilton
+    T69 Amber And Brown American Beer @ Dallas: Walter Hodges & Michael Porter, Brandon Montgomery & Mark Schuler, Eric Morgan & Amanda Garland, Alf Syftestad & William Lawrence
 Day 02/07:
   AM:
-    T63 Brown British Beer @ Dallas: Mike Grover & C.J. Barley, Walter Hodges & Bill Hamilton, Terry Olinger & Mark Schuler, Mark McCurdy & Greg Smith
-    T70 American Porter And Stout @ Keller: Jarrett Long & Tim Mercer, Loring Knutson & Reni Morriss, Nancy Knutson & Stacy Myers
-    T78 Belgian Ale @ Grapevine: Amanda Long & Douglas Hicks, Steve Russell & Steve Steinheimer, Matthew Morriss & Joseph Cromeans, MikeTreadway & Jerry Keeney
+    T63 Brown British Beer @ Keller: Steve Russell & C.J. Barley, Matthew Morriss & Bill Hamilton, Mike Treadway & Mark Schuler, Loring Knutson & Greg Smith
+    T66 British Stout @ Dallas: Walter Hodges & Steve Steinheimer, Marcio Fazzani & Joseph Cromeans, Steve Littel & Jerry Keeney
+    T70 American Porter And Stout @ Arlington: Amanda Long & Stacy Myers, Jarrett Long & Aaron Wagner, Nancy Knutson & David Bierschenk
   PM:
-    T61 German Wheat Beer @ Keller: Amanda Long & Emily Allen, Steve Brown & C.J. Barley, Steve Russell & Tierney Klee, Matthew Morriss & Michael Porter
-    T72 American IPA @ Grapevine: Jarrett Long & Jerry Keeney, Loring Knutson & Brandon Melton, John Shank & Reni Morriss
-    T84 Autumn Winter Seasonal @ Dallas: Mike Grover & Mark Schuler, Walter Hodges & William Lawrence, Mark McCurdy & Douglas Robinson
-    T86 Wood Aged Beer @ Arlington: John Mosher & Steve Steinheimer, Mike Treadway & Kim Truesdell, Nancy Knutson & Joseph Cromeans
+    T64 Scottish and Irish Ale @ Grapevine: Mike Grover & Douglas Robinson, Walter Hodges & Steve Steinheimer, Steve Russell & Kim Truesdell, Mike Treadway & Joseph Cromeans
+    T78 Belgian Ale @ Dallas: Steve Brown & Emily Allen, Marcio Fazzani & C.J. Barley, Loring Knutson & Michael Porter, Nancy Knutson & Mark Schuler
+    T81 Strong Dark Belgian Ale @ Arlington: Amanda Long & Tierney Klee, Jarrett Long & Jerry Keeney, John Mosher & Brandon Melton, John Shank & Stacy Myers
 Day 02/13:
   (single session):
-    T80 Strong Light Belgian Ale @ Grapevine: Amanda Long & Emily Allen, Jarrett Long & Steve Ballantyne, Mike Grover & C.J. Barley
+    T52 Commonwealth Beer @ Grapevine: Mike Grover & Greg Smith, Joshua Hayes & Douglas Hicks, James Duke & Douglas Robinson
+    T76 Barleywines @ Keller: Steve Brown & Emily Allen, Matthew Morriss & Steve Ballantyne, Mike Treadway & C.J. Barley, Vicki Brown & Bill Hamilton
+    T80 Strong Light Belgian Ale @ Arlington: Amanda Long & James Klee, Jarrett Long & Tierney Klee, John Mosher & James Smith
+    T84 Autumn Winter Seasonal @ Dallas: Eric Morgan & William Lawrence, Alf Syftestad & Kevin Meyer, Marcio Fazzani & Kim Truesdell
 Day 02/14:
   AM:
-    T92 Cider And Perry @ Grapevine: Amanda Long & Mark Schuler, Jarrett Long & James Smith, Mike Grover & Kim Truesdell, Walter Hodges & Joseph Cromeans
+    T62 British Bitter @ Dallas: Walter Hodges & Amanda Garland, Alf Syftestad & Joseph Cromeans, Kyle Lapointe & Jerry Keeney, Brian English & Marqus Burleson
+    T68 Pale American Ale @ Arlington: Amanda Long & Brandon Melton, Jarrett Long & Stacy Myers, Mike Treadway & Brian Street, Terry-Lynn Faught & Caroline Forster
+    T79 Belgian Blonde and Saison @ Grapevine: Mike Grover & Mike MacCrory, David Johnson & Nichole Pena, Forrest, Barry & Taryn Dunn, Keith Green & Clayson Green
+    T86 Wood Aged Beer @ Keller: Steve Brown & Mark Schuler, Steve Russell & James Smith, Matthew Morriss & Kim Truesdell
   PM:
-    T55 Kolsch and Blonde @ Grapevine: Amanda Long & Emily Allen, Mike Grover & Mark Schuler, Walter Hodges & Kim Truesdell
-    T75 Strong American Ale @ Arlington: Mike Treadway & Brian Street, Terry-Lynn Faught & Brian English, Kyle Lapointe & John Shank
-    T83 Spice Herb Vegetable Beer @ Keller: Jarrett Long & Tim Mercer, Steve Brown & Reni Morriss, Steve Russell & Stacy Myers
-    T89 Traditional Mead @ Dallas: Terry Olinger & Mike MacCrory, Alf Syftestad & Taryn Dunn, Matthew Morriss & Clayson Green, Carlos Herrera & Forrest, Barry
+    T74 Hazy and Experimental IPA @ Arlington: Amanda Long & Brian Street, Forrest, Barry & Terry-Lynn Faught, Brian English & Jarrett Long
+    T88 Specialty Beer @ Dallas: Walter Hodges & Emily Allen, Steve Brown & Mark Schuler, Alf Syftestad & Kim Truesdell, Kyle Lapointe & Mike MacCrory
+    T91 Spiced And Specialty Mead @ Keller: Steve Russell & Reni Morriss, Matthew Morriss & Stacy Myers, Mike Treadway & Taryn Dunn, John Shank & Clayson Green
 Day 02/16:
   (single session):
-    T91 Spiced And Specialty Mead @ Grapevine: Mark McCurdy & Walter Hansen, Brian Schoolcraft & Karl King, John Shank & Jerry Richard, Vicki Brown & Jonathan Rollins
+    T93 Specialty Cider And Perry @ Keller: Brian Schoolcraft & Tim Mercer, John Shank & WalterHansen, Vicki Brown & Karl King, Keith Green & Jonathan Rollins
+Day 02/20:
+  (single session):
+    T55 Kolsch and Blonde @ Arlington: Amanda Long & C.J. Barley, Steve Brown & Steve Steinheimer, Brian Schoolcraft & Kim Truesdell
+    T72 American IPA @ Keller: Steve Russell & James Smith, James Duke & Tim Mercer, Terry-LynnFaught & Caroline Forster
 Day 02/21:
   AM:
-    T81 Strong Dark Belgian Ale @ Grapevine: Amanda Long & Bill Hamilton, Jarrett Long & Mark Schuler, Mike Grover & Kim Truesdell, MarkMcCurdy & Jerry Keeney
+    T73 Specialty IPA @ Arlington: Amanda Long & Bill Hamilton, Vicki Brown & Mark Schuler, James Duke & Kim Truesdell
+    T77 European Sour Ale @ Grapevine: Mike Grover & Jerry Keeney, Mark McCurdy & Harry Anderson, Charlie Scudder & Walter Hansen
   PM:
-    T52 Commonwealth Beer @ Grapevine: Amanda Long & Bill Hamilton, Mike Grover & Michael Porter, Steve Brown & Mark Schuler
+    T67 Strong British Ale @ Arlington: Amanda Long & Bill Hamilton, Jarrett Long & Michael Porter, Steve Brown & Mark Schuler, Vicki Brown & Kim Truesdell
+    T85 Smoke Beer @ Grapevine: Mike Grover & Brian Street, Steve Russell & Aaron Wagner, JamesDuke & Marqus Burleson, Charlie Scudder & Nichole Pena
 Day 02/27:
   (single session):
-    T64 Scottish and Irish Ale @ Keller: Amanda Long & Emily Allen, Jarrett Long & Steve Ballantyne, Steve Brown & C.J. Barley, Joshua Hayes & Tierney Klee
+    T71 Imperial Stout @ Grapevine: Steve Brown & Greg Smith, Mark McCurdy & Kim Truesdell, Vicki Brown & Jerry Keeney
+    T82 Fruit Beer @ Arlington: Amanda Long & Tierney Klee, John Mosher & Stacy Myers, James Duke & Mike MacCrory, Kyle Lapointe & Jerry Richard
+    T90 Melomel @ Keller: Joshua Hayes & Emily Allen, Matthew Morriss & Steve Ballantyne, Mike Treadway & C.J. Barley, John Shank & James Klee
 Day 02/28:
   AM:
-    T65 Stout and Porter @ Arlington: Amanda Long & James Klee, Matthew Morriss & Tierney Klee, John Mosher & Mark Schuler, Mike Treadway & Greg Smith
-    T69 Amber And Brown American Beer @ Grapevine: Loring Knutson & Kim Truesdell, Nancy Knutson & Reni Morriss, Kyle Lapointe & Stacy Myers, Nigel Curtis & Harry Anderson
+    T89 Traditional Mead @ Grapevine: Mark McCurdy & Mark Schuler, Mike Treadway & Greg Smith, Loring Knutson & Kim Truesdell, Nancy Knutson & Stacy Myers
+    T92 Cider And Perry @ Arlington: Amanda Long & James Klee, Jarrett Long & Tierney Klee, John Mosher & Brian Street, Kyle Lapointe & Marqus Burleson
+  PM:
+    T75 Strong American Ale @ Arlington: Amanda Long & Emily Allen, Jarrett Long & C.J. Barley,John Mosher & James Klee
+    T83 Spice Herb Vegetable Beer @ Keller: Joshua Hayes & Tierney Klee, Steve Russell & Mark Schuler, Matthew Morriss & Kim Truesdell
+    T87 American Wild Ale @ Grapevine: Mike Treadway & Brandon Melton, Loring Knutson & Harry Anderson, Nancy Knutson & Mike MacCrory

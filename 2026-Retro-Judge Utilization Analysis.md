@@ -3,7 +3,7 @@
 ==================================================
 
 Season-wide utilization: 86% (286 confirmed judge-sessions / 331 confirmed + unexplained-idle)
-Session gaps on multi-session days: 47 total, 2 explained by conflict (4%), 45 unexplained idle capacity
+Session gaps on multi-session days: 47 total, 2 explained by conflict (4%), 45 unexplained idlecapacity
 Distance to closest missed opportunity: average 15.5mi, median 12.5mi (across 26 findings); 19 findings skipped - no known distance
 
 Unexplained idle capacity (45 findings: 30 wholly unused, 15 partially used),
