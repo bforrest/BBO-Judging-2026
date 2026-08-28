@@ -3,6 +3,16 @@
 Propose a minimal-day BBO judging schedule from judge availability and
 travel distance, ignoring the site each table was historically run at.
 
+KNOWN LIMITATION: the greedy placement does not achieve full coverage — a
+meaningful fraction of tables (24 of 44 on the real 2026 data) are left
+UNFILLED. The root cause is that `form_pairs` picks judges without regard
+to site, and `try_fit` only intersects those judges' feasible sites
+afterwards; that intersection is frequently empty even when a site-aware
+pick would have worked. Because of this, the proposed day/session counts
+describe only the subset of tables actually placed and are NOT a
+like-for-like comparison against the 2026 baseline. See the "Known
+limitations" section of the design spec for detail.
+
 See docs/superpowers/specs/2026-08-27-judge-utilization-and-schedule-optimization-design.md
 """
 
@@ -68,11 +78,16 @@ def build_judge_profiles(rows):
 def judge_feasible_sites(judge_name, distances, sites, max_distance=MAX_DISTANCE_MILES):
     """Return the set of sites within max_distance for this judge.
 
-    A judge missing from `distances` is treated as feasible everywhere
-    (fail open, per the shared-loader convention).
+    A judge with no distance data is treated as feasible everywhere (fail
+    open, per the shared-loader convention). That covers two cases that
+    must behave identically: the judge is missing from `distances`
+    entirely, and the judge is present with an empty dict — which is what
+    `load_judge_distances` writes when every distance column on their
+    worksheet row is blank. Treating the empty case as "feasible nowhere"
+    would silently drop the judge from the whole proposal.
     """
     judge_distances = distances.get(judge_name)
-    if judge_distances is None:
+    if not judge_distances:
         return set(sites)
     return {site for site in sites if judge_distances.get(site, math.inf) <= max_distance}
 
@@ -261,13 +276,30 @@ def format_report(schedule, slots, sites, actual_dates=10, actual_slots=14):
     lines = []
     lines.append("BBO Judging Schedule Proposal")
     lines.append("=" * 40)
-    lines.append(f"Proposed: {len(days_used)} days, {len(slots)} sessions, for {len(schedule)} tables")
-    lines.append(f"2026 actual: {actual_dates} days, {actual_slots} sessions")
-    theoretical_floor = math.ceil(len(schedule) / len(sites)) if sites else len(schedule)
-    lines.append(f"Theoretical floor ({len(sites)} sites, full parallelism): {theoretical_floor} sessions")
+    placed = [e for e in schedule if e['site'] is not None]
+    unfilled = [e for e in schedule if e['site'] is None]
+    lines.append(f"Proposed: {len(days_used)} days, {len(slots)} sessions, "
+                  f"placing {len(placed)} of {len(schedule)} tables "
+                  f"({len(unfilled)} unfilled)")
+    lines.append(f"2026 actual: {actual_dates} days, {actual_slots} sessions, "
+                  f"{len(schedule)} tables (full coverage)")
+    # The floor is computed against the tables actually placed, not all
+    # tables, so it can't be read as "we matched the optimum" when most of
+    # the schedule is unstaffed.
+    floor_basis = len(placed)
+    theoretical_floor = math.ceil(floor_basis / len(sites)) if sites else floor_basis
+    lines.append(f"Theoretical floor for the {floor_basis} placed tables "
+                  f"({len(sites)} sites, full parallelism): {theoretical_floor} sessions")
+    if unfilled:
+        lines.append("")
+        lines.append("NOTE: coverage is incomplete, so the day/session counts above are NOT "
+                      "comparable to the 2026 baseline or to the all-44-table floor of "
+                      f"{math.ceil(len(schedule) / len(sites)) if sites else len(schedule)} "
+                      "sessions. Staffing the unfilled tables would require additional "
+                      "sessions. See this script's module docstring and the design spec "
+                      "for the known limitation behind the unfilled tables.")
     lines.append("")
 
-    unfilled = [e for e in schedule if e['site'] is None]
     if unfilled:
         lines.append(f"UNFILLED ({len(unfilled)} tables could not be staffed):")
         for e in unfilled:

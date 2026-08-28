@@ -82,8 +82,22 @@ them), matching the pattern already used elsewhere in this codebase.
 1. Group the judge's rows by date. For each date, collect every session
    label (`AM`/`PM`/`None`) for which the judge has *any* row that day
    (confirmed or not).
-2. If the judge has a confirmed row in only one session that date, but
-   had candidate rows in another session that date, that's a gap.
+2. On any date where the judge had candidate rows in more than one
+   session, every session with candidate rows but no confirmed row is a
+   **gap**. Note this is deliberately broader than "confirmed in one
+   session, idle in another" — it covers two distinct cases, which are
+   classified and reported separately because they imply different
+   remedies:
+   - **`wholly_unused`** — the judge had *no* confirmed session at all
+     that date, despite being available for more than one. The judge
+     simply wasn't used that day. This is the majority case in the 2026
+     data (30 of 45 unexplained-idle findings) and is the more valuable
+     signal for future planning: it points at a judge who was willing and
+     available for a whole day and got no assignment.
+   - **`partially_used`** — the judge *was* confirmed for some other
+     session that date, so this one specific session was blocked. This
+     points at a particular session/table, not at the judge being
+     overlooked wholesale.
 3. For the missing session, check every candidate table the judge
    nominated there against their `SUBSTYLES ENTERED`:
    - Every candidate table conflicts → **explained by conflict**.
@@ -108,7 +122,11 @@ them), matching the pattern already used elsewhere in this codebase.
 - Season-wide utilization %: confirmed judge-sessions ÷ (confirmed +
   unexplained-idle judge-sessions).
 - A ranked list of unexplained-idle findings (judge, date, session,
-  non-conflicting candidate tables sorted by distance).
+  non-conflicting candidate tables sorted by distance), ranked by each
+  finding's distance to its closest missed opportunity (findings with no
+  known distance rank last), and split into two labelled sub-lists —
+  `wholly_unused` and `partially_used`, per the algorithm's step 2 —
+  with a count for each.
 - Summary distance stats (average/median distance-to-missed-opportunity)
   across all unexplained-idle findings — a pattern of "idle capacity
   only existed far away" reads very differently from "idle capacity
@@ -166,10 +184,18 @@ day/session. (See Limitations — this is an approximation.)
 **Output**: the proposed schedule (table → date/session/site → assigned
 judges/pairs) and a headline comparison:
 
-- Proposed total distinct dates and `(date, session)` slots used.
-- 2026's actual baseline: 10 dates, 14 `(date, session)` slots, 44 tables.
-- Theoretical floor: `ceil(44 tables / 4 sites) = 11` slots, if judge
-  availability allowed full 4-site parallelism every session.
+- Proposed total distinct dates and `(date, session)` slots used, stated
+  alongside how many tables were actually placed and how many were left
+  unfilled (`placing N of 44 tables (M unfilled)`) — never a bare table
+  count that reads as full coverage.
+- 2026's actual baseline: 10 dates, 14 `(date, session)` slots, 44 tables
+  (full coverage).
+- Theoretical floor: `ceil(tables / 4 sites)` slots, if judge availability
+  allowed full 4-site parallelism every session — computed against the
+  tables actually *placed* and labelled as such, so a partial-coverage run
+  can't be misread as matching or beating the all-44-table floor of 11
+  slots. When coverage is incomplete the report also prints an explicit
+  note that the day/session counts are not comparable to the baseline.
 
 ## Testing approach
 
@@ -184,9 +210,15 @@ convention rather than introducing one:
 - Validation against the real repo data as a sanity check:
   `analyze_judge_utilization.py` must reproduce the Brian Street 02/28
   finding exactly (explained-by-conflict, not idle) and surface the
-  02/21 double-booking anomaly. `propose_minimal_schedule.py` must place
-  all 44 tables and report a slot/date count between the known floor (11
-  slots) and the actual baseline (14 slots / 10 dates).
+  02/21 double-booking anomaly. `propose_minimal_schedule.py` is **not**
+  guaranteed to place all 44 tables — see the greedy-coverage entry under
+  Known limitations; on the real 2026 data it places 20 and leaves 24
+  unfilled. The slot/date sanity check therefore applies only to the
+  subset of tables actually placed: the reported day/session count must
+  be at or above the theoretical floor for *that subset*, and the report
+  must state placed-vs-unfilled counts plainly so the numbers are not
+  mistaken for a like-for-like win against the 14-slot / 10-date 2026
+  baseline.
 
 ## Known limitations (to document in script docstrings/output)
 
@@ -201,8 +233,31 @@ convention rather than introducing one:
 - **`PAIRING`-non-empty as "confirmed"** may undercount a real solo
   (unpaired) assignment, if one exists.
 - **Distance coverage is partial.** Only judges present in
-  `JUDGE WORKSHEET 2026.csv` get a real distance-based feasibility check;
-  others are treated as feasible everywhere.
+  `JUDGE WORKSHEET 2026.csv` *with at least one recorded distance* get a
+  real distance-based feasibility check; judges absent from the worksheet
+  and judges whose worksheet row has every distance column blank are both
+  treated as feasible everywhere. (Five 2026 judges are in the latter
+  group, including Mark Wedge.)
+- **The greedy scheduler does not achieve full coverage.** On the real
+  2026 data `propose_minimal_schedule.py` places only 20 of 44 tables and
+  reports 24 as UNFILLED. Root cause: `form_pairs` selects judges purely
+  on rank and availability, with no regard to which sites those judges
+  can reach; `try_fit` then intersects the chosen judges' feasible sites
+  *after the fact*, and that intersection is frequently empty even when a
+  different, site-aware choice of judges from the same candidate pool
+  would have produced a workable pair set at a workable site. The greedy
+  pass does not backtrack to try another set of judges. Consequences to
+  keep in mind when reading the output:
+  - The proposed day/session counts describe only the placed subset and
+    are **not** comparable to the 2026 baseline or to the all-44-table
+    theoretical floor. The report says so explicitly.
+  - The UNFILLED list is an artifact of the heuristic, not proof that
+    those tables were unstaffable from the available judge pool.
+
+  Fixing this means making pair selection site-aware (choose a candidate
+  site first, filter judges to those who can reach it, then pair) or
+  adding backtracking — deliberately out of scope for this iteration, and
+  consistent with the "true optimal solver" item under Out of scope.
 
 ## Out of scope
 

@@ -49,6 +49,17 @@ def test_judge_feasible_sites_missing_judge_is_feasible_everywhere():
     assert result == {"Dallas", "Keller"}
 
 
+def test_judge_feasible_sites_empty_distance_entry_is_feasible_everywhere():
+    # load_judge_distances() writes an empty inner dict for a judge whose
+    # worksheet row has every distance column blank (real 2026 case: Mark
+    # Wedge). That is "no distance data", not "infinitely far from
+    # everywhere" - it must fail open exactly like a judge absent from the
+    # dict entirely, or the judge is silently dropped from the proposal.
+    distances = {"Mark Wedge": {}}
+    result = judge_feasible_sites("Mark Wedge", distances, ["Dallas", "Keller"], max_distance=20)
+    assert result == {"Dallas", "Keller"}, result
+
+
 def test_eligible_judges_excludes_conflicts():
     table = {'table': 'T66', 'styles': {'16A', '16B'}}
     profiles = {

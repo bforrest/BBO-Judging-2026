@@ -7,6 +7,7 @@ explained by a substyle conflict or as unexplained idle capacity.
 See docs/superpowers/specs/2026-08-27-judge-utilization-and-schedule-optimization-design.md
 """
 
+import statistics
 from collections import defaultdict
 
 from judging_common import (
@@ -41,8 +42,19 @@ def analyze_gaps(grouped, table_styles, distances):
 
     Returns (idle_findings, explained_count, unexplained_count).
     idle_findings is a list of dicts:
-      {judge, date, session, candidates: [(row, distance_or_None), ...]}
-    sorted by distance ascending (unknown distance sorts last).
+      {judge, date, session, category, candidates: [(row, distance_or_None), ...]}
+    `candidates` is sorted by distance ascending (unknown distance sorts
+    last), and the findings list itself is ranked by each finding's best
+    (closest) candidate distance, so the most actionable missed
+    opportunities read first.
+
+    `category` distinguishes two kinds of idle capacity, which imply
+    different remedies:
+      'wholly_unused'  - the judge had NO confirmed session at all that
+                         date, despite being available for more than one.
+                         The judge simply wasn't used that day.
+      'partially_used' - the judge was confirmed for some other session
+                         that date, so this specific session was blocked.
     """
     idle_findings = []
     explained_count = 0
@@ -69,11 +81,88 @@ def analyze_gaps(grouped, table_styles, distances):
                     )
                     idle_findings.append({
                         'judge': judge, 'date': date, 'session': session,
+                        'category': ('partially_used' if confirmed_sessions
+                                     else 'wholly_unused'),
                         'candidates': annotated,
                     })
                 else:
                     explained_count += 1
+    idle_findings.sort(key=_rank_key)
     return idle_findings, explained_count, unexplained_count
+
+
+def best_candidate_distance(finding):
+    """Distance to this finding's closest missed opportunity, or None.
+
+    `candidates` is already sorted closest-first with unknown distances
+    last, so the first entry's distance is the best known one (None only
+    when no candidate has a recorded distance).
+    """
+    if not finding['candidates']:
+        return None
+    return finding['candidates'][0][1]
+
+
+def _rank_key(finding):
+    distance = best_candidate_distance(finding)
+    return (distance is None, distance if distance is not None else 0.0,
+            finding['judge'], finding['date'], finding['session'] or '')
+
+
+def count_confirmed_judge_sessions(rows):
+    """Count unique (judge, date, session) triples with a confirmed pairing.
+
+    Counted across the WHOLE dataset — every date, including single-session
+    days — not just the multi-session days the gap analysis looks at. A
+    judge confirmed at two sites in the same session still counts once.
+    """
+    confirmed = set()
+    for row in rows:
+        if row['slot'] is None:
+            continue
+        name = row['FULL NAME'].strip()
+        if not name:
+            continue
+        if not row['PAIRING'].strip():
+            continue
+        date, session = row['slot'][0], row['slot'][1]
+        confirmed.add((name, date, session))
+    return len(confirmed)
+
+
+def utilization_pct(confirmed_count, unexplained_count):
+    """Season-wide utilization, per the spec's formula:
+
+        confirmed judge-sessions / (confirmed + unexplained-idle judge-sessions)
+
+    Returned as a percentage, or None when there is nothing to divide.
+    """
+    total = confirmed_count + unexplained_count
+    if not total:
+        return None
+    return 100 * confirmed_count / total
+
+
+def distance_stats(idle_findings):
+    """Average/median distance to the closest missed opportunity.
+
+    One distance per finding — its best (closest) candidate. Findings
+    whose every candidate distance is unknown are skipped and counted.
+
+    Returns (average, median, skipped_count); average and median are None
+    when no finding had a known distance.
+    """
+    distances = []
+    skipped = 0
+    for finding in idle_findings:
+        distance = best_candidate_distance(finding)
+        if distance is None:
+            skipped += 1
+        else:
+            distances.append(distance)
+    if not distances:
+        return None, None, skipped
+    return statistics.mean(distances), statistics.median(distances), skipped
 
 
 def find_double_bookings(grouped):
@@ -95,28 +184,74 @@ def find_double_bookings(grouped):
     return findings
 
 
-def format_report(idle_findings, explained_count, unexplained_count, double_bookings):
+CATEGORY_LABELS = [
+    ('wholly_unused',
+     "Wholly unused days (judge had NO confirmed session that date)"),
+    ('partially_used',
+     "Partially used days (judge was confirmed in another session that date)"),
+]
+
+
+def format_report(idle_findings, explained_count, unexplained_count, double_bookings,
+                  confirmed_count):
     lines = []
     lines.append("Judge Utilization Analysis (2026 retrospective)")
     lines.append("=" * 50)
+
+    util = utilization_pct(confirmed_count, unexplained_count)
+    if util is None:
+        lines.append("Season-wide utilization: n/a (no confirmed or idle judge-sessions)")
+    else:
+        lines.append(f"Season-wide utilization: {util:.0f}% "
+                      f"({confirmed_count} confirmed judge-sessions / "
+                      f"{confirmed_count + unexplained_count} confirmed + unexplained-idle)")
+
     total_gaps = explained_count + unexplained_count
     if total_gaps:
         pct = 100 * explained_count / total_gaps
-        lines.append(f"Session gaps: {total_gaps} total, {explained_count} explained by "
-                      f"conflict ({pct:.0f}%), {unexplained_count} unexplained idle capacity")
+        lines.append(f"Session gaps on multi-session days: {total_gaps} total, "
+                      f"{explained_count} explained by conflict ({pct:.0f}%), "
+                      f"{unexplained_count} unexplained idle capacity")
     else:
         lines.append("No multi-session-day gaps found.")
+
+    average, median, skipped = distance_stats(idle_findings)
+    if average is None:
+        lines.append("Distance to closest missed opportunity: no findings with a known "
+                      f"distance ({skipped} findings had none)")
+    else:
+        counted = len(idle_findings) - skipped
+        line = (f"Distance to closest missed opportunity: average {average:.1f}mi, "
+                f"median {median:.1f}mi (across {counted} findings)")
+        if skipped:
+            line += f"; {skipped} findings skipped - no known distance"
+        lines.append(line)
     lines.append("")
 
     if idle_findings:
-        lines.append(f"Unexplained idle capacity ({len(idle_findings)} findings):")
+        by_category = defaultdict(list)
         for finding in idle_findings:
-            lines.append(f"  {finding['judge']} - {finding['date']} {finding['session']}:")
-            for row, distance in finding['candidates']:
-                dist_str = f"{distance:.0f}mi" if distance is not None else "distance unknown"
-                site = row['slot'][2]
-                table = row['slot'][3]
-                lines.append(f"    could have judged {table} at {site} ({dist_str})")
+            by_category[finding['category']].append(finding)
+        counts = ", ".join(
+            f"{len(by_category[key])} {key.replace('_', ' ')}" for key, _ in CATEGORY_LABELS
+        )
+        lines.append(f"Unexplained idle capacity ({len(idle_findings)} findings: {counts}),")
+        lines.append("ranked by distance to the closest missed opportunity:")
+        for key, label in CATEGORY_LABELS:
+            findings = by_category[key]
+            lines.append("")
+            lines.append(f"  {label} - {len(findings)} findings:")
+            if not findings:
+                lines.append("    (none)")
+                continue
+            for finding in findings:
+                session = finding['session'] or "(single session)"
+                lines.append(f"    {finding['judge']} - {finding['date']} {session}:")
+                for row, distance in finding['candidates']:
+                    dist_str = f"{distance:.0f}mi" if distance is not None else "distance unknown"
+                    site = row['slot'][2]
+                    table = row['slot'][3]
+                    lines.append(f"      could have judged {table} at {site} ({dist_str})")
     else:
         lines.append("No unexplained idle capacity found.")
     lines.append("")
@@ -141,8 +276,10 @@ def main():
     grouped = group_by_judge_and_date(rows)
     idle_findings, explained_count, unexplained_count = analyze_gaps(grouped, table_styles, distances)
     double_bookings = find_double_bookings(grouped)
+    confirmed_count = count_confirmed_judge_sessions(rows)
 
-    print(format_report(idle_findings, explained_count, unexplained_count, double_bookings))
+    print(format_report(idle_findings, explained_count, unexplained_count, double_bookings,
+                        confirmed_count))
 
 
 if __name__ == '__main__':
