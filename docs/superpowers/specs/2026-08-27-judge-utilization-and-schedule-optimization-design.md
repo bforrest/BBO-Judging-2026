@@ -296,6 +296,48 @@ convention rather than introducing one:
   but a large unexplained gap surviving the fix would mean the redesign
   itself has a bug, not that the limitation persists as documented here.
 
+  **Additional scoped follow-up: site-host constraints.** A handful of
+  named judges are physically tied to a specific site (it's their home or
+  workplace) and need hard rules the distance-based feasibility model
+  doesn't capture on its own. Confirmed real-data spelling (two of the
+  four names given verbally didn't match the CSV — `Marc McCurdy` is
+  really `Mark McCurdy`; `Matt Morriss` is really `Matthew Morriss`;
+  `Jarrett Long`, `Amanda Long`, `Reni Morriss`, `Terry Olinger`, and
+  `Mike Grover` all matched as given):
+
+  - **Site anchors** — `Amanda Long` and `Jarrett Long` (Arlington),
+    `Reni Morriss` and `Matthew Morriss` (Keller), `Mark McCurdy`
+    (Grapevine): for these five, `judge_feasible_sites` must return
+    *only* their home site, overriding the normal distance computation
+    entirely rather than intersecting with it. They're ordinary judges
+    in every other respect — still subject to the usual certification
+    pairing rule, and not required to appear in every session at their
+    site, just permanently excluded from being placed anywhere else.
+  - **Dallas host requirement** — `Terry Olinger` and `Mike Grover`:
+    neither may be selected into a Dallas judging pair (their feasible
+    sites are their normal computed set *minus* Dallas), but Dallas
+    should only be offered as a candidate site for a given
+    `(date, session)` slot if at least one of them has *any* existing
+    availability row for that slot — using their regular judge-
+    availability data as the presence signal, no new data needed. If
+    neither has an availability row for that slot, Dallas is dropped
+    from that slot's candidate sites entirely, the same as if every
+    site were already booked.
+
+  Both rules are pure filters on the same two functions the pairing
+  redesign above already touches (`judge_feasible_sites` for the site
+  anchors and judge exclusion; the per-slot candidate-site list for the
+  Dallas host check) — implement them together with that redesign, not
+  as a separate pass. No change to `judging_common.py` or
+  `analyze_judge_utilization.py`. A hardcoded small config (e.g. two
+  dicts/sets of judge name → site) at the top of
+  `propose_minimal_schedule.py`, alongside `TARGET_BEERS_PER_PAIR` and
+  `MAX_DISTANCE_MILES`, is sufficient — no need for a new data file for
+  five to seven names. Test by asserting `judge_feasible_sites` for each
+  anchored judge returns exactly their one site regardless of the
+  `distances` dict passed in, and that a slot with no host-candidate
+  availability drops Dallas from that slot's site list.
+
 ## Out of scope
 
 - A single combined objective balancing day-count against utilization
