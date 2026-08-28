@@ -259,6 +259,43 @@ convention rather than introducing one:
   adding backtracking — deliberately out of scope for this iteration, and
   consistent with the "true optimal solver" item under Out of scope.
 
+  **Scoped follow-up (not implemented, for a future session):** confirmed
+  concretely on real data — table T76 (Barleywines, needs 4 pairs) has 75
+  eligible judges and `form_pairs` successfully forms 4 valid rank-pairs,
+  but the 4 pairs' feasible-site sets have no common intersection (one
+  judge is Dallas-only, another pair is Grapevine/Dallas-only and can't
+  reach Dallas together), even though an all-Grapevine-feasible set of 4
+  pairs existed in the same 75-judge pool. This is exactly the bug, not
+  an edge case.
+
+  Fix: invert `try_fit`'s order of operations. Today it filters candidates
+  by slot-availability and (site-agnostic) feasibility, runs `form_pairs`
+  once, and only *then* intersects the chosen judges' feasible sites. The
+  new version should, for a given slot: for each site still open in that
+  slot, filter the candidate pool to judges feasible **at that specific
+  site**, then run `form_pairs` on that site-restricted pool. Collect
+  every site where `form_pairs` fully succeeds (returns all
+  `required_pairs`), and — per the decision made when this was scoped —
+  pick the site minimizing total travel distance across the resulting
+  pairs among those successes (reusing `pick_site`'s existing distance
+  arithmetic, just invoked once per successful candidate site instead of
+  once after the fact). If no site succeeds, the table is genuinely
+  unfillable at this slot, and `try_fit` returns `None` as before.
+
+  This only changes `try_fit`'s internals in `propose_minimal_schedule.py`
+  — `form_pairs`, `judge_feasible_sites`, `eligible_judges_for_table`, and
+  `pick_site` stay as-is and get called from a different place/order, not
+  redefined. No change to `judging_common.py` or
+  `analyze_judge_utilization.py`. Expect to update or replace a couple of
+  the existing `build_schedule` tests in `test_propose_minimal_schedule.py`
+  whose fixtures assumed the old pick-then-check behavior (a case
+  structured like today's "T76 fails" scenario should now succeed).
+  Validate against real data by confirming the placed-table count rises
+  materially above 20/44 — full coverage isn't guaranteed even after this
+  fix (genuine judge/distance scarcity can still leave a table unfillable),
+  but a large unexplained gap surviving the fix would mean the redesign
+  itself has a bug, not that the limitation persists as documented here.
+
 ## Out of scope
 
 - A single combined objective balancing day-count against utilization
