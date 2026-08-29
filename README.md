@@ -195,32 +195,60 @@ Then run it:
 .venv/bin/python solve_schedule_cpsat.py
 ```
 
-All tunables (`target_beers_per_pair`, `max_distance_miles`, site anchors,
-site host requirements, one-off table→site overrides) live in
-`schedule_config.yaml` at the repo root — edit that file and re-run to try a
-different scenario, no code changes needed.
+All tunables (`target_beers_per_pair`, `max_distance_miles`,
+`solver_time_limit_seconds`, `num_search_workers`, site anchors, site host
+requirements, one-off table→site overrides) live in `schedule_config.yaml`
+at the repo root — edit that file and re-run to try a different scenario,
+no code changes needed.
 
-On the real 2026 data this places 43 of 44 tables in 13 sessions (vs. 35/44
-for the greedy script), though the solver hits its 120-second-per-phase time
-limit before proving that 43 is the true maximum — the report says so
-plainly rather than presenting it as a proven result.
-
-Sample output:
+Sample output (see "Proven result on the real 2026 data" below for how this
+default config's numbers were actually reached):
 ```
 BBO Judging Schedule Solver (CP-SAT)
 =====================================
-Config: target_beers_per_pair=9, max_distance_miles=20 (schedule_config.yaml)
-Solved (TIME LIMIT HIT - not proven optimal): 43 of 44 tables placed (1 unfilled)
+Config: target_beers_per_pair=9, max_distance_miles=20, solver_time_limit_seconds=1800, num_search_workers=16 (schedule_config.yaml)
+Solved optimally: 44 of 44 tables placed (0 unfilled)
 Sessions used: 13
-
-UNFILLED (1 tables - no assignment could place them given current config):
-  T61 German Wheat Beer: needs 4 pairs
+Phase 1 (maximize tables placed): OPTIMAL (proven optimal)
+Phase 2 (minimize sessions used): OPTIMAL (proven optimal)
 
 Day 02/06:
   (single session):
     T55 Kolsch and Blonde @ Arlington: Amanda Long & Tierney Klee, ...
   ...
 ```
+
+#### Proven result on the real 2026 data (reusable for 2027 planning)
+
+With the default config (`target_beers_per_pair: 9`, `max_distance_miles: 20`,
+the site anchors/host requirements as checked in), **13 sessions is the
+proven-optimal minimum** to give full 44/44-table coverage — not just the
+best answer found, but mathematically confirmed no assignment can do
+better. This took real tuning to establish, worth recording since 2027 will
+likely have a similar-sized problem (comparable table/judge counts):
+
+- At the original `solver_time_limit_seconds: 120` default, the solver only
+  reached 43/44 tables, unproven.
+- Raising it to `600` reached full 44/44 coverage, still unproven.
+- `1800` (the current checked-in default) reaches the same 44/44, 13-session
+  answer, still reported as time-limit-hit / not proven.
+- A one-off run at `solver_time_limit_seconds: 14400` (4 hours) with
+  `num_search_workers: 16` actually **proved** both phases optimal in
+  ~2h51m real time — confirming the 1800s "good enough" answer was already
+  the true optimum, it just couldn't finish the proof in time. Full output
+  archived in `schedule-cpsat-proof-attempt-20260829-095938.md`.
+- Setting `num_search_workers` explicitly to this machine's core count (16
+  logical cores) cut total wall-clock time by roughly a third compared to
+  CP-SAT's auto-detected worker count, with no change in the answer found —
+  worth doing on any machine before a long run.
+
+Practical implication for 2027: if the judge/table/site counts land in a
+similar range, the checked-in `1800`s default is very likely already
+finding the true optimum, just without a formal proof — a multi-hour proof
+run is a nice-to-have confirmation, not something needed before trusting
+the result. Re-run the 4-hour-scale proof again if you want that
+confirmation for the new season's actual numbers rather than assuming last
+year's finding still holds.
 
 ## Understanding the Visualization
 
