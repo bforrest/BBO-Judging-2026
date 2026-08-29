@@ -36,6 +36,7 @@ This tool reads judge assignments and competition data from CSV files and genera
 - `judging_common.py` - Shared CSV loaders and slot-string parser used by `analyze_judge_utilization.py` and `propose_minimal_schedule.py` (see below)
 - `analyze_judge_utilization.py` - Retrospective diagnostic: finds sessions where a judge had availability but no confirmed assignment, and classifies each gap as explained by a real conflict or as unexplained idle capacity. See [Judge Utilization Analysis & Schedule Proposal](#judge-utilization-analysis--schedule-proposal-2027-planning) below.
 - `propose_minimal_schedule.py` - Proposes a reallocated schedule (table → date/session/site, judges assigned) built around judge availability and travel distance instead of site-host preference. See below.
+- `solve_schedule_cpsat.py` - Independent alternative to `propose_minimal_schedule.py` using OR-Tools' CP-SAT constraint solver instead of a greedy heuristic: maximizes tables placed (with a mathematical proof of optimality when the solver isn't time-limited), then minimizes sessions used. Configured via `schedule_config.yaml` instead of Python constants. Needs `ortools`/`pyyaml` (see `requirements-cpsat.txt`) — the only script in this project with non-stdlib dependencies. See `docs/superpowers/specs/2026-08-28-cpsat-schedule-solver-design.md`.
 
 ### One-time optimization pass (historical, no longer active)
 On 2026-01-23 a distance/availability-based optimizer and recommendation system was built to analyze conflicts and workload imbalances: `optimize_judge_pairings.py`, `generate_recommendations.py`, `export_pairing_worksheet.py`, and their docs (`START_HERE.md`, `QUICK_REFERENCE.md`, `JUDGE_RECOMMENDATIONS.md`, `OPTIMIZATION_GUIDE.md`, `OPTIMIZATION_SUMMARY.md`, `README-OPTIMIZATION.md`, `SETUP_COMPLETE.md`, `PAIRING_WORKSHEET.csv`). None of these have been touched since that single pass. They were superseded by manually incorporating real pairing data collected from other organizers directly into `Judges_and_Tables_generated.csv`, plus the conflict/workload/certification checks being built into `generate_optimized_schedule.py` itself.
@@ -169,6 +170,55 @@ to the 2026 baseline or to the all-44-table floor of 11 sessions.
 
 UNFILLED (9 tables could not be staffed):
   T50 Pale Lager: needs 4 pairs
+  ...
+```
+
+### Propose a maximum-coverage schedule (CP-SAT solver)
+
+An independent alternative to `propose_minimal_schedule.py` that replaces the
+greedy heuristic with OR-Tools' CP-SAT constraint solver, so "this table is
+unfilled" is a proven fact about the data rather than an artifact of
+processing order. Full design in
+`docs/superpowers/specs/2026-08-28-cpsat-schedule-solver-design.md`.
+
+This is the only script in the project with non-stdlib dependencies. Set up
+a virtualenv once:
+
+```bash
+python3 -m venv .venv
+.venv/bin/pip install -r requirements-cpsat.txt
+```
+
+Then run it:
+
+```bash
+.venv/bin/python solve_schedule_cpsat.py
+```
+
+All tunables (`target_beers_per_pair`, `max_distance_miles`, site anchors,
+site host requirements, one-off table→site overrides) live in
+`schedule_config.yaml` at the repo root — edit that file and re-run to try a
+different scenario, no code changes needed.
+
+On the real 2026 data this places 43 of 44 tables in 13 sessions (vs. 35/44
+for the greedy script), though the solver hits its 120-second-per-phase time
+limit before proving that 43 is the true maximum — the report says so
+plainly rather than presenting it as a proven result.
+
+Sample output:
+```
+BBO Judging Schedule Solver (CP-SAT)
+=====================================
+Config: target_beers_per_pair=9, max_distance_miles=20 (schedule_config.yaml)
+Solved (TIME LIMIT HIT - not proven optimal): 43 of 44 tables placed (1 unfilled)
+Sessions used: 13
+
+UNFILLED (1 tables - no assignment could place them given current config):
+  T61 German Wheat Beer: needs 4 pairs
+
+Day 02/06:
+  (single session):
+    T55 Kolsch and Blonde @ Arlington: Amanda Long & Tierney Klee, ...
   ...
 ```
 

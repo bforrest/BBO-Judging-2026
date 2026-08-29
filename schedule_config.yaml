@@ -1,0 +1,38 @@
+# BBO Judging Schedule Solver Configuration
+# Edit this file and re-run solve_schedule_cpsat.py to try a different
+# scenario -- no code changes needed.
+
+# Target number of beers each judging pair evaluates. BJCP guideline caps
+# at 12 per pair; lower means more pairs required per table.
+target_beers_per_pair: 9
+
+# How far (in miles) a judge can reasonably be asked to drive to a site.
+max_distance_miles: 20
+
+# Site hosts: each of these judges is anchored to one site (it's their
+# home or workplace) and should never be scheduled anywhere else.
+site_anchors:
+  - judge: "Amanda Long"
+    site: "Arlington"
+  - judge: "Jarrett Long"
+    site: "Arlington"
+  - judge: "Reni Morriss"
+    site: "Keller"
+  - judge: "Matthew Morriss"
+    site: "Keller"
+  - judge: "Mark McCurdy"
+    site: "Grapevine"
+
+# Some sites need at least one of a named group of judges present to run
+# at all, even though those judges don't personally judge there. List
+# every site that needs this; a site not listed here has no such
+# requirement.
+site_host_requirements:
+  Dallas:
+    - "Terry Olinger"
+    - "Mike Grover"
+
+# One-off "what if" experiments: force a specific table to run at a
+# specific site, to see how the rest of the schedule adjusts. Leave this
+# list empty for a normal run.
+table_site_overrides: []

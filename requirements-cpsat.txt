@@ -1,0 +1,10 @@
+# Dependencies for solve_schedule_cpsat.py only. The rest of this project
+# is stdlib-only by convention -- see the design spec's "New dependencies"
+# section for why this one script is the deliberate exception.
+#
+# Setup:
+#   python3 -m venv .venv
+#   .venv/bin/pip install -r requirements-cpsat.txt
+#   .venv/bin/python solve_schedule_cpsat.py
+ortools==9.15.6755
+pyyaml==6.0.3
