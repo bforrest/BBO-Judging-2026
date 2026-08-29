@@ -1,15 +1,42 @@
 """Smoke tests for solve_schedule_cpsat.py. Run: python3 test_solve_schedule_cpsat.py"""
 
+import os
+import tempfile
+
 from solve_schedule_cpsat import (
+    DEFAULT_TIME_LIMIT_SECONDS,
     build_candidate_slots,
     build_judge_profiles,
     build_tables,
     eligible_judges_for_table,
     form_pairs_for_display,
     judge_feasible_sites,
+    load_config,
     site_host_requirement_met,
     solve_schedule,
 )
+
+
+def test_load_config_reads_solver_time_limit_seconds():
+    with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False) as f:
+        f.write("solver_time_limit_seconds: 45\n")
+        path = f.name
+    try:
+        config = load_config(path)
+        assert config['solver_time_limit_seconds'] == 45, config
+    finally:
+        os.remove(path)
+
+
+def test_load_config_defaults_solver_time_limit_seconds_when_absent():
+    with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False) as f:
+        f.write("target_beers_per_pair: 9\n")
+        path = f.name
+    try:
+        config = load_config(path)
+        assert config['solver_time_limit_seconds'] == DEFAULT_TIME_LIMIT_SECONDS, config
+    finally:
+        os.remove(path)
 
 
 def test_build_tables_computes_required_pairs():

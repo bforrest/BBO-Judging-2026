@@ -57,6 +57,7 @@ def load_config(path=DEFAULT_CONFIG_PATH):
     return {
         'target_beers_per_pair': raw.get('target_beers_per_pair', 9),
         'max_distance_miles': raw.get('max_distance_miles', 20),
+        'solver_time_limit_seconds': raw.get('solver_time_limit_seconds', DEFAULT_TIME_LIMIT_SECONDS),
         'site_anchors': site_anchors,
         'site_host_requirements': site_host_requirements,
         'table_site_overrides': table_site_overrides,
@@ -425,7 +426,8 @@ def format_report(result, total_tables, config, config_path=DEFAULT_CONFIG_PATH)
     lines.append("=" * 37)
     lines.append(
         f"Config: target_beers_per_pair={config['target_beers_per_pair']}, "
-        f"max_distance_miles={config['max_distance_miles']} ({config_path})"
+        f"max_distance_miles={config['max_distance_miles']}, "
+        f"solver_time_limit_seconds={config['solver_time_limit_seconds']} ({config_path})"
     )
 
     proven_optimal = result['phase1_status'] == 'OPTIMAL' and result['phase2_status'] == 'OPTIMAL'
@@ -484,7 +486,8 @@ def main():
     judge_profiles = build_judge_profiles(rows)
     sites = sorted({row['slot'][2] for row in rows if row['slot']})
 
-    result = solve_schedule(tables, judge_profiles, distances, sites, config)
+    result = solve_schedule(tables, judge_profiles, distances, sites, config,
+                             time_limit_seconds=config['solver_time_limit_seconds'])
     print(format_report(result, len(tables), config))
 
 

@@ -9,6 +9,18 @@ target_beers_per_pair: 9
 # How far (in miles) a judge can reasonably be asked to drive to a site.
 max_distance_miles: 20
 
+# Wall-clock seconds CP-SAT is allowed to spend PER PHASE (there are two:
+# maximize tables placed, then minimize sessions used) before it stops and
+# returns its best answer so far. A run that hits this limit without
+# proving optimality is reported as such ("TIME LIMIT HIT - not proven
+# optimal") rather than presented as a final, guaranteed-best result.
+# Lower this for faster iteration while tuning other settings; raise it to
+# let the solver search longer for a better proof (or a better answer) on
+# a final run -- there's no way to know in advance how much a given raise
+# will help, since that depends on how hard this particular scenario is
+# to solve.
+solver_time_limit_seconds: 120
+
 # Site hosts: each of these judges is anchored to one site (it's their
 # home or workplace) and should never be scheduled anywhere else.
 site_anchors:
