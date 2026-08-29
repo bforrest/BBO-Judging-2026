@@ -4,6 +4,7 @@ import os
 import tempfile
 
 from solve_schedule_cpsat import (
+    DEFAULT_NUM_SEARCH_WORKERS,
     DEFAULT_TIME_LIMIT_SECONDS,
     build_candidate_slots,
     build_judge_profiles,
@@ -37,6 +38,44 @@ def test_load_config_defaults_solver_time_limit_seconds_when_absent():
         assert config['solver_time_limit_seconds'] == DEFAULT_TIME_LIMIT_SECONDS, config
     finally:
         os.remove(path)
+
+
+def test_load_config_reads_num_search_workers():
+    with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False) as f:
+        f.write("num_search_workers: 8\n")
+        path = f.name
+    try:
+        config = load_config(path)
+        assert config['num_search_workers'] == 8, config
+    finally:
+        os.remove(path)
+
+
+def test_load_config_defaults_num_search_workers_when_absent():
+    with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False) as f:
+        f.write("target_beers_per_pair: 9\n")
+        path = f.name
+    try:
+        config = load_config(path)
+        assert config['num_search_workers'] == DEFAULT_NUM_SEARCH_WORKERS, config
+    finally:
+        os.remove(path)
+
+
+def test_solve_schedule_accepts_explicit_num_search_workers():
+    # Just confirms num_search_workers is plumbed through without breaking
+    # the solve -- correctness of CP-SAT's own parallel search isn't ours
+    # to test, only that we set the parameter without erroring.
+    tables = [
+        {'table': 'T1', 'name': 'A', 'styles': set(), 'entry_count': 9, 'required_pairs': 1},
+    ]
+    slot = ('02/07', 'AM')
+    profiles = {
+        'Judge1': {'rank': 'Level 3: Certified', 'substyles': set(), 'availability': {slot}},
+        'Judge2': {'rank': 'Non-BJCP', 'substyles': set(), 'availability': {slot}},
+    }
+    result = solve_schedule(tables, profiles, {}, ['Arlington'], make_config(), num_search_workers=4)
+    assert result['max_placed'] == 1, result
 
 
 def test_build_tables_computes_required_pairs():

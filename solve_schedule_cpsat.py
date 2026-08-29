@@ -31,6 +31,7 @@ from judging_common import (
 
 DEFAULT_CONFIG_PATH = "schedule_config.yaml"
 DEFAULT_TIME_LIMIT_SECONDS = 120
+DEFAULT_NUM_SEARCH_WORKERS = 0  # 0 = let CP-SAT pick based on available cores
 
 
 # --- Config -----------------------------------------------------------
@@ -58,6 +59,7 @@ def load_config(path=DEFAULT_CONFIG_PATH):
         'target_beers_per_pair': raw.get('target_beers_per_pair', 9),
         'max_distance_miles': raw.get('max_distance_miles', 20),
         'solver_time_limit_seconds': raw.get('solver_time_limit_seconds', DEFAULT_TIME_LIMIT_SECONDS),
+        'num_search_workers': raw.get('num_search_workers', DEFAULT_NUM_SEARCH_WORKERS),
         'site_anchors': site_anchors,
         'site_host_requirements': site_host_requirements,
         'table_site_overrides': table_site_overrides,
@@ -219,7 +221,8 @@ def build_candidate_slots(judge_profiles, sites, site_host_requirements):
 # --- CP-SAT model ---------------------------------------------------------
 
 def solve_schedule(tables, judge_profiles, distances, sites, config,
-                    time_limit_seconds=DEFAULT_TIME_LIMIT_SECONDS):
+                    time_limit_seconds=DEFAULT_TIME_LIMIT_SECONDS,
+                    num_search_workers=DEFAULT_NUM_SEARCH_WORKERS):
     """Build and solve the two-phase CP-SAT model.
 
     Returns a dict:
@@ -356,6 +359,8 @@ def solve_schedule(tables, judge_profiles, distances, sites, config,
 
     solver = cp_model.CpSolver()
     solver.parameters.max_time_in_seconds = time_limit_seconds
+    if num_search_workers:
+        solver.parameters.num_search_workers = num_search_workers
 
     # Phase 1: maximize tables placed.
     model.Maximize(sum(all_table_slot_vars))
@@ -427,7 +432,8 @@ def format_report(result, total_tables, config, config_path=DEFAULT_CONFIG_PATH)
     lines.append(
         f"Config: target_beers_per_pair={config['target_beers_per_pair']}, "
         f"max_distance_miles={config['max_distance_miles']}, "
-        f"solver_time_limit_seconds={config['solver_time_limit_seconds']} ({config_path})"
+        f"solver_time_limit_seconds={config['solver_time_limit_seconds']}, "
+        f"num_search_workers={config['num_search_workers'] or 'auto'} ({config_path})"
     )
 
     proven_optimal = result['phase1_status'] == 'OPTIMAL' and result['phase2_status'] == 'OPTIMAL'
@@ -496,7 +502,8 @@ def main():
     sites = sorted({row['slot'][2] for row in rows if row['slot']})
 
     result = solve_schedule(tables, judge_profiles, distances, sites, config,
-                             time_limit_seconds=config['solver_time_limit_seconds'])
+                             time_limit_seconds=config['solver_time_limit_seconds'],
+                             num_search_workers=config['num_search_workers'])
     print(format_report(result, len(tables), config))
 
 

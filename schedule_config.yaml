@@ -21,6 +21,15 @@ max_distance_miles: 20
 # to solve.
 solver_time_limit_seconds: 1800
 
+# Number of parallel search threads CP-SAT uses. 0 means "let CP-SAT pick
+# based on available cores" (its default). Setting this explicitly to your
+# machine's core count can improve search diversity (each worker runs a
+# different strategy) and help it converge to -- or prove -- an answer
+# faster within the same time_limit_seconds, though there's no guarantee
+# for any specific run; more workers also means more memory and CPU used
+# for the whole run.
+num_search_workers: 16
+
 # Site hosts: each of these judges is anchored to one site (it's their
 # home or workplace) and should never be scheduled anywhere else.
 site_anchors:
