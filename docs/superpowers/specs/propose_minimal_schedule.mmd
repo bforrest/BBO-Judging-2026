@@ -1,0 +1,50 @@
+---
+references:
+  - "File: /propose_minimal_schedule.py"
+  - "File: /test_propose_minimal_schedule.py"
+generationTime: 2026-08-28T20:23:08.301Z
+---
+flowchart TD
+    subgraph MAIN["propose_minimal_schedule.py"]
+        S(["Start main()"]) --> I["Load assignments, styles, counts, and distances"]
+        I --> B["build_tables()"]
+        I --> P["build_judge_profiles()"]
+        I --> D["Derive available sites"]
+        B --> O["Sort tables by eligibility and pair need"]
+        P --> O
+        D --> O
+        O --> T{"More tables to process?"}
+        T -->|Yes| E["eligible_judges_for_table()"]
+        E --> F["Try existing slots"]
+        F --> H["try_fit(): enumerate open sites"]
+        H --> J["Apply host, distance, availability, and style rules"]
+        J --> K["form_pairs(): enforce certification requirement"]
+        K --> Q{"Valid site and pairs found?"}
+        Q -->|Yes| L["Select minimum-travel site"]
+        L --> U["Place table and update used judges/sites"]
+        U --> T
+        Q -->|No| N["open_new_slot()"]
+        N --> R{"Unused slot available?"}
+        R -->|Yes| H
+        R -->|No| X["Record table as unfilled"]
+        X --> T
+        T -->|No| M["format_report()"]
+        M --> Y["Print schedule and exit"]
+    end
+
+    subgraph TESTS["test_propose_minimal_schedule.py"]
+        TS(["Run test suite"]) --> TI["Import scheduling functions"]
+        TI --> TA["Test table construction, profiles, eligibility, and pairing"]
+        TA --> TB["Test site anchors, distances, Dallas host rules, and travel"]
+        TB --> TC["Test greedy placement, consolidation, and unfilled tables"]
+        TC --> TD{"All assertions pass?"}
+        TD -->|Yes| TP(["Report passing tests"])
+        TD -->|No| TF(["Report assertion failure"])
+    end
+
+    B -.-> TA
+    P -.-> TA
+    E -.-> TA
+    K -.-> TA
+    H -.-> TB
+    U -.-> TC
