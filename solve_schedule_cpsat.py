@@ -438,6 +438,15 @@ def format_report(result, total_tables, config, config_path=DEFAULT_CONFIG_PATH)
     )
     lines.append(f"Sessions used: {result['sessions_used']}")
 
+    def phase_note(status):
+        return "proven optimal" if status == 'OPTIMAL' else "time limit hit, not proven optimal"
+    lines.append(
+        f"Phase 1 (maximize tables placed): {result['phase1_status']} ({phase_note(result['phase1_status'])})"
+    )
+    lines.append(
+        f"Phase 2 (minimize sessions used): {result['phase2_status']} ({phase_note(result['phase2_status'])})"
+    )
+
     if config['table_site_overrides']:
         lines.append("")
         lines.append("Overrides applied:")

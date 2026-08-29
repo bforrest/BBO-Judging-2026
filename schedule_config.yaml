@@ -19,7 +19,7 @@ max_distance_miles: 20
 # a final run -- there's no way to know in advance how much a given raise
 # will help, since that depends on how hard this particular scenario is
 # to solve.
-solver_time_limit_seconds: 120
+solver_time_limit_seconds: 1800
 
 # Site hosts: each of these judges is anchored to one site (it's their
 # home or workplace) and should never be scheduled anywhere else.
